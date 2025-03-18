@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_library_category_list" model="ir.ui.view">
+        <field name="name">library.category.list.view</field>
+        <field name="model">library.category</field>
+        <field name="arch" type="xml">
+            <list string="Category List">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="languages"/>
+                <field name="sub_type"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_library_category_form" model="ir.ui.view">
+        <field name="name">library.category.form.view</field>
+        <field name="model">library.category</field>
+        <field name="arch" type="xml">
+            <form string="Category Form">            
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="languages"/>
+                        <field name="sub_type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_libabry_category_search" model="ir.ui.view">
+        <field name="name">library.category.search.view</field>
+        <field name="model">library.category</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="languages"/>
+                <field name="sub_type"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Languages" name="group_by_languages" context="{'group_by': 'languages'}"/>
+                    <filter string="Sub Type" name="group_by_sub_type" context="{'group_by': 'sub_type'}"/>  
+                </group>  
+            </search>
+        </field>
+    </record>
+
+                
+    <record id="action_library_category" model="ir.actions.act_window">
+        <field name="name">Category</field>
+        <field name="res_model">library.category</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+    
+    <menuitem id="Category_views"
+              name="Category List"
+              parent="menu_library_root"
+              action="action_library_category"
+              sequence="13"
+    /> 
+</odoo>

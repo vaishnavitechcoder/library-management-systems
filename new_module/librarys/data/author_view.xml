@@ -1,0 +1,11 @@
+    
+<odoo>   
+    <record id="view_library_author" model="library.author">
+                <field name="name">kaveri</field>
+                <field name="biography">student at parul university</field>
+                <field name="date_of_birth">2000-02-05</field>
+                <field name="date_of_death">2010-12-03</field>
+                <field name="nationality">indian</field>
+
+    </record>
+</odoo>

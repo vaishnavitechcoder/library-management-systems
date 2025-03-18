@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_library_members_list" model="ir.ui.view">
+        <field name="name">library.members.list.view</field>
+        <field name="model">library.members</field>
+        <field name="arch" type="xml">
+            <list string="members List">
+                <field name="members_id"/>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone_num"/>
+                <field name="address"/>
+                <field name="joining_date"/>
+                <field name="status"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_library_members_form" model="ir.ui.view">
+        <field name="name">library.members.form.view</field>
+        <field name="model">library.members</field>
+        <field name="arch" type="xml">
+            <form string="Members Form">            
+                <sheet>
+                    <group>
+                        <field name="members_id"/>
+                        <field name="name"/>
+                        <field name="email"/>
+                        <field name="phone_num"/>
+                        <field name="address"/>
+                        <field name="joining_date"/>
+                        <field name="status"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_library_members_kanban" model="ir.ui.view">
+        <field name="name">library.members.kanban.view</field>
+        <field name="model">library.members</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view">
+                <templates>
+                    <t t-name="card">
+                        <div class="o_kanban_details">
+                            <field name="members_id"/>
+                            <field name="name"/>
+                            <field name="email"/>
+                            <field name="phone_num"/>
+                            <field name="address"/>
+                            <field name="joining_date"/>
+                            <field name="status"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_libabry_members_search" model="ir.ui.view">
+        <field name="name">library.members.search.view</field>
+        <field name="model">library.members</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="members_id"/>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone_num"/>
+                <field name="joining_date"/>
+                <field name="status"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_by_status" context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+                
+    <record id="action_library_members" model="ir.actions.act_window">
+        <field name="name">Members</field>
+        <field name="res_model">library.members</field>
+        <field name="view_mode">list,form,kanban,search</field>
+    </record>
+    
+    <menuitem id="networks_views"
+              name="Networks"
+              parent="menu_library_root"
+              action="action_library_members"
+              sequence="11"
+    />
+
+    <menuitem id="members_main"
+              name="Members"
+              parent="networks_views"
+              action="action_library_members"
+    />
+
+</odoo>

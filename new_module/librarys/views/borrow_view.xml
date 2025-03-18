@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_library_borrow_list" model="ir.ui.view">
+        <field name="name">library.borrow.list.view</field>
+        <field name="model">library.borrow</field>
+        <field name="arch" type="xml">
+            <list string="Borrow List">
+                <field name="borrow_id"/>
+                <field name="members_id"/>
+                <field name="book_id"/>
+                <field name="borrow_date"/>
+                <field name="return_date"/>
+                <field name="actual_return_date"/>
+                <field name="fine_amount"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_library_borrow_form" model="ir.ui.view">
+        <field name="name">library.borrow.form.view</field>
+        <field name="model">library.borrow</field>
+        <field name="arch" type="xml">
+            <form string="borrow Form">
+                <header>
+                <button name="action_borrow" type="object" string="Borrow" class="btn-primary">
+                    <attribute name="invisible">Borrow</attribute>
+                </button>
+                <button name="action_return" type="object" string="Return" class="btn-secondary">
+                    <attribute name="invisible">Return</attribute>
+                </button>
+                <button name="action_cancel" type="object" string="Cancel" class="btn-danger">
+                    <attribute name="invisible">Cancel</attribute>
+                </button>
+
+                <field name="state" widget="statusbar" statusbar_visible="draft,borrowed,returned,canceled"/>
+                </header>           
+                <sheet>
+                    <group>
+                        <field name="borrow_id"/>
+                        <field name="members_id"/>
+                        <field name="book_id"/>
+                        <field name="borrow_date"/>
+                        <field name="return_date"/>
+                        <field name="actual_return_date"/>
+                        <field name="fine_amount"/>
+                        <field name="state"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_libabry_borrow_search" model="ir.ui.view">
+        <field name="name">library.borrow.search.view</field>
+        <field name="model">library.borrow</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="borrow_id"/>
+                <field name="members_id"/>
+                <field name="book_id"/>
+                <field name="borrow_date"/>
+                <field name="return_date"/>
+                <field name="fine_amount"/>
+                <field name="state"/>
+
+                <filter string="Fine Above 100" name="filter_price_high" domain="[('fine_amount', '>', 100)]"/>
+                 
+                <group expand="0" string="Group By">
+                    <filter string="State" name="group_by_state" context="{'group_by': 'state'}"/>
+                </group>
+
+
+            </search>
+        </field>
+    </record>
+
+                
+    <record id="action_library_borrow" model="ir.actions.act_window">
+        <field name="name">Borrows</field>
+        <field name="res_model">library.borrow</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+    
+    <menuitem id="borrow_views"
+              name="Borrow List"
+              parent="menu_library_root"
+              action="action_library_borrow"
+              sequence="12"
+    /> 
+</odoo>

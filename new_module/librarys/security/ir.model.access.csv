@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+librarys.access_library_books,access_library_books,librarys.model_library_books,base.group_user,1,1,1,1
+librarys.access_library_members,access_library_members,librarys.model_library_members,base.group_user,1,1,1,1
+librarys.access_library_borrow,access_library_borrow,librarys.model_library_borrow,base.group_user,1,1,1,1
+librarys.access_library_category,access_library_category,librarys.model_library_category,base.group_user,1,1,1,1
+librarys.access_library_fines,access_library_fines,librarys.model_library_fines,base.group_user,1,1,1,1
+librarys.access_library_author,access_library_author,librarys.model_library_author,base.group_user,1,1,1,1
+librarys.access_library_reservation,access_library_reservation,librarys.model_library_reservation,base.group_user,1,1,1,1
+librarys.access_library_book_reservation_wizard,access_library_book_reservation_wizard,librarys.model_library_book_reservation_wizard,base.group_user,1,1,1,1
+librarys.access_common_field,access_common_field,librarys.model_common_field,base.group_user,1,1,1,1
+librarys.access_library_magazine,access_library_magazine,librarys.model_library_magazine,base.group_user,1,1,1,1

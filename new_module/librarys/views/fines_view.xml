@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_library_fines_list" model="ir.ui.view">
+        <field name="name">library.fines.list.view</field>
+        <field name="model">library.fines</field>
+        <field name="arch" type="xml">
+            <list string="Fines List">
+                <field name="member_id"/>
+                <field name="borrow_id"/>
+                <field name="book_id"/>
+                <field name="fine_type"/>
+                <field name="amount"/>
+                <field name="fine_date"/>
+                <field name="due_date"/>
+                <field name="status"/>
+                <field name="payment_date"/>
+                <field name="payment_method"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_library_fines_form" model="ir.ui.view">
+        <field name="name">library.fines.form.view</field>
+        <field name="model">library.fines</field>
+        <field name="arch" type="xml">
+            <form string="Fines Form">            
+                <sheet>
+                    <group>
+                        <field name="member_id"/>
+                        <field name="borrow_id"/>
+                        <field name="book_id"/>
+                        <field name="fine_type"/>
+                        <field name="amount"/>
+                        <field name="fine_date"/>
+                        <field name="due_date"/>
+                        <field name="status"/>
+                        <field name="payment_date"/>
+                        <field name="payment_method"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_libabry_fines_search" model="ir.ui.view">
+        <field name="name">library.fines.search.view</field>
+        <field name="model">library.fines</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="member_id"/>
+                <field name="borrow_id"/>
+                <field name="book_id"/>
+                <field name="fine_type"/>
+                <field name="amount"/>
+                <field name="fine_date"/>
+                <field name="due_date"/>
+                <field name="status"/>
+                <field name="payment_date"/>
+                <field name="payment_method"/>
+
+
+                <group expand="0" string="Group By">
+                    <filter string="Fine Type" name="group_by_fine_type" context="{'group_by': 'fine_type'}"/>
+                    <filter string="status" name="group_by_status" context="{'group_by': 'status'}"/>
+                    <filter string="Payment Method" name="group_by_payment_method" context="{'group_by': 'payment_method'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+                
+    <record id="action_library_fines" model="ir.actions.act_window">
+        <field name="name">Fines</field>
+        <field name="res_model">library.fines</field>
+        <field name="view_mode">list,form,search</field>
+    </record>
+
+    
+    <menuitem id="fines_views"
+              name="Fines List"
+              parent="menu_library_root"
+              action="action_library_fines"
+              sequence="14"
+    /> 
+</odoo>
