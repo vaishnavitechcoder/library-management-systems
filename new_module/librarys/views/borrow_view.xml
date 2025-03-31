@@ -5,9 +5,10 @@
         <field name="model">library.borrow</field>
         <field name="arch" type="xml">
             <list string="Borrow List">
-                <field name="borrow_id"/>
+
                 <field name="members_id"/>
                 <field name="book_id"/>
+                <field name="magazine"/>
                 <field name="borrow_date"/>
                 <field name="return_date"/>
                 <field name="actual_return_date"/>
@@ -16,30 +17,33 @@
             </list>
         </field>
     </record>
-    
+
     <record id="view_library_borrow_form" model="ir.ui.view">
         <field name="name">library.borrow.form.view</field>
         <field name="model">library.borrow</field>
         <field name="arch" type="xml">
             <form string="borrow Form">
                 <header>
-                <button name="action_borrow" type="object" string="Borrow" class="btn-primary">
-                    <attribute name="invisible">Borrow</attribute>
-                </button>
-                <button name="action_return" type="object" string="Return" class="btn-secondary">
-                    <attribute name="invisible">Return</attribute>
-                </button>
-                <button name="action_cancel" type="object" string="Cancel" class="btn-danger">
-                    <attribute name="invisible">Cancel</attribute>
-                </button>
+                    <button name="action_borrow" type="object" string="Borrow" class="btn-primary">
+                        <attribute name="invisible">Borrow</attribute>
+                    </button>
+                    <button name="action_return" type="object" string="Return" class="btn-secondary">
+                        <attribute name="invisible">Return</attribute>
+                    </button>
+                    <button name="action_cancel" type="object" string="Cancel" class="btn-danger">
+                        <attribute name="invisible">Cancel</attribute>
+                    </button>
 
-                <field name="state" widget="statusbar" statusbar_visible="draft,borrowed,returned,canceled"/>
-                </header>           
+                    <field name="state" widget="statusbar" statusbar_visible="borrowed,returned,canceled"/>
+                </header>
                 <sheet>
+                   <div class="oe_title">
+                        <field name = "priority" widget="priority"/>
+                    </div>
                     <group>
-                        <field name="borrow_id"/>
                         <field name="members_id"/>
                         <field name="book_id"/>
+                        <field name="magazine"/>
                         <field name="borrow_date"/>
                         <field name="return_date"/>
                         <field name="actual_return_date"/>
@@ -56,8 +60,9 @@
         <field name="model">library.borrow</field>
         <field name="arch" type="xml">
             <search>
-                <field name="borrow_id"/>
+
                 <field name="members_id"/>
+                <field name="magazine"/>
                 <field name="book_id"/>
                 <field name="borrow_date"/>
                 <field name="return_date"/>
@@ -65,7 +70,7 @@
                 <field name="state"/>
 
                 <filter string="Fine Above 100" name="filter_price_high" domain="[('fine_amount', '>', 100)]"/>
-                 
+
                 <group expand="0" string="Group By">
                     <filter string="State" name="group_by_state" context="{'group_by': 'state'}"/>
                 </group>
@@ -75,17 +80,17 @@
         </field>
     </record>
 
-                
+
     <record id="action_library_borrow" model="ir.actions.act_window">
         <field name="name">Borrows</field>
         <field name="res_model">library.borrow</field>
         <field name="view_mode">list,form,search</field>
     </record>
-    
+
     <menuitem id="borrow_views"
-              name="Borrow List"
+              name="Borrow"
               parent="menu_library_root"
               action="action_library_borrow"
               sequence="12"
-    /> 
+    />
 </odoo>

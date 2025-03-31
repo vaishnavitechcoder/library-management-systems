@@ -56,7 +56,7 @@
     </record>
     
     <menuitem id="Category_views"
-              name="Category List"
+              name="Category"
               parent="menu_library_root"
               action="action_library_category"
               sequence="13"

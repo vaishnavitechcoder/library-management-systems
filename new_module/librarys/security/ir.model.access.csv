@@ -9,3 +9,6 @@ librarys.access_library_reservation,access_library_reservation,librarys.model_li
 librarys.access_library_book_reservation_wizard,access_library_book_reservation_wizard,librarys.model_library_book_reservation_wizard,base.group_user,1,1,1,1
 librarys.access_common_field,access_common_field,librarys.model_common_field,base.group_user,1,1,1,1
 librarys.access_library_magazine,access_library_magazine,librarys.model_library_magazine,base.group_user,1,1,1,1
+librarys.access_library_publisher,access_library_publisher,librarys.model_library_publisher,base.group_user,1,1,1,1
+librarys.access_library_employee,access_library_employee,librarys.model_library_employee,base.group_user,1,1,1,1
+

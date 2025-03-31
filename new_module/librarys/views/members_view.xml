@@ -5,29 +5,42 @@
         <field name="model">library.members</field>
         <field name="arch" type="xml">
             <list string="members List">
-                <field name="members_id"/>
-                <field name="name"/>
+                <field name="seq" string="Number" readonly="1" decoration-bf="1"/>
+                <field name="names"/>
                 <field name="email"/>
                 <field name="phone_num"/>
                 <field name="address"/>
+                <field name="country"/>
+                <field name="state"/>
                 <field name="joining_date"/>
                 <field name="status"/>
             </list>
         </field>
     </record>
-    
+
     <record id="view_library_members_form" model="ir.ui.view">
         <field name="name">library.members.form.view</field>
         <field name="model">library.members</field>
         <field name="arch" type="xml">
-            <form string="Members Form">            
+            <form string="Members Form">
                 <sheet>
+                    <!-- Your form fields here -->
+                    <button name="%(librarys.action_report_library_card)d"
+                            string="Print Library Card"
+                            type="action"
+                            class="btn-primary"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="seq" readonly="1"/>
+                        </h1>
+                    </div>
                     <group>
-                        <field name="members_id"/>
-                        <field name="name"/>
+                        <field name="names"/>
                         <field name="email"/>
                         <field name="phone_num"/>
                         <field name="address"/>
+                        <field name="country"/>
+                        <field name="state"/>
                         <field name="joining_date"/>
                         <field name="status"/>
                     </group>
@@ -44,11 +57,12 @@
                 <templates>
                     <t t-name="card">
                         <div class="o_kanban_details">
-                            <field name="members_id"/>
-                            <field name="name"/>
+                            <field name="names"/>
                             <field name="email"/>
                             <field name="phone_num"/>
                             <field name="address"/>
+                            <field name="country"/>
+                            <field name="state"/>
                             <field name="joining_date"/>
                             <field name="status"/>
                         </div>
@@ -58,13 +72,12 @@
         </field>
     </record>
 
-    <record id="view_libabry_members_search" model="ir.ui.view">
+    <record id="view_library_members_search" model="ir.ui.view">
         <field name="name">library.members.search.view</field>
         <field name="model">library.members</field>
         <field name="arch" type="xml">
             <search>
-                <field name="members_id"/>
-                <field name="name"/>
+                <field name="names"/>
                 <field name="email"/>
                 <field name="phone_num"/>
                 <field name="joining_date"/>
@@ -77,13 +90,13 @@
         </field>
     </record>
 
-                
+
     <record id="action_library_members" model="ir.actions.act_window">
         <field name="name">Members</field>
         <field name="res_model">library.members</field>
         <field name="view_mode">list,form,kanban,search</field>
     </record>
-    
+
     <menuitem id="networks_views"
               name="Networks"
               parent="menu_library_root"

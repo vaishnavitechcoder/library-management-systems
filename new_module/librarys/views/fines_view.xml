@@ -6,10 +6,11 @@
         <field name="arch" type="xml">
             <list string="Fines List">
                 <field name="member_id"/>
-                <field name="borrow_id"/>
                 <field name="book_id"/>
                 <field name="fine_type"/>
-                <field name="amount"/>
+                <field name="currency_id" invisible="1" optional="hide"/>
+                <field name="amount_total" sum="amount_total" widget="monetary"
+                       decoration-bf="1"/>
                 <field name="fine_date"/>
                 <field name="due_date"/>
                 <field name="status"/>
@@ -18,19 +19,23 @@
             </list>
         </field>
     </record>
-    
+
     <record id="view_library_fines_form" model="ir.ui.view">
         <field name="name">library.fines.form.view</field>
         <field name="model">library.fines</field>
         <field name="arch" type="xml">
-            <form string="Fines Form">            
+            <form string="Fines Form">
                 <sheet>
+                    <div class="oe_title">
+                        <field name="priority" widget="priority"/>
+                    </div>
                     <group>
                         <field name="member_id"/>
-                        <field name="borrow_id"/>
                         <field name="book_id"/>
                         <field name="fine_type"/>
-                        <field name="amount"/>
+                        <field name="currency_id" invisible="1" optional="hide"/>
+                        <field name="amount_total" sum="amount_total" widget="monetary"
+                               decoration-bf="1"/>
                         <field name="fine_date"/>
                         <field name="due_date"/>
                         <field name="status"/>
@@ -48,10 +53,11 @@
         <field name="arch" type="xml">
             <search>
                 <field name="member_id"/>
-                <field name="borrow_id"/>
                 <field name="book_id"/>
                 <field name="fine_type"/>
-                <field name="amount"/>
+                <field name="currency_id" invisible="1" optional="hide"/>
+                <field name="amount_total" sum="amount_total" widget="monetary"
+                       decoration-bf="1"/>
                 <field name="fine_date"/>
                 <field name="due_date"/>
                 <field name="status"/>
@@ -62,24 +68,25 @@
                 <group expand="0" string="Group By">
                     <filter string="Fine Type" name="group_by_fine_type" context="{'group_by': 'fine_type'}"/>
                     <filter string="status" name="group_by_status" context="{'group_by': 'status'}"/>
-                    <filter string="Payment Method" name="group_by_payment_method" context="{'group_by': 'payment_method'}"/>
+                    <filter string="Payment Method" name="group_by_payment_method"
+                            context="{'group_by': 'payment_method'}"/>
                 </group>
             </search>
         </field>
     </record>
 
-                
+
     <record id="action_library_fines" model="ir.actions.act_window">
         <field name="name">Fines</field>
         <field name="res_model">library.fines</field>
         <field name="view_mode">list,form,search</field>
     </record>
 
-    
+
     <menuitem id="fines_views"
-              name="Fines List"
+              name="Fines"
               parent="menu_library_root"
               action="action_library_fines"
               sequence="14"
-    /> 
+    />
 </odoo>

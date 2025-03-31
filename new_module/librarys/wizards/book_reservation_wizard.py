@@ -9,10 +9,7 @@ class BookReservationWizard(models.TransientModel):
     books_id = fields.Many2one('library.books', string='Book', required=True)
     member_id = fields.Many2one('library.members', string='Member', required=True)
     reservation_date = fields.Datetime(string='Reservation Date', default=fields.Date.today)
-    status = fields.Selection(
-        [('draft', 'Draft'), ('confirmed', 'Confirmed'), ('cancelled', 'Cancelled')],
-        string='Status', default='draft'
-    )
+    status = fields.Selection([('draft', 'Draft'), ('confirmed', 'Confirmed'), ('cancelled', 'Cancelled')], string='Status')
 
 
     @api.constrains('book_id')
@@ -26,8 +23,9 @@ class BookReservationWizard(models.TransientModel):
             if record.books_id.available_copies > 0:
                 record.books_id.available_copies -= 1
                 record.status = 'confirmed'
+
                 # Create a permanent reservation record in the main model
-                self.env['library.book.reservation'].create({
+                self.env['library.reservation'].create({
                     'books_id': record.books_id.id,
                     'member_id': record.member_id.id,
                     'reservation_date': record.reservation_date,
@@ -39,4 +37,3 @@ class BookReservationWizard(models.TransientModel):
     def action_cancel(self):
         for record in self:
             record.status = 'cancelled'
-    

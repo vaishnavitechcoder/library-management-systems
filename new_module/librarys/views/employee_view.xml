@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_employee_form" model="ir.ui.view">
+            <field name="name">library.employee.form.view</field>
+            <field name="model">library.employee</field>
+            <field name="arch" type="xml">
+                <form string="Employee">
+                    <field name="company_id" invisible="1"/>
+                    <sheet>
+                        <div class="row justify-content-between position-relative w-100 m-0 mb-2">
+                            <div class="oe_title mw-75 ps-0 pe-2">
+                                <h1 class="d-flex flex-row align-items-center">
+                                    <field name="employee" placeholder="Employee's Name"
+                                           required="True" style="font-size: min(4vw, 2.6rem);"/>
+                                </h1>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="company_country_id" invisible="1"/>
+                                <field name="company_country_code" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="public" string="Work Information">
+                                <div id="o_work_employee_container"
+                                     class="d-lg-flex"> <!-- These two div are used to position org_chart -->
+                                    <div id="o_work_employee_main" class="flex-grow-1">
+                                        <group name="managers" string="Approvers" class="hide-group-if-empty"
+                                               invisible="1">
+                                            <!-- is overridden in other hr related modules -->
+                                        </group>
+                                        <group string="Schedule">
+                                            <field name="id" invisible="1"/>
+                                        </group>
+                                    </div>
+                                </div>
+                            </page>
+                            <page name="personal_information" string="Private Information" groups="hr.group_hr_user">
+                                <group>
+                                    <group string="Private Contact">
+                                        <label for="private_street" string="Private Address"/>
+                                        <div class="o_address_format">
+                                            <field name="private_street" placeholder="Street..."
+                                                   class="o_address_street"/>
+                                            <field name="private_street2" placeholder="Street 2..."
+                                                   class="o_address_street"/>
+                                            <field name="private_city" placeholder="City" class="o_address_city"/>
+                                            <field name="private_state_id" class="o_address_state" placeholder="State"
+                                                   options="{'no_open': True, 'no_quick_create': True}"
+                                                   context="{'default_country_id': private_country_id}"/>
+                                            <field name="private_zip" placeholder="ZIP" class="o_address_zip"/>
+                                            <field name="private_country_id" placeholder="Country"
+                                                   class="o_address_country"
+                                                   options='{"no_open": True, "no_create": True}'/>
+                                        </div>
+                                        <field name="private_email" placeholder="e.g. myprivateemail@example.com"/>
+                                        <field name="private_phone"/>
+                                        <label for="distance_home_work"/>
+                                        <div class="o_row" name="div_km_home_work">
+                                            <field name="distance_home_work" class="o_hr_narrow_field"/>
+                                            <span>
+                                                <field name="distance_home_work_unit"/>
+                                            </span>
+                                        </div>
+                                    </group>
+                                    <group string="Citizenship">
+                                        <field name="country_id" options='{"no_open": True, "no_create": True}'/>
+                                        <field name="identification_id"/>
+                                        <field name="ssnid"/>
+                                        <field name="passport_id"/>
+                                        <field name="gender"/>
+                                        <field name="birthday"/>
+                                        <field name="place_of_birth"/>
+                                        <field name="country_of_birth"/>
+                                    </group>
+                                    <group string="Emergency" name="emergency">
+                                        <field name="emergency_contact"/>
+                                        <field name="emergency_phone" class="o_force_ltr"/>
+                                        <separator string="Family Status"/>
+                                        <field name="spouse_complete_name"/>
+                                        <field name="spouse_birthdate"/>
+                                        <field name="children"/>
+                                    </group>
+                                    <group string="Education">
+                                        <field name="certificate"/>
+                                        <field name="study_field"/>
+                                        <field name="study_school"/>
+                                        <separator name="has_work_permit" string="Work Permit"/>
+                                        <field name="visa_no"/>
+                                        <field name="permit_no"/>
+                                        <field name="visa_expire"/>
+                                        <field name="work_permit_expiration_date"/>
+                                        <field name="has_work_permit" widget="work_permit_upload"
+                                               filename="work_permit_name"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="hr_settings" string="Settings" groups="hr.group_hr_user">
+                                <group>
+                                    <group string='Status' name="active_group">
+                                        <field name="employee_type"/>
+                                    </group>
+                                    <group string="Attendance/Point of Sale" name="identification_group">
+                                        <field name="pin" string="PIN Code"/>
+                                        <label for="barcode"/>
+                                            <field name="barcode"/>
+                                    </group>
+                                    <group name="application_group" string="Application Settings" invisible="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter reload_on_follower="True"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="library_employee_view_graph" model="ir.ui.view">
+            <field name="name">library.employee.graph.view</field>
+            <field name="model">library.employee</field>
+            <field name="arch" type="xml">
+                <graph string="New Employees Over Time" type="line" sample="1" js_class="hr_graph_view">
+                    <field name="create_date" interval="month"/>
+                    <field name="id"/>
+                    <field name="color" type="measure" invisible="1"/>
+                    <field name="distance_home_work" type="measure" invisible="1"/>
+                    <field name="children" type="measure" invisible="1"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="library_employee_view_pivot" model="ir.ui.view">
+            <field name="name">library.employee.view.pivot</field>
+            <field name="model">library.employee</field>
+            <field name="arch" type="xml">
+                <pivot string="New Employees Over Time" sample="1" js_class="hr_pivot_view">
+                    <field name="create_date" interval="month" type="row"/>
+                    <field name="id"/>
+                    <field name="color" type="measure" invisible="1"/>
+                    <field name="distance_home_work" type="measure" invisible="1"/>
+                    <field name="children" type="measure" invisible="1"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_employee_list" model="ir.ui.view">
+            <field name="name">library.employee.list</field>
+            <field name="model">library.employee</field>
+            <field name="arch" type="xml">
+                <list string="Employees" expand="context.get('expand', False)" multi_edit="1" sample="1"
+                      js_class="employee_list">
+                    <field name="employee" readonly="1"/>
+                    <field name="company_id" groups="base.group_multi_company" readonly="1" optional="show"/>
+                    <field name="company_id" column_invisible="True"/>
+                    <field name="country_id" optional="hide"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="library_kanban_view_employees" model="ir.ui.view">
+            <field name="name">library.employee.kanban</field>
+            <field name="model">library.employee</field>
+            <field name="priority">10</field>
+            <field name="arch" type="xml">
+                <kanban class="o_library_employee_kanban" sample="1">
+
+                    <field name="company_id"/>
+                    <templates>
+                        <t t-name="card" class="flex-row">
+                            <aside class="o_kanban_aside_full">
+                                <div t-else=""
+                                     class="d-flex align-items-center justify-content-center bg-100 bg-gradient">
+                                    <svg class="w-75 h-75 opacity-50" viewBox="0 0 20 20"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <g fill="currentColor">
+                                            <path d="M 10 11 C 4.08 11 2 14 2 16 L 2 19 L 18 19 L 18 16 C 18 14 15.92 11 10 11 Z"/>
+                                            <circle cx="10" cy="5.5" r="4.5"/>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </aside>
+                            <main class="ms-2">
+                                <div>
+                                    <field class="fw-bold fs-5" name="employee" placeholder="Employee's Name"/>
+                                </div>
+                            </main>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="action_library_employee" model="ir.actions.act_window">
+            <field name="name">Employee</field>
+            <field name="res_model">library.employee</field>
+            <field name="view_mode">form,graph,pivot,list,kanban</field>
+        </record>
+
+        <menuitem id="networks_views"
+                  name="Networks"
+                  parent="menu_library_root"
+                  action="action_library_members"
+                  sequence="11"
+        />
+
+        <menuitem id="employee_main"
+                  name="Employee"
+                  parent="networks_views"
+                  action="action_library_employee"
+        />
+
+    </data>
+</odoo>

@@ -46,18 +46,19 @@
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <field name="author_ids"/>
+                       <!-- <field name="author_ids"/>-->
                         <field name="category_id"/>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
-  
-    <!--<menuitem id="reservatation_views"
-              name="reservation List"
+
+    <menuitem id="reservatation_views"
+              name="reservation"
               parent="menu_library_root"
               action="action_book_reservation_wizard"
-    />-->
+              sequence="15"
+    />
 </odoo>
 

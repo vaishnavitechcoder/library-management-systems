@@ -1,5 +1,5 @@
 {
-    "name" : "librery management system",
+    "name" : "Librery Management system",
     "version":"1.0",
     "author": "Vaishnavi patil",
     "sequence":10,
@@ -7,12 +7,13 @@
     "application":True,
     "installable":True,
     "depends": [
-            "base","mail"
+            "base","mail","account","stock","hr"
     ],
     "data": [
         "security/ir.model.access.csv",
         "wizards/book_reservation_view.xml",
-        "data/author_view.xml",
+        #"data/author_view.xml",
+        "data/sequence_data.xml",
         "views/books_view.xml",
         "views/members_view.xml",
         "views/borrow_view.xml",
@@ -20,6 +21,14 @@
         "views/fines_view.xml",
         "views/authors_view.xml",
         "views/magzine_view.xml",
-        "views/settings_view.xml",
+        "views/res_config_settings_view.xml",
+        "views/publisher_view.xml",
+        "views/reservation_view.xml",
+        "views/employee_view.xml",
+        "reports/report.xml",
+        "reports/library_card.xml",
+        "reports/publisher_report.xml",
+        "reports/publisher_card.xml"
     ],
+     'images': ['static/description/icon.png'],
 }

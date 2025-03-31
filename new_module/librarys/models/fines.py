@@ -3,16 +3,16 @@ from datetime import date, datetime
 
 class LibraryFines(models.Model):
     _name = "library.fines"
+    _inherit = "common.field"
     _description = "library fines"
     _order = 'fine_date desc'
+    _rec_name = 'member_id'
 
-    member_id = fields.Many2one("library.members",string="member id",required=True)
-    borrow_id = fields.Many2one("library.borrow",string="borrow id",required=True)
+    member_id = fields.Many2one("library.borrow",string="member id",required=True)
     book_id = fields.Many2one("library.books",string="book id",required=True)
     fine_type = fields.Selection([("late return","Late Return"),
                                   ("lost book","Lost Book"),
                                   ("damage","Damage")],string="fine type")
-    amount = fields.Float(string="amount",required=True)
     fine_date = fields.Datetime(string="fine date")
     due_date = fields.Datetime(string="due date")
     status = fields.Selection([("paid","Paid"),("pending","Pending"),
@@ -21,3 +21,4 @@ class LibraryFines(models.Model):
     payment_method = fields.Selection([("cash","Cash"),
                                   ("online","Online"),
                                   ("card","Card")],string="payment method")
+    priority = fields.Selection([('0', 'Very Low'), ('1', 'Low'), ('2', 'Normal'), ('3', 'High')], string='Priority')

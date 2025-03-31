@@ -1,5 +1,5 @@
-    
-<odoo>   
+
+<odoo>
     <record id="view_library_author" model="library.author">
                 <field name="name">kaveri</field>
                 <field name="biography">student at parul university</field>

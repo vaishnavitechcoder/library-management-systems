@@ -5,7 +5,7 @@ class BookReservation(models.Model):
     _name = 'library.reservation'
     _description = 'library Reservation'
 
-    book_id = fields.Many2one('library.books', string='Book', required=True)
+    books_id = fields.Char(string='Book')
     member_id = fields.Many2one('library.members', string='Member', required=True)
     reservation_date = fields.Datetime(string='Reservation Date', default=fields.Date.today)
     status = fields.Selection(

@@ -8,3 +8,5 @@ from . import authors
 from . import reservation
 from . import magazine
 from . import res_config_settings
+from . import publisher
+from . import employee

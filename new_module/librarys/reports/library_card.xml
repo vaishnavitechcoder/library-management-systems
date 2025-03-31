@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_library_card">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <style>
+                        /* General page styles */
+                        .page {
+                            width: 100%;
+                            margin: 0;
+                            padding: 0;
+                            font-family: 'Arial', sans-serif;
+                        }
+
+                        /* Page container style */
+                        .container {
+                            max-width: 800px;
+                            margin: 0 auto;
+                            padding: 20px;
+                            background: linear-gradient(135deg, #f0f8ff, #ffefdb); /* Gradient background */
+                            border-radius: 12px;
+                            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+                        }
+
+                        /* Header and logo styling */
+                        .header {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin-bottom: 30px;
+                        }
+
+                        .logo {
+                            width: 120px; /* Adjust size of logo */
+                            height: auto;
+                        }
+
+                        h2 {
+                            color: #333;
+                            font-size: 28px;
+                            font-weight: bold;
+                            text-align: center;
+                            margin: 0;
+                        }
+
+                        /* Styling for each section */
+                        p {
+                            font-size: 16px;
+                            line-height: 1.6;
+                            color: #555;
+                            margin-bottom: 12px;
+                        }
+
+                        strong {
+                            color: #007bff;
+                            font-weight: bold;
+                        }
+
+                        /* Highlight sections with soft background */
+                        .highlight {
+                            background-color: #fff;
+                            padding: 15px;
+                            border-radius: 8px;
+                            margin-bottom: 20px;
+                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+                        }
+
+                        /* Colorful contact details layout */
+                        .contact-info {
+                            display: flex;
+                            justify-content: space-between;
+                            font-size: 14px;
+                            color: #333;
+                        }
+
+                        .contact-info p {
+                            width: 48%;
+                        }
+
+                        /* Colorful background for title */
+                        .title-background {
+                            background-color: #007bff;
+                            color: white;
+                            padding: 10px;
+                            border-radius: 5px;
+                            margin-bottom: 20px;
+                        }
+
+                        .title-background strong {
+                            color: #fff;
+                        }
+
+                        /* Adjust for small screen size */
+                        @media (max-width: 600px) {
+                            .container {
+                                padding: 10px;
+                            }
+
+                            .contact-info {
+                                flex-direction: column;
+                                align-items: flex-start;
+                            }
+
+                            .contact-info p {
+                                width: 100%;
+                                margin-bottom: 10px;
+                            }
+                        }
+                    </style>
+
+                    <div class="page">
+                        <div class="oe_structure"/>
+
+                        <div class="container">
+                            <!-- Header Section with Logo -->
+                            <div class="header">
+                                <img class="logo" src="/path/to/logo.png" alt="Library Logo" />
+                                <h2>Library Card</h2>
+                            </div>
+
+                            <!-- Title Section -->
+                            <div class="title-background">
+                                <strong>Membership Information</strong>
+                            </div>
+
+                            <!-- Member Info Section -->
+                            <div class="highlight">
+                                <p>
+                                    <strong>Name:</strong> <t t-esc="o.names"/>
+                                </p>
+                                <p>
+                                    <strong>Membership Date:</strong> <t t-esc="o.joining_date"/>
+                                </p>
+                            </div>
+
+                            <!-- Contact Info Section -->
+                            <div class="contact-info">
+                                <p><strong>Address:</strong> <t t-esc="o.address"/></p>
+                                <p><strong>Email:</strong> <t t-esc="o.email"/></p>
+                            </div>
+
+                            <div class="contact-info">
+                                <p><strong>Phone:</strong> <t t-esc="o.phone_num"/></p>
+                                <p><strong>Country:</strong> <t t-esc="o.country"/></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
+

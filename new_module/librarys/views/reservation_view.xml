@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_library_reservation_list" model="ir.ui.view">
+        <field name="name">library.reservation.list.view</field>
+        <field name="model">library.reservation</field>
+        <field name="arch" type="xml">
+            <list string="reservations">
+                <field name="books_id"/>
+                <field name="member_id"/>
+                <field name="reservation_date"/>
+                <field name="status"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_library_reservation" model="ir.actions.act_window">
+        <field name="name">Reservation</field>
+        <field name="res_model">library.reservation</field>
+        <field name="view_mode">list,form,kanban,search</field>
+    </record>
+</odoo>

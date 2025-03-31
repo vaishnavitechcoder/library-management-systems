@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_library_publisher_list" model="ir.ui.view">
+        <field name="name">library.publisher.list.view</field>
+        <field name="model">library.publisher</field>
+        <field name="arch" type="xml">
+            <list string="publisher List">
+                <field name="seq" string="Number" readonly="1" decoration-bf="1"/>
+                <field name="name" widget="many2one_avatar"/>
+                <field name="phone" class="o_force_ltr" optional="show"/>
+                <field name="mobile" optional="hide"/>
+                <field name="email" optional="show"/>
+                <field name="founded"/>
+                <field name="website" widget="url" readonly="1"/>
+                <field name="books"/>
+                <field name="image"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_library_publisher_form" model="ir.ui.view">
+        <field name="name">library.publisher.form.view</field>
+        <field name="model">library.publisher</field>
+        <field name="arch" type="xml">
+            <form string="Publisher Form">
+                <sheet>
+                    <button name="%(librarys.action_report_publisher)d"
+                            string="Print Publishers Card"
+                            type="action"
+                            class="btn-primary"/>
+                    <div class="oe_title">
+                        <field name="priority" widget="priority"/>
+                        <h1>
+                            <field name="seq" readonly="1"/>
+                        </h1>
+                    </div>
+                    <field name="name"
+                           widget="many2one_avatar"
+                           context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"
+                           placeholder="Type to find a customer..."/>
+                    <field name="founded"/>
+                    <group>
+                        <field name="function" placeholder="e.g. Sales Director"/>
+                        <field name="phone" widget="phone"/>
+                        <field name="mobile" widget="phone"/>
+                        <field name="email" widget="email"/>
+                        <field name="website" string="Website" widget="url"
+                               placeholder="e.g. https://www.odoo.com"/>
+                    </group>
+                    <field name="books"/>
+                    <field name="image"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_library_publisher_kanban" model="ir.ui.view">
+        <field name="name">library.publisher.kanban.view</field>
+        <field name="model">library.publisher</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view">
+                <templates>
+                    <t t-name="card">
+                        <div class="o_kanban_details">
+                            <field name="name"/>
+                            <field name="founded"/>
+                            <field name="books"/>
+                            <field name="image"/>
+                            <group>
+                                <field name="email" widget="email"/>
+                                <field name="phone" widget="phone"/>
+                                <field name="mobile" widget="phone"/>
+                            </group>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="action_library_publisher" model="ir.actions.act_window">
+        <field name="name">Publisher</field>
+        <field name="res_model">library.publisher</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+
+    <menuitem id="networks_views"
+              name="Networks"
+              parent="menu_library_root"
+              action="action_library_members"
+              sequence="11"
+    />
+
+    <menuitem id="publisher_main"
+              name="Publisher"
+              parent="networks_views"
+              action="action_library_publisher"
+    />
+
+</odoo>

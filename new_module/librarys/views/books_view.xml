@@ -7,62 +7,77 @@
             <list string="books List">
                 <field name="book_id"/>
                 <field name="name"/>
-                <field name="author_ids" widget="many2many_tags"/>
-                <field name="isbn"/>
+                <field name="authors_id"/>
                 <field name="category_id"/>
-                <field name="publisher"/>
-                <field name="publish_date"/>
-                <field name="num_pages"/>
+                <field name="publisher" widget="many2one_avatar"/>
                 <field name="language" widget="badge"/>
-                <field name="state" widget="badge"/>
-                <field name="price"/>
-                <field name="image"/>
-                <field name="description"/>
-                <field name="location"/>
+                <field name="state" decoration-success="state == 'available'"
+                       decoration-info="state == 'borrowed'"
+                       decoration-primary="state == 'reserved'"
+                       widget="badge"/>
+                <field name="currency_id" invisible="1" optional="hide"/>
+                <field name="amount_total" sum="amount_total" widget="monetary"
+                       decoration-bf="1"/>
+                <field name="locations"/>
                 <field name="quantity"/>
                 <field name="available_copies"/>
-                <field name="borrow_ids"/>
-                <field name="code"/>
                 <field name="borrowed_count"/>
             </list>
         </field>
     </record>
-    
+
     <record id="view_library_books_form" model="ir.ui.view">
         <field name="name">library.books.form.view</field>
         <field name="model">library.books</field>
         <field name="arch" type="xml">
-            <form string="books Form">            
+            <form string="books Form">
                 <sheet>
-                    <div class="oe_button_box" name="button_box" >
-                        <button name="%(action_library_borrow)d" 
-                                type="action" 
-                                string="borrow List" 
-                                class="oe_start_button"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_library_borrow)d" icon="fa-bars"
+                                type="action" string="borrow List" class="oe_start_button"/>
+                        <button name="%(action_library_publisher)d" icon="fa-smile-o"
+                                type="action" string="Publishers" class="oe_start_button"/>
+                        <button name="%(action_library_author)d" icon="fa-table"
+                                type="action" string="Authors" class="oe_start_button"/>
                     </div>
-                    <group>
-                        <field name="book_id"/>
-                        <field name="name"/>
-                        <field name="author_ids" widget="many2many_tags"/>
-                        <field name="isbn"/>
-                        <field name="category_id"/>
-                        <field name="publisher"/>
-                        <field name="publish_date"/>
-                        <field name="num_pages"/>
-                        <field name="language" widget="badge"/>
-                        <field name="state" widget="badge"/>
-                        <field name="price"/>
-                        <field name="description"/>
-                        <field name="location"/>
-                        <field name="quantity"/>
-                        <field name="available_copies"/>
-                        <field name="borrow_ids"/>
-                        <field name="code"/>
-                        <field name="borrowed_count"/>
-                    </group>
-                    <group>
-                        <field name="image" widget = "Image" class="oe_avatar"/>
-                    </group>
+                    <notebook>
+                        <page string="General Information">
+                            <group>
+                                <field name="book_id"/>
+                                <field name="name"/>
+                                <field name="authors_id"/>
+                                <field name="isbn"/>
+                                <field name="category_id"/>
+                                <field name="publisher" widget="many2one_avatar"/>
+                                <field name="language"/>
+                                <field name="state" decoration-success="state == 'available'"
+                                       decoration-info="state == 'borrowed'"
+                                       decoration-primary="state == 'reserved'"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="amount_total" widget="monetary"
+                                       decoration-bf="1"/>
+                            </group>
+                        </page>
+                        <page string="Additional Information">
+                            <group>
+                                <field name="publish_date"/>
+                                <field name="num_pages"/>
+                                <field name="description"/>
+                                <field name="locations"/>
+                                <field name="quantity"/>
+                                <field name="available_copies"/>
+                                <field name="borrow_ids"/>
+                                <field name="codes"/>
+                                <field name="borrowed_count"/>
+                                <field name="active"/>
+                            </group>
+                        </page>
+                        <page string="Image">
+                            <group>
+                                <field name="image" widget="Image" class="oe_avatar"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
@@ -84,25 +99,44 @@
                                     <field name="name"/>
                                 </strong>
                                 <div>
-                                    <span><strong>Author:</strong> <field name="author_ids" widget="many2many_tags"/></span>
+                                    <span>
+                                        <strong>Category:</strong>
+                                        <field name="category_id"/>
+                                    </span>
                                 </div>
                                 <div>
-                                    <span><strong>Category:</strong> <field name="category_id"/></span>
+                                    <span>
+                                        <strong>ISBN:</strong>
+                                        <field name="isbn"/>
+                                    </span>
                                 </div>
                                 <div>
-                                    <span><strong>ISBN:</strong> <field name="isbn"/></span>
+                                    <span>
+                                        <strong>Total:</strong>
+                                        <field name="amount_total" widget="monetary"
+                                               decoration-bf="1"/>
+                                    </span>
                                 </div>
                                 <div>
-                                    <span><strong>Price:</strong> <field name="price"/></span>
+                                    <span>
+                                        <strong>Language:</strong>
+                                        <field name="language" widget="badge"/>
+                                    </span>
                                 </div>
                                 <div>
-                                    <span><strong>Language:</strong> <field name="language" widget="badge"/></span>
+                                    <span>
+                                        <strong>State:</strong>
+                                        <field name="state" decoration-success="state == 'available'"
+                                               decoration-info="state == 'borrowed'"
+                                               decoration-primary="state == 'reserved'"
+                                               widget="badge"/>
+                                    </span>
                                 </div>
                                 <div>
-                                    <span><strong>State:</strong> <field name="state" widget="badge"/></span>
-                                </div>
-                                <div>
-                                    <span><strong>Available:</strong> <field name="available_copies"/></span>
+                                    <span>
+                                        <strong>Available:</strong>
+                                        <field name="available_copies"/>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +146,7 @@
         </field>
     </record>
 
-   
+
     <record id="view_library_book_search" model="ir.ui.view">
         <field name="name">library.books.search.view</field>
         <field name="model">library.books</field>
@@ -120,25 +154,28 @@
             <search>
                 <field name="book_id"/>
                 <field name="name"/>
-                <field name="author_ids"/>
                 <field name="isbn"/>
                 <field name="category_id"/>
                 <field name="publisher"/>
                 <field name="language"/>
-                <field name="price"/>
+                <field name="amount_total"/>
 
-                <filter string="Price Above 100" name="filter_price_high" domain="[('price', '>', 100)]"/>
-                <group expand="0" string="Group By">
-                    <filter string="Category" name="group_by_category" context="{'group_by': 'category_id'}"/>
-                    <filter string="Publisher" name="group_by_publisher" context="{'group_by': 'publisher'}"/>
-                    <filter string="Author" name="group_by_author" context="{'group_by': 'author_ids'}"/>
-                    <filter string="Language" name="group_by_language" context="{'group_by': 'language'}"/>
-                </group>
-            </search>   
+                <filter string="Price Above 100" name="filter_price_high" domain="[('amount_total', '>', 100)]"/>
+
+                <group expand="0" string="Group By"/>
+                <filter string="Category" name="group_by_category" context="{'group_by': 'category_id'}">
+                </filter>
+                <filter string="Publisher" name="group_by_publisher" context="{'group_by': 'publisher'}">
+                </filter>
+                <filter string="Author" name="group_by_author" context="{'group_by': 'authors_id'}">
+                </filter>
+                <filter string="Language" name="group_by_language" context="{'group_by': 'language'}">
+                </filter>
+            </search>
         </field>
-    </record>  
+    </record>
 
-            
+
     <record id="action_library_books" model="ir.actions.act_window">
         <field name="name">Books</field>
         <field name="res_model">library.books</field>
@@ -148,9 +185,10 @@
 
     <menuitem id="menu_library_root"
               name="library management system"
+              web_icon="librarys,static/description/icon.png"
               sequence="10"
     />
-    
+
     <menuitem id="collection_views"
               name="Collection"
               parent="menu_library_root"
