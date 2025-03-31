@@ -43,6 +43,8 @@
                         <field name="state"/>
                         <field name="joining_date"/>
                         <field name="status"/>
+                        <button string="notification"
+                            type="object" name="action_notification" class="oe_highlight"/>/>
                     </group>
                 </sheet>
             </form>

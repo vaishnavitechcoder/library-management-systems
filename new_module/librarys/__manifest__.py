@@ -14,6 +14,7 @@
         "wizards/book_reservation_view.xml",
         #"data/author_view.xml",
         "data/sequence_data.xml",
+        "data/schedule_action.xml",
         "views/books_view.xml",
         "views/members_view.xml",
         "views/borrow_view.xml",

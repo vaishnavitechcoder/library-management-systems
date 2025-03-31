@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from datetime import date, datetime
 
 class LibraryMembers(models.Model):
@@ -18,6 +18,29 @@ class LibraryMembers(models.Model):
     joining_date = fields.Datetime(string="joining date",default=fields.Date.context_today)
     status = fields.Selection([('activate','Activate'),('deactivate','Deactivate')],string='status')
 
+
     def create(self, vals):
         vals['seq'] = self.env['ir.sequence'].next_by_code('library.publisher')
         return super(LibraryMembers, self).create(vals)
+
+    @api.model
+    def test_cron_job(self):
+            print("abcd")
+
+    @api.autovacuum
+    def _autovaccum_records(self):
+        inactive_members = self.env['library.members'].search([('status', '=', 'deactivate')])
+        inactive_members.unlink()
+
+    def action_notification(self):
+        message: "button click sucessfully"
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': _("Operation Successful"),
+                'type': 'success',
+                'message': "button click sucessfully",
+                'sticky': False,
+            },
+        }

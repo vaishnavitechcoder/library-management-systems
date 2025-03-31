@@ -23,7 +23,6 @@ class LibraryBorrow(models.Model):
         ('Late', 'Late'),
         ('Lost', 'Lost'),
     ])
-    overdue_date = fields.Datetime('Due Date')
     priority = fields.Selection([('0', 'Very Low'), ('1', 'Low'), ('2', 'Normal'), ('3', 'High')], string='Priority')
 
     @api.depends('return_date', 'actual_return_date')
@@ -62,22 +61,6 @@ class LibraryBorrow(models.Model):
             record.actual_return_date = False
             record.fine_amount = 0.0
 
-    @ api.model
-    def overdue_reminder(self):
-        overdue_books = self.search([('state', '=', 'Late')])
-        for book in overdue_books:
-            template = self.env.ref('your_module.email_template_overdue')
-            self.env['mail.template'].browse(template.id).send_mail(book.id)
-
-    def return_book(self):
-        for borrow in self:
-            if borrow.state == 'Borrowed':
-                if borrow.overdue_date < fields.Datetime.now():
-                    borrow.state = 'Late'
-                    raise UserError(_("This book is overdue! Please return it immediately."))
-                borrow.state = 'Returned'
-            else:
-                raise UserError(_("This book has already been returned."))
 
     def create(self, vals):
         res = super(LibraryBorrow, self).create(vals)

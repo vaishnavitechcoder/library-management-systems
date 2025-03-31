@@ -1,5 +1,6 @@
-from odoo import api, fields, models
+from odoo import api, fields, models,_
 from datetime import date, datetime
+from odoo.exceptions import UserError
 
 class LibraryAuthor(models.Model):
     _name = 'library.author'
@@ -22,6 +23,13 @@ class LibraryAuthor(models.Model):
     def create(self, vals):
         vals['seq'] = self.env['ir.sequence'].next_by_code('library.publisher')
         return super(LibraryAuthor, self).create(vals)
+
+    @api.onchange('name')
+    def _onchange_name(self):
+        raise UserError(_("onchange name value change"))
+
+
+
 
 
 
