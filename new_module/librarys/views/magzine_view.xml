@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <record id="action_freuency_yearly" model="ir.actions.server">
+        <field name="name">frequency weekly</field>
+        <field name="state">code</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="librarys.model_library_magazine"/>
+        <field name="binding_model_id" ref="librarys.model_library_magazine"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="code">
+            for record in records:
+                if record.freuency == 'yearly':
+                     record.action_weekly()
+        </field>
+    </record>
+
     <record id="view_library_magzine_list" model="ir.ui.view">
         <field name="name">library.magazine.list.view</field>
         <field name="model">library.magazine</field>

@@ -28,7 +28,7 @@
                     <button name="%(librarys.action_report_library_card)d"
                             string="Print Library Card"
                             type="action"
-                            class="btn-primary"/>
+                            class="fa fa-print"/>
                     <div class="oe_title">
                         <h1>
                             <field name="seq" readonly="1"/>

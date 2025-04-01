@@ -13,7 +13,6 @@
                 <field name="founded"/>
                 <field name="website" widget="url" readonly="1"/>
                 <field name="books"/>
-                <field name="image"/>
             </list>
         </field>
     </record>
@@ -62,10 +61,10 @@
                 <templates>
                     <t t-name="card">
                         <div class="o_kanban_details">
-                            <field name="name"/>
+                            <field name="name"  widget="many2one_avatar"/>
                             <field name="founded"/>
                             <field name="books"/>
-                            <field name="image"/>
+
                             <group>
                                 <field name="email" widget="email"/>
                                 <field name="phone" widget="phone"/>

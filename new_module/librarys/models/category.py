@@ -17,3 +17,11 @@ class LibraryCategory(models.Model):
     string="languages",default="english")
     sub_type = fields.Char(string="sub type")
 
+
+    def action_url(self):
+        return{
+            "type": "ir.actions.act_url",
+            "url": "https://odoo.com",
+            "target": "new"
+        }
+

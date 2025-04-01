@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-   <record id="action_report_library_card" model="ir.actions.report">
-       <field name="name">Library Card</field>
-       <field name="model">library.members</field>
-       <field name="report_type">qweb-pdf</field>
-       <field name="report_name">librarys.report_library_card</field>
-       <field name="report_file">librarys.report_library_card</field>
-       <field name="binding_type">report</field>
-   </record>
+    <record id="action_report_library_card" model="ir.actions.report">
+        <field name="name">Library Card</field>
+        <field name="model">library.members</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">librarys.report_library_card</field>
+        <field name="report_file">librarys.report_library_card</field>
+        <field name="binding_type">report</field>
+    </record>
 </odoo>
+
+
+<record id="hr_attendance_action_greeting_message" model="ir.actions.client">
+<field name="name">Message</field>
+<field name="tag">0
+</field>
+</record>
+
+<record id="action_client_pos_menu" model="ir.actions.client">
+<field name="name">Reload POS Menu</field>
+<field name="tag">reload</field>
+<field name="params" eval="{'menu_id': ref('menu_point_root')}"/>
+</record>

@@ -3,7 +3,6 @@ from datetime import date, datetime
 
 class LibraryFines(models.Model):
     _name = "library.fines"
-    _inherit = "common.field"
     _description = "library fines"
     _order = 'fine_date desc'
     _rec_name = 'member_id'

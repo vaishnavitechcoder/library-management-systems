@@ -1,4 +1,4 @@
-from odoo import api, fields, models,_
+from odoo import api, fields, models, _
 from datetime import date, datetime
 from odoo.exceptions import UserError
 
@@ -8,10 +8,10 @@ class LibraryMagzine(models.Model):
     _inherit = "common.field"
     _description = "library magazine"
 
-
-    freuency = fields.Selection([("weekly","Weekly"),("monthly","Monthly"),("yearly","yearly")],string="frequency")
-    quantity = fields.Integer(string="quantity",required=True)
-    available_copies = fields.Integer(string="available_copies",compute="_compute_available_copies")
+    freuency = fields.Selection([("weekly", "Weekly"), ("monthly", "Monthly"), ("yearly", "yearly")],
+                                string="frequency")
+    quantity = fields.Integer(string="quantity", required=True)
+    available_copies = fields.Integer(string="available_copies", compute="_compute_available_copies")
     borrow_ids = fields.One2many("library.borrow", "magazine", string="borrows_ids")
     borrowed_count = fields.Integer(string="Borrowed Copies", compute="_compute_borrowed_count")
 
@@ -38,3 +38,7 @@ class LibraryMagzine(models.Model):
     def create(self, vals):
         vals['seq'] = self.env['ir.sequence'].next_by_code('library.publisher')
         return super(LibraryPublisher, self).create(vals)
+
+    def action_weekly(self):
+        for record in self:
+            record.freuency = "weekly"

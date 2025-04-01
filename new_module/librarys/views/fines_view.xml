@@ -8,9 +8,6 @@
                 <field name="member_id"/>
                 <field name="book_id"/>
                 <field name="fine_type"/>
-                <field name="currency_id" invisible="1" optional="hide"/>
-                <field name="amount_total" sum="amount_total" widget="monetary"
-                       decoration-bf="1"/>
                 <field name="fine_date"/>
                 <field name="due_date"/>
                 <field name="status"/>
@@ -33,9 +30,6 @@
                         <field name="member_id"/>
                         <field name="book_id"/>
                         <field name="fine_type"/>
-                        <field name="currency_id" invisible="1" optional="hide"/>
-                        <field name="amount_total" sum="amount_total" widget="monetary"
-                               decoration-bf="1"/>
                         <field name="fine_date"/>
                         <field name="due_date"/>
                         <field name="status"/>
@@ -55,9 +49,6 @@
                 <field name="member_id"/>
                 <field name="book_id"/>
                 <field name="fine_type"/>
-                <field name="currency_id" invisible="1" optional="hide"/>
-                <field name="amount_total" sum="amount_total" widget="monetary"
-                       decoration-bf="1"/>
                 <field name="fine_date"/>
                 <field name="due_date"/>
                 <field name="status"/>
