@@ -17,7 +17,12 @@
                         <div>
                             <h3>
                               <t t-out="object.name.name or ''"></t>
-
+                              su kare che bro
+                                majama
+                                jamilidhu
+                                chal farva jaiye
+                                gaam jau chu aavjo
+                                bye-bye
                             </h3>
                         </div>
                     </div>
