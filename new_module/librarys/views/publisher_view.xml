@@ -23,6 +23,8 @@
         <field name="arch" type="xml">
             <form string="Publisher Form">
                 <sheet>
+                     <button name="action_send_email" string="send email"
+                            type="object"/>
                     <button name="%(librarys.action_report_publisher)d"
                             string="Print Publishers Card"
                             type="action"
@@ -61,7 +63,7 @@
                 <templates>
                     <t t-name="card">
                         <div class="o_kanban_details">
-                            <field name="name"  widget="many2one_avatar"/>
+                            <field name="name" widget="many2one_avatar"/>
                             <field name="founded"/>
                             <field name="books"/>
 

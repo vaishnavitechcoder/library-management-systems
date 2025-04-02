@@ -34,9 +34,9 @@
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="%(action_library_borrow)d" icon="fa-bars"
-                                type="action" string="borrow List" class="oe_start_button"/>
+                                type="action" string="borrow List" confirm = "are you sure to open borrow list" class="oe_start_button"/>
                         <button name="%(action_library_publisher)d" icon="fa-smile-o"
-                                type="action" string="Publishers" class="oe_start_button"/>
+                                type="action" string="Publishers" help= "on clicking this you will be redirect to publishers list" class="oe_start_button"/>
                         <button name="%(action_library_author)d" icon="fa-table"
                                 type="action" string="Authors" class="oe_start_button"/>
                     </div>

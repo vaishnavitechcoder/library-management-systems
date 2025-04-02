@@ -15,6 +15,7 @@
         #"data/author_view.xml",
         "data/sequence_data.xml",
         "data/schedule_action.xml",
+        "data/mail_template_data.xml",
         "views/books_view.xml",
         "views/members_view.xml",
         "views/borrow_view.xml",
