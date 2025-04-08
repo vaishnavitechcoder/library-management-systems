@@ -9,6 +9,7 @@
                 <field name="name" widget="many2one_avatar"/>
                 <field name="phone" class="o_force_ltr" optional="show"/>
                 <field name="mobile" optional="hide"/>
+                <field name="activity_ids" widget="list_activity" optional="show"/>
                 <field name="email" optional="show"/>
                 <field name="founded"/>
                 <field name="website" widget="url" readonly="1"/>
@@ -22,13 +23,15 @@
         <field name="model">library.publisher</field>
         <field name="arch" type="xml">
             <form string="Publisher Form">
-                <sheet>
-                     <button name="action_send_email" string="send email"
+                <header>
+                    <button name="action_send_email" string="send email"
                             type="object"/>
                     <button name="%(librarys.action_report_publisher)d"
                             string="Print Publishers Card"
                             type="action"
                             class="btn-primary"/>
+                </header>
+                <sheet>
                     <div class="oe_title">
                         <field name="priority" widget="priority"/>
                         <h1>
@@ -51,6 +54,9 @@
                     <field name="books"/>
                     <field name="image"/>
                 </sheet>
+                <div class="oe_chatter"
+                     name="activity_ids" widget="mail_activity"/>
+                <chatter/>
             </form>
         </field>
     </record>

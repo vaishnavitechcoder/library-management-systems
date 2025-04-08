@@ -15,6 +15,25 @@
         </field>
     </record>
 
+    <record id="action_frequency" model="ir.actions.server">
+        <field name="name">frequency</field>
+        <field name="state">code</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="librarys.model_library_magazine"/>
+        <field name="binding_model_id" ref="librarys.model_library_magazine"/>
+        <field name="binding_view_types">list</field>
+        <field name="code">
+            action = {
+            'type': 'ir.actions.act_window',
+            'name': 'Frequency Wizard',
+            'res_model': 'magazine.frequency.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            }
+        </field>
+    </record>
+
+
     <record id="view_library_magzine_list" model="ir.ui.view">
         <field name="name">library.magazine.list.view</field>
         <field name="model">library.magazine</field>
@@ -60,6 +79,9 @@
                                decoration-bf="1"/>
                     </group>
                 </sheet>
+                <!-- Chatter -->
+                <div class="oe_chatter"/>
+                <chatter/>
             </form>
         </field>
     </record>

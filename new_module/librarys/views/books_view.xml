@@ -40,24 +40,22 @@
                         <button name="%(action_library_author)d" icon="fa-table"
                                 type="action" string="Authors" class="oe_start_button"/>
                     </div>
+                    <group>
+                        <field name="book_id"/>
+                        <field name="name"/>
+                        <field name="authors_id"/>
+                        <field name="isbn"/>
+                        <field name="category_id"/>
+                        <field name="publisher" widget="many2one_avatar"/>
+                        <field name="language"/>
+                        <field name="state" decoration-success="state == 'available'"
+                               decoration-info="state == 'borrowed'"
+                               decoration-primary="state == 'reserved'"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="amount_total" widget="monetary"
+                               decoration-bf="1"/>
+                    </group>
                     <notebook>
-                        <page string="General Information">
-                            <group>
-                                <field name="book_id"/>
-                                <field name="name"/>
-                                <field name="authors_id"/>
-                                <field name="isbn"/>
-                                <field name="category_id"/>
-                                <field name="publisher" widget="many2one_avatar"/>
-                                <field name="language"/>
-                                <field name="state" decoration-success="state == 'available'"
-                                       decoration-info="state == 'borrowed'"
-                                       decoration-primary="state == 'reserved'"/>
-                                <field name="currency_id" invisible="1"/>
-                                <field name="amount_total" widget="monetary"
-                                       decoration-bf="1"/>
-                            </group>
-                        </page>
                         <page string="Additional Information">
                             <group>
                                 <field name="publish_date"/>
@@ -184,7 +182,7 @@
 
 
     <menuitem id="menu_library_root"
-              name="library management system"
+              name="Library Management System"
               web_icon="librarys,static/description/icon.png"
               sequence="10"
     />

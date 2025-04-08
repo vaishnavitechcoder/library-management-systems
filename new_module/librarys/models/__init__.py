@@ -10,3 +10,4 @@ from . import magazine
 from . import res_config_settings
 from . import publisher
 from . import employee
+from . import mail

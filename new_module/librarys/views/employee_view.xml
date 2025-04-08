@@ -149,8 +149,7 @@
             <field name="name">library.employee.list</field>
             <field name="model">library.employee</field>
             <field name="arch" type="xml">
-                <list string="Employees" expand="context.get('expand', False)" multi_edit="1" sample="1"
-                      js_class="employee_list">
+                <list string="Employees" expand="context.get('expand', False)" multi_edit="1" sample="1">
                     <field name="employee" readonly="1"/>
                     <field name="company_id" groups="base.group_multi_company" readonly="1" optional="show"/>
                     <field name="company_id" column_invisible="True"/>

@@ -5,11 +5,11 @@ from odoo.exceptions import UserError
 
 class LibraryMagzine(models.Model):
     _name = "library.magazine"
-    _inherit = "common.field"
+    _inherit = ['common.field','mail.thread','mail.activity.mixin']
     _description = "library magazine"
 
     freuency = fields.Selection([("weekly", "Weekly"), ("monthly", "Monthly"), ("yearly", "yearly")],
-                                string="frequency")
+                                string="frequency",tracking=True)
     quantity = fields.Integer(string="quantity", required=True)
     available_copies = fields.Integer(string="available_copies", compute="_compute_available_copies")
     borrow_ids = fields.One2many("library.borrow", "magazine", string="borrows_ids")
@@ -42,3 +42,4 @@ class LibraryMagzine(models.Model):
     def action_weekly(self):
         for record in self:
             record.freuency = "weekly"
+

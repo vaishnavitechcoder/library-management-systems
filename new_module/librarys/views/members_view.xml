@@ -23,12 +23,23 @@
         <field name="model">library.members</field>
         <field name="arch" type="xml">
             <form string="Members Form">
-                <sheet>
-                    <!-- Your form fields here -->
+                <!-- Your form fields here -->
+                <header>
                     <button name="%(librarys.action_report_library_card)d"
                             string="Print Library Card"
                             type="action"
                             class="fa fa-print"/>
+                    <button name="get_data"
+                            string="get data"
+                            type="object"
+                            class='file-text'/>
+                    <button name="action_share_whatsapp"
+                            string="Share in whatsapp"
+                            type="object"
+                            class="oe_highlight"
+                            icon="fa-whatsapp"/>
+                </header>
+                <sheet>
                     <div class="oe_title">
                         <h1>
                             <field name="seq" readonly="1"/>
@@ -44,7 +55,7 @@
                         <field name="joining_date"/>
                         <field name="status"/>
                         <button string="notification"
-                            type="object" name="action_notification" class="oe_highlight"/>/>
+                                type="object" name="action_notification" class="oe_highlight"/>/>
                     </group>
                 </sheet>
             </form>

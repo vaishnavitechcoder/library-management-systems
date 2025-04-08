@@ -1,5 +1,6 @@
 from odoo import api, fields, models, _
 from datetime import date, datetime
+from odoo.exceptions import ValidationError
 
 class LibraryMembers(models.Model):
     _name = "library.members"
@@ -44,3 +45,22 @@ class LibraryMembers(models.Model):
                 'sticky': False,
             },
         }
+
+    def get_data(self):
+        print("get_data_method")
+        members = self.env["library.members"].search([])
+        for rec in members:
+            print(rec)
+
+
+    def action_share_whatsapp(self):
+        if not self.phone_num:
+            raise ValidationError(_("missing phone number in members record"))
+        msg = "HI %s" % self.names
+        whatsapp_api_url = "https://api.whatsapp.com/send?phone=%s&text=%s" % (self.phone_num, msg)
+        return {
+            "type": "ir.actions.act_url",
+            "url": whatsapp_api_url,
+            "target": "new"
+        }
+
