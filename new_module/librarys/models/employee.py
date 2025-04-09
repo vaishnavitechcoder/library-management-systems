@@ -87,3 +87,4 @@ class LibraryEmployee(models.Model):
     id_card = fields.Binary(string="ID Card Copy",related="employee.id_card", store=True, readonly=False)
     driving_license = fields.Binary(string="Driving License",related="employee.driving_license", store=True, readonly=False)
     currency_id = fields.Many2one('res.currency', related='company_id.currency_id', readonly=True)
+

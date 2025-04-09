@@ -66,3 +66,16 @@ class LibraryBooks(models.Model):
                 book.state = 'reserved'
             else:
                 book.state = 'available'
+
+    def get_books_names(self):
+        # Get a recordset of all books
+        books = self.env['library.books'].search([])
+
+        # Use the map function to get the 'name' of each book
+        book_names = books.mapped('name')
+        print(book_names)
+
+        # Output the result
+        return book_names
+
+

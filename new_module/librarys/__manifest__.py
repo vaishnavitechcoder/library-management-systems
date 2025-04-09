@@ -7,7 +7,7 @@
     "application":True,
     "installable":True,
     "depends": [
-            "base","mail","account","stock","hr"
+            "base","mail","account","stock","hr", "sale",
     ],
     "data": [
         "security/ir.model.access.csv",
