@@ -12,3 +12,4 @@ librarys.access_library_magazine,access_library_magazine,librarys.model_library_
 librarys.access_library_publisher,access_library_publisher,librarys.model_library_publisher,base.group_user,1,1,1,1
 librarys.access_library_employee,access_library_employee,librarys.model_library_employee,base.group_user,1,1,1,1
 librarys.access_magazine_frequency_wizard,access_magazine_frequency_wizard,librarys.model_magazine_frequency_wizard,base.group_user,1,1,1,1
+librarys.access_layout_wizard,access_layout_wizard,librarys.model_layout_wizard,base.group_user,1,1,1,1

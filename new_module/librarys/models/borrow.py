@@ -20,8 +20,8 @@ class LibraryBorrow(models.Model):
         ('draft', 'Draft'),
         ('borrowed', 'Borrowed'),
         ('returned', 'Returned'),
-        ('Late', 'Late'),
-        ('Lost', 'Lost'),
+        ('late', 'Late'),
+        ('lost', 'Lost'),
     ])
     priority = fields.Selection([('0', 'Very Low'), ('1', 'Low'), ('2', 'Normal'), ('3', 'High')], string='Priority')
 
@@ -41,6 +41,14 @@ class LibraryBorrow(models.Model):
     def action_borrow(self):
         for record in self:
             record.state = 'borrowed'
+
+    def action_late(self):
+        for record in self:
+            record.state = 'late'
+
+    def action_lost(self):
+        for record in self:
+            record.state = 'lost'
 
     def action_return(self):
         for record in self:
@@ -93,3 +101,8 @@ class LibraryBorrow(models.Model):
                     _("Sorry, this magazine is not available for borrowing as all copies are currently borrowed."))
 
         return res
+
+    @api.autovacuum
+    def _autovaccum_records(self):
+        inactive_members = self.env['library.borrow'].search([('state', '=', 'returned')])
+        inactive_members.unlink()

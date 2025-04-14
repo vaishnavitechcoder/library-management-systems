@@ -13,7 +13,11 @@
                 <field name="return_date"/>
                 <field name="actual_return_date"/>
                 <field name="fine_amount"/>
-                <field name="state"/>
+                <field name="state" decoration-success="state == 'returned'"
+                       decoration-info="state == 'late'"
+                       decoration-primary="state == 'borrowed'"
+                       decoration-danger="state == 'draft'"
+                       decoration-warning="state == 'lost'" widget="badge"/>
             </list>
         </field>
     </record>
@@ -24,19 +28,19 @@
         <field name="arch" type="xml">
             <form string="borrow Form">
                 <header>
-                    <button name="action_borrow" type="object" string="Borrow" class="btn-primary">
-                        <attribute name="invisible">Borrow</attribute>
-                    </button>
-                    <button name="action_return" type="object" string="Return" class="btn-secondary">
-                        <attribute name="invisible">Return</attribute>
-                    </button>
-                    <button name="action_cancel" type="object" string="Cancel" class="btn-danger">
-                        <attribute name="invisible">Cancel</attribute>
-                    </button>
-
-                    <field name="state" widget="statusbar" statusbar_visible="borrowed,returned,canceled"/>
+                    <button name="action_borrow" type="object" string="Borrow" class="btn-primary" invisible=" state == 'borrowed'"/>
+                    <button name="action_return" type="object" string="Return" class="btn-success" invisible=" state == 'returned'"/>
+                    <button name="action_cancel" type="object" string="Cancel" class="btn-danger" invisible=" state == 'draft'"/>
+                    <button name="action_late" type="object" string="Late" class="btn-info" invisible=" state == 'late'"/>
+                    <button name="action_lost" type="object" string="Lost" class="btn-warning" invisible=" state == 'lost'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="borrowed,returned,Cancelled,Late,Lost"/>
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Borrow" bg_color="text-bg-primary" invisible="state != 'borrowed'"/>
+                    <widget name="web_ribbon" title="Return" bg_color="text-bg-success" invisible="state != 'returned'"/>
+                    <widget name="web_ribbon" title="Cancel" bg_color="text-bg-danger" invisible="state != 'draft'"/>
+                    <widget name="web_ribbon" title="Late" bg_color="text-bg-info" invisible="state != 'late'"/>
+                    <widget name="web_ribbon" title="Lost" bg_color="text-bg-warning" invisible="state != 'lost'"/>
                    <div class="oe_title">
                         <field name = "priority" widget="priority"/>
                     </div>

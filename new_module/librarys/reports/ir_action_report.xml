@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_publishers" model="ir.actions.report">
+        <field name="name">publisher_pdf</field>
+        <field name="model">library.publisher</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">librarys.report_publisher_card</field>
+        <field name="report_file">librarys.report_publisher_card</field>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

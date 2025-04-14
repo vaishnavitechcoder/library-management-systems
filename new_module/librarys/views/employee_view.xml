@@ -149,9 +149,9 @@
             <field name="name">library.employee.list</field>
             <field name="model">library.employee</field>
             <field name="arch" type="xml">
-                <list string="Employees" expand="context.get('expand', False)" multi_edit="1" sample="1">
+                <list string="Employees"  multi_edit="1" sample="1">
                     <field name="employee" readonly="1"/>
-                    <field name="company_id" groups="base.group_multi_company" readonly="1" optional="show"/>
+                    <field name="company_id" readonly="1" optional="show"/>
                     <field name="company_id" column_invisible="True"/>
                     <field name="country_id" optional="hide"/>
                 </list>
@@ -194,7 +194,7 @@
         <record id="action_library_employee" model="ir.actions.act_window">
             <field name="name">Employee</field>
             <field name="res_model">library.employee</field>
-            <field name="view_mode">form,graph,pivot,list,kanban</field>
+            <field name="view_mode">list,form,graph,pivot,kanban</field>
         </record>
 
         <menuitem id="networks_views"

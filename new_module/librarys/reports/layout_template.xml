@@ -1,0 +1,9 @@
+<template id="report_my_model_document">
+    <t t-set="layout" t-value="env['ir.config_parameter'].sudo().get_param('librarys.layout_choice', 'basic')"/>
+    <t t-elif="layout == 'creative'">
+        <t t-call="librarys.report_publisher_cards"/>
+    </t>
+    <t t-elif="layout == 'artistic'">
+        <t t-call="librarys.reports_publishers_cards"/>
+    </t>
+</template>

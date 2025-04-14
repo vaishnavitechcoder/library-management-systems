@@ -37,7 +37,8 @@
                     </div>
                 </div>
             </field>
-
+            <field name="report_template_ids" eval="[(4, ref('librarys.action_report_publisher')),
+                                                     (4, ref('librarys.action_report_publishers'))]"/>
         </record>
     </data>
 </odoo>

@@ -36,6 +36,12 @@
                         <field name="payment_date"/>
                         <field name="payment_method"/>
                     </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="note" placeholder="Enter Your Important Note Here"
+                                   options='{"collaborative":  true, "resizable": true}'/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

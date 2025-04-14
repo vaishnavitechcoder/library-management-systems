@@ -57,7 +57,7 @@ class LibraryPublisher(models.Model):
         lang = self.env.context.get('lang')
 
         ctx = {
-            'default_model': 'library.publisher',
+             'default_model': 'library.publisher',
             'default_res_ids': self.ids,
             'default_composition_mode': 'comment',
             'proforma': self.env.context.get('proforma', False),
@@ -131,13 +131,6 @@ class LibraryPublisher(models.Model):
                 record.type_name = _("Sales Order")
 
 
-    @api.depends('name')  # Depends on the fields that affect the display name
-    def _compute_display_name(self):
-        for record in self:
-            # Create a custom display name based on name and description
-            display_name = record.name
-            record.display_name = display_name
-
     @api.model
     def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
         args = list(args or [])
@@ -147,3 +140,9 @@ class LibraryPublisher(models.Model):
                      ('email', operator, name),
                      ('phone', operator, name)]
             return self._search(args, limit=limit, access_rights_uid=name_get_uid)
+
+    def action_trigger(self):
+        # This is the function that will be triggered by the button.
+        for partner in self:
+            partner.write({'is_company': True})  # Example action: set 'is_company' to True
+        return True

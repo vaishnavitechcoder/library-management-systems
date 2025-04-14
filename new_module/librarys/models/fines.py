@@ -21,3 +21,4 @@ class LibraryFines(models.Model):
                                   ("online","Online"),
                                   ("card","Card")],string="payment method")
     priority = fields.Selection([('0', 'Very Low'), ('1', 'Low'), ('2', 'Normal'), ('3', 'High')], string='Priority')
+    note = fields.Html(string='Description on the Payment', translate=True)
