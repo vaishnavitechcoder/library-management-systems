@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<odoo>
-    <record id="layout_8" model="report.layout">
-        <field name="name">Modern</field>
-        <field name="type">modern</field>
-        <field name="view_id" ref="librarys.report_library_card"/>
-    </record>
-</odoo>

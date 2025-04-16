@@ -8,5 +8,13 @@
         <field name="report_file">librarys.report_library_card</field>
         <field name="binding_type">report</field>
     </record>
+    <record id="action_report_library_card_xlsx" model="ir.actions.report">
+        <field name="name">Library Card Excel</field>
+        <field name="model">library.members</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">librarys.report_library_card_xlsx</field>
+        <field name="report_file">librarys.report_library_card_xlsx</field>
+        <field name="binding_type">report</field>
+    </record>
 </odoo>
 

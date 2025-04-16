@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sale_report_inherit" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[contains(@class, 'row') and contains(@class, 'mb-4')]" position="after">
+            <div class="row mb-4" name="informations_reference_test">
+                <div class="col">
+                    <strong>Your Reference test</strong>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

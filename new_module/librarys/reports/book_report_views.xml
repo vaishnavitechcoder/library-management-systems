@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_book_pivots" model="ir.ui.view">
+        <field name="name">book.report.pivot</field>
+        <field name="model">book.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Books Analysis" sample="1">
+                <field name="name"/>
+                <field name="amount_total"/>
+                <field name="borrowed_counts"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_order_book_graphs" model="ir.ui.view">
+        <field name="name">book.report.graph</field>
+        <field name="model">book.report</field>
+        <field name="arch" type="xml">
+            <graph string="Books Analysis" type="line" sample="1">
+                <field name="name"/>
+                <field name="amount_total"/>
+                <field name="borrowed_counts"/>
+            </graph>
+        </field>
+    </record>
+
+
+    <record id="book_report_view_list" model="ir.ui.view">
+        <field name="name">book.report.view.list</field>
+        <field name="model">book.report</field>
+        <field name="arch" type="xml">
+            <list string="Books Analysis">
+                <field name="name"/>
+                <field name="amount_total"/>
+                <field name="borrowed_counts"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_report_books_form" model="ir.ui.view">
+        <field name="name">book.report.form.view</field>
+        <field name="model">book.report</field>
+        <field name="arch" type="xml">
+            <form string="books Form">
+                <sheet>
+                    <field name="name"/>
+                    <field name="amount_total"/>
+                    <field name="borrowed_counts"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_report_all" model="ir.actions.act_window">
+        <field name="name">Books Analysis</field>
+        <field name="res_model">book.report</field>
+        <field name="view_mode">graph,pivot,list,form</field>
+    </record>
+
+    <menuitem id="library_report"
+              name="Reporting"
+              parent="menu_library_root"
+              action="action_report_all"
+              sequence="16"
+    />
+</odoo>
+
+
+
+
+
+

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="external_layout_vaishnavi">
+        <!-- HEADER -->
+        <div t-attf-class="header o_company_#{company.id}_layout {{report_type == 'pdf' and 'pt-5'}}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#0099ff" fill-opacity="1"
+                      d="M0,192L6.2,181.3C12.3,171,25,149,37,133.3C49.2,117,62,107,74,96C86.2,85,98,75,111,101.3C123.1,128,135,192,148,213.3C160,235,172,213,185,208C196.9,203,209,213,222,218.7C233.8,224,246,224,258,197.3C270.8,171,283,117,295,96C307.7,75,320,85,332,112C344.6,139,357,181,369,213.3C381.5,245,394,267,406,256C418.5,245,431,203,443,181.3C455.4,160,468,160,480,160C492.3,160,505,160,517,181.3C529.2,203,542,245,554,266.7C566.2,288,578,288,591,288C603.1,288,615,288,628,250.7C640,213,652,139,665,122.7C676.9,107,689,149,702,176C713.8,203,726,213,738,197.3C750.8,181,763,139,775,128C787.7,117,800,139,812,165.3C824.6,192,837,224,849,218.7C861.5,213,874,171,886,133.3C898.5,96,911,64,923,53.3C935.4,43,948,53,960,85.3C972.3,117,985,171,997,176C1009.2,181,1022,139,1034,106.7C1046.2,75,1058,53,1071,58.7C1083.1,64,1095,96,1108,133.3C1120,171,1132,213,1145,218.7C1156.9,224,1169,192,1182,197.3C1193.8,203,1206,245,1218,234.7C1230.8,224,1243,160,1255,154.7C1267.7,149,1280,203,1292,240C1304.6,277,1317,299,1329,282.7C1341.5,267,1354,213,1366,202.7C1378.5,192,1391,224,1403,213.3C1415.4,203,1428,149,1434,122.7L1440,96L1440,0L1433.8,0C1427.7,0,1415,0,1403,0C1390.8,0,1378,0,1366,0C1353.8,0,1342,0,1329,0C1316.9,0,1305,0,1292,0C1280,0,1268,0,1255,0C1243.1,0,1231,0,1218,0C1206.2,0,1194,0,1182,0C1169.2,0,1157,0,1145,0C1132.3,0,1120,0,1108,0C1095.4,0,1083,0,1071,0C1058.5,0,1046,0,1034,0C1021.5,0,1009,0,997,0C984.6,0,972,0,960,0C947.7,0,935,0,923,0C910.8,0,898,0,886,0C873.8,0,862,0,849,0C836.9,0,825,0,812,0C800,0,788,0,775,0C763.1,0,751,0,738,0C726.2,0,714,0,702,0C689.2,0,677,0,665,0C652.3,0,640,0,628,0C615.4,0,603,0,591,0C578.5,0,566,0,554,0C541.5,0,529,0,517,0C504.6,0,492,0,480,0C467.7,0,455,0,443,0C430.8,0,418,0,406,0C393.8,0,382,0,369,0C356.9,0,345,0,332,0C320,0,308,0,295,0C283.1,0,271,0,258,0C246.2,0,234,0,222,0C209.2,0,197,0,185,0C172.3,0,160,0,148,0C135.4,0,123,0,111,0C98.5,0,86,0,74,0C61.5,0,49,0,37,0C24.6,0,12,0,6,0L0,0Z">
+                </path>
+            </svg>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <img t-if="company.logo" class="o_company_logo mb-2" t-att-src="image_data_uri(company.logo)"
+                         alt="Logo"/>
+                    <div t-if="company.report_header" t-field="company.report_header" class="o_company_tagline fw-bold">
+                        Company tagline
+                    </div>
+                </div>
+                <div name="company_address" class="text-end">
+                    <ul class="list-unstyled" name="company_address_list">
+                        <li t-if="company.is_company_details_empty">
+                            <span t-field="company.partner_id"
+                                  t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'>
+                                <div class="d-flex flex-column align-items-center justify-content-center border-1 rounded p-4 h-100 w-100 bg-light opacity-75 text-muted text-center">
+                                    <strong>Company address block</strong>
+                                    <div>Contains the company address.</div>
+                                </div>
+                            </span>
+                        </li>
+                        <li t-else="">
+                            <span t-field="company.company_details" class="text-nowrap">
+                                <div class="d-flex flex-column align-items-center justify-content-center border-1 rounded p-4 h-100 w-100 bg-light opacity-75 text-muted text-center">
+                                    <strong>Company details block</strong>
+                                    <div>Contains the company details.</div>
+                                </div>
+                            </span>
+                        </li>
+                        <li t-if="not forced_vat"/>
+                        <li t-else="">
+                            <t t-esc="company.country_id.vat_label or 'Tax ID'">Tax ID</t>:
+                            <span t-esc="forced_vat">US12345671</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- BODY -->
+        <t t-set="layout_background_url"
+           t-value="'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else
+                '/base/static/img/demo_logo_report.png' if company.layout_background == 'Demo logo' else ''"/>
+        <div t-attf-class="article o_report_layout_bubble o_table_boxed-rounded o_company_#{company.id}_layout {{'o_report_layout_background' if company.layout_background != 'Blank' else ''}}"
+             t-attf-style="{{ 'background-image: url(%s);' % layout_background_url if layout_background_url else '' }}"
+             t-att-data-oe-model="o and o._name"
+             t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <div t-att-class="not information_block and 'd-flex justify-content-between align-items-end'">
+                <t t-call="web.address_layout">
+                    <t t-set="custom_layout_address" t-value="true"/>
+                </t>
+                <h2 t-attf-class="{{not information_block and 'mb-4'}} text-nowrap text-end"
+                    t-out="layout_document_title"/>
+            </div>
+            <t t-out="0"/>
+        </div>
+
+        <!-- Footer -->
+        <div t-attf-class="footer o_company_#{company.id}_layout {{report_type != 'pdf' and 'position-relative mt-auto mx-n5'}}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#a2d9ff" fill-opacity="1"
+                      d="M0,256L6.3,229.3C12.6,203,25,149,38,149.3C50.5,149,63,203,76,202.7C88.4,203,101,149,114,144C126.3,139,139,181,152,213.3C164.2,245,177,267,189,234.7C202.1,203,215,117,227,80C240,43,253,53,265,96C277.9,139,291,213,303,250.7C315.8,288,328,288,341,282.7C353.7,277,366,267,379,229.3C391.6,192,404,128,417,85.3C429.5,43,442,21,455,10.7C467.4,0,480,0,493,10.7C505.3,21,518,43,531,69.3C543.2,96,556,128,568,149.3C581.1,171,594,181,606,197.3C618.9,213,632,235,644,240C656.8,245,669,235,682,218.7C694.7,203,707,181,720,149.3C732.6,117,745,75,758,101.3C770.5,128,783,224,796,245.3C808.4,267,821,213,834,202.7C846.3,192,859,224,872,213.3C884.2,203,897,149,909,138.7C922.1,128,935,160,947,186.7C960,213,973,235,985,250.7C997.9,267,1011,277,1023,245.3C1035.8,213,1048,139,1061,122.7C1073.7,107,1086,149,1099,144C1111.6,139,1124,85,1137,106.7C1149.5,128,1162,224,1175,261.3C1187.4,299,1200,277,1213,245.3C1225.3,213,1238,171,1251,149.3C1263.2,128,1276,128,1288,133.3C1301.1,139,1314,149,1326,160C1338.9,171,1352,181,1364,154.7C1376.8,128,1389,64,1402,37.3C1414.7,11,1427,21,1434,26.7L1440,32L1440,320L1433.7,320C1427.4,320,1415,320,1402,320C1389.5,320,1377,320,1364,320C1351.6,320,1339,320,1326,320C1313.7,320,1301,320,1288,320C1275.8,320,1263,320,1251,320C1237.9,320,1225,320,1213,320C1200,320,1187,320,1175,320C1162.1,320,1149,320,1137,320C1124.2,320,1112,320,1099,320C1086.3,320,1074,320,1061,320C1048.4,320,1036,320,1023,320C1010.5,320,998,320,985,320C972.6,320,960,320,947,320C934.7,320,922,320,909,320C896.8,320,884,320,872,320C858.9,320,846,320,834,320C821.1,320,808,320,796,320C783.2,320,771,320,758,320C745.3,320,733,320,720,320C707.4,320,695,320,682,320C669.5,320,657,320,644,320C631.6,320,619,320,606,320C593.7,320,581,320,568,320C555.8,320,543,320,531,320C517.9,320,505,320,493,320C480,320,467,320,455,320C442.1,320,429,320,417,320C404.2,320,392,320,379,320C366.3,320,354,320,341,320C328.4,320,316,320,303,320C290.5,320,278,320,265,320C252.6,320,240,320,227,320C214.7,320,202,320,189,320C176.8,320,164,320,152,320C138.9,320,126,320,114,320C101.1,320,88,320,76,320C63.2,320,51,320,38,320C25.3,320,13,320,6,320L0,320Z">
+                </path>
+            </svg>
+            <div t-attf-class="o_footer_content {{report_type != 'pdf' and 'position-absolute end-0 start-0 bottom-0 mx-5'}} pt-4 text-center">
+                <div class="border-top pt-2" t-field="company.report_footer"/>
+                <span t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted"
+                      t-out="str(o.name) + ', '">(document name)
+                </span>
+                <span t-if="report_type == 'pdf'" class="text-muted">Page
+                    <span class="page"/>
+                    /
+                    <span class="topage"/>
+                </span>
+            </div>
+        </div>
+    </template>
+</odoo>

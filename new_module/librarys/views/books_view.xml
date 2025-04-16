@@ -34,9 +34,12 @@
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="%(action_library_borrow)d" icon="fa-bars"
-                                type="action" string="borrow List" confirm = "are you sure to open borrow list" class="oe_start_button"/>
+                                type="action" string="borrow List" confirm="are you sure to open borrow list"
+                                class="oe_start_button"/>
                         <button name="%(action_library_publisher)d" icon="fa-smile-o"
-                                type="action" string="Publishers" help= "on clicking this you will be redirect to publishers list" class="oe_start_button"/>
+                                type="action" string="Publishers"
+                                help="on clicking this you will be redirect to publishers list"
+                                class="oe_start_button"/>
                         <button name="%(action_library_author)d" icon="fa-table"
                                 type="action" string="Authors" class="oe_start_button"/>
                     </div>
@@ -144,6 +147,29 @@
         </field>
     </record>
 
+    <record id="view_library_books_graph" model="ir.ui.view">
+        <field name="name">library.books.graph.view</field>
+        <field name="model">library.books</field>
+        <field name="arch" type="xml">
+            <graph string="Books Statistics" type="bar">
+                <field name="amount_total" type="measure"/>
+                <field name="category_id" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_library_books_pivot" model="ir.ui.view">
+        <field name="name">library.books.pivot.view</field>
+        <field name="model">library.books</field>
+        <field name="arch" type="xml">
+            <pivot string="Books Pivot">
+                <field name="amount_total" type="measure"/>
+                <field name="publisher" type="col"/>
+                <field name="category_id" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
 
     <record id="view_library_book_search" model="ir.ui.view">
         <field name="name">library.books.search.view</field>
@@ -177,7 +203,7 @@
     <record id="action_library_books" model="ir.actions.act_window">
         <field name="name">Books</field>
         <field name="res_model">library.books</field>
-        <field name="view_mode">list,form,kanban,search</field>
+        <field name="view_mode">list,form,kanban,graph,pivot,search</field>
     </record>
 
 

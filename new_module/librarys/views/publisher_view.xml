@@ -4,7 +4,7 @@
         <field name="name">library.publisher.list.view</field>
         <field name="model">library.publisher</field>
         <field name="arch" type="xml">
-            <list string="publisher List">
+            <list string="publisher List" multi_edit="1">
                 <field name="seq" string="Number" readonly="1" decoration-bf="1"/>
                 <field name="name" widget="many2one_avatar"/>
                 <field name="phone" class="o_force_ltr" optional="show"/>
@@ -24,11 +24,12 @@
         <field name="arch" type="xml">
             <form string="Publisher Form">
                 <header>
-                    <button name="action_quotation_send" id="send_by_email_primary" string="Send by Email" type="object" data-hotkey="g"
+                    <button name="action_quotation_send" id="send_by_email_primary" string="Send by Email" type="object"
+                            data-hotkey="g"
                             class="btn-primary"
                             context="{'validate_analytic': True, 'check_document_layout': True}"/>
-                    <button name="action_send_email" string="send email"
-                            type="object"/>
+                    <!--<button name="action_send_email" string="send email"
+                            type="object"/>-->
                     <button name="%(librarys.action_report_publisher)d"
                             string="Print Publishers Card"
                             type="action"

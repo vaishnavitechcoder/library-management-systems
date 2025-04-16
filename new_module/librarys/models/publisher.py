@@ -46,10 +46,10 @@ class LibraryPublisher(models.Model):
         vals['seq'] = self.env['ir.sequence'].next_by_code('library.publisher')
         return super(LibraryPublisher, self).create(vals)
 
-    def action_send_email(self):
-        template = self.env.ref('librarys.mail_template_publishers')
-        for rec in self:
-            template.send_mail(rec.id, force_send=True)
+    #def action_send_email(self):
+        #template = self.env.ref('librarys.mail_template_publishers')
+        #for rec in self:
+            #template.send_mail(rec.id, force_send=True)
 
     def action_quotation_send(self):
         """ Opens a wizard to compose an email, with relevant mail template loaded by default """

@@ -29,6 +29,10 @@
                             string="Print Library Card"
                             type="action"
                             class="fa fa-print"/>
+                    <button name="%(librarys.action_report_library_card_xlsx)d"
+                            string="Print Library Card xlsx"
+                            type="action"
+                            class="fa fa-print"/>
                     <button name="get_data"
                             string="get data"
                             type="object"
