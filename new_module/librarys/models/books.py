@@ -33,6 +33,9 @@ class LibraryBooks(models.Model):
     codes = fields.Char(string="code",related="category_id.code", store=True)
     borrowed_count = fields.Integer(string="Borrowed Copies", compute="_compute_borrowed_count")
     active = fields.Boolean(string="Active", default=True)
+    review_ids = fields.One2many(
+        'library.review', 'book_id', string="Reviews"
+    )
 
 
     @api.depends('quantity', 'borrow_ids.state')

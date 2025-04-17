@@ -1,0 +1,122 @@
+<odoo>
+    <data noupdate="1">
+
+
+        <!-- Graph View: Books by Category -->
+        <record id="view_library_books_dashboard_graph" model="ir.ui.view">
+            <field name="name">library.books.dashboard.graph</field>
+            <field name="model">library.books</field>
+            <field name="arch" type="xml">
+                <graph string="Books by Category" type="bar">
+                    <field name="amount_total" type="measure"/>
+                    <field name="category_id" type="row"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Pivot View: Books by Publisher and Category -->
+        <record id="view_library_books_dashboard_pivot" model="ir.ui.view">
+            <field name="name">library.books.dashboard.pivot</field>
+            <field name="model">library.books</field>
+            <field name="arch" type="xml">
+                <pivot string="Books by Publisher and Category">
+                    <field name="amount_total" type="measure"/>
+                    <field name="publisher" type="col"/>
+                    <field name="category_id" type="row"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Kanban View -->
+        <record id="view_library_books_dashboard_kanban" model="ir.ui.view">
+            <field name="name">library.books.dashboard.kanban</field>
+            <field name="model">library.books</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_view">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="o_kanban_record">
+                                <div class="o_kanban_image">
+                                    <field name="image" widget="image" class="oe_kanban_avatar" style="max-height: 150px;"/>
+                                </div>
+                                <div class="o_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                    <div><strong>Category:</strong> <field name="category_id"/></div>
+                                    <div><strong>ISBN:</strong> <field name="isbn"/></div>
+                                    <div><strong>Value:</strong> <field name="amount_total" widget="monetary"/></div>
+                                    <div><strong>Language:</strong> <field name="language" widget="badge"/></div>
+                                    <div><strong>State:</strong> <field name="state" widget="badge"/></div>
+                                    <div><strong>Available:</strong> <field name="available_copies"/></div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <record id="action_library_books_graph_dashboard" model="ir.actions.act_window">
+            <field name="name">Books - Graph</field>
+            <field name="res_model">library.books</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="view_library_books_dashboard_graph"/>
+        </record>
+
+        <record id="action_library_books_pivot_dashboard" model="ir.actions.act_window">
+            <field name="name">Books - Pivot</field>
+            <field name="res_model">library.books</field>
+            <field name="view_mode">pivot</field>
+            <field name="view_id" ref="view_library_books_dashboard_pivot"/>
+        </record>
+
+        <record id="action_library_books_kanban_dashboard" model="ir.actions.act_window">
+            <field name="name">Books - Kanban</field>
+            <field name="res_model">library.books</field>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_library_books_dashboard_kanban"/>
+        </record>
+
+        <!-- Dashboard Board View -->
+        <record id="board_library_books_dashboard_view" model="ir.ui.view">
+            <field name="name">Library Books Dashboard</field>
+            <field name="model">board.board</field>
+            <field name="arch" type="xml">
+                <form string="Books Dashboard">
+                    <board style="2-2">
+                        <column>
+                            <action name="%(action_library_books_kanban_dashboard)d"/>
+                        </column>
+                        <column>
+                            <action name="%(action_library_books_graph_dashboard)d"/>
+                            <action name="%(action_library_books_pivot_dashboard)d"/>
+                        </column>
+                    </board>
+                </form>
+            </field>
+        </record>
+
+        <!-- Main Dashboard Action -->
+        <record id="action_open_library_books_dashboard" model="ir.actions.act_window">
+            <field name="name">Books Dashboard</field>
+            <field name="res_model">board.board</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="board_library_books_dashboard_view"/>
+        </record>
+
+    </data>
+
+    <data>
+
+        <!-- Menu Item -->
+        <menuitem
+            id="menu_library_books_dashboard"
+            name="Dashboard"
+            parent="menu_library_root"
+            action="action_open_library_books_dashboard"
+            sequence="20"/>
+
+    </data>
+</odoo>

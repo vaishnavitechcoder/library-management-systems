@@ -13,3 +13,4 @@ from . import employee
 from . import mail
 from . import selection_add
 from . import book_report
+from . import book_review

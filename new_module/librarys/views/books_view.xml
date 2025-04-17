@@ -71,6 +71,7 @@
                                 <field name="codes"/>
                                 <field name="borrowed_count"/>
                                 <field name="active"/>
+                                <field name="review_ids"/>
                             </group>
                         </page>
                         <page string="Image">

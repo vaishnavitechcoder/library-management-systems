@@ -14,3 +14,5 @@ librarys.access_library_employee,access_library_employee,librarys.model_library_
 librarys.access_magazine_frequency_wizard,access_magazine_frequency_wizard,librarys.model_magazine_frequency_wizard,base.group_user,1,1,1,1
 librarys.access_layout_wizard,access_layout_wizard,librarys.model_layout_wizard,base.group_user,1,1,1,1
 librarys.access_book_report,access_book_report,librarys.model_book_report,base.group_user,1,1,1,1
+librarys.access_library_review,access_library_review,librarys.model_library_review,base.group_user,1,1,1,1
+

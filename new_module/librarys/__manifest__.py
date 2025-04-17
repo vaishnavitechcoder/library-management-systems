@@ -7,7 +7,7 @@
     "application": True,
     "installable": True,
     "depends": [
-        "base", "mail", "account", "stock", "hr", "sale",
+        "base", "mail", "account", "stock", "hr", "sale", "board", "website"
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -30,6 +30,9 @@
         "views/publisher_view.xml",
         "views/reservation_view.xml",
         "views/employee_view.xml",
+        "views/dashboard.xml",
+        "views/website_template.xml",
+        "views/book_review.xml",
         "reports/report.xml",
         "reports/library_card.xml",
         "reports/publisher_report.xml",
