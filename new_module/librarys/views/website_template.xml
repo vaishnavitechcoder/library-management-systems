@@ -124,16 +124,23 @@
                 <t t-if="request.website.user_id.id != request.env.user.id and not request.env.user._is_public()">
                     <div class="my-5">
                         <h4>Submit a Review</h4>
-                        <form method="POST" action="/book/review">
+                        <form action="/book/review" method="POST">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                             <input type="hidden" name="book_id" t-att-value="book.id"/>
+
                             <div class="form-group">
-                                <label>Rating (1-5):</label>
-                                <input type="number" name="rating" min="1" max="5" class="form-control"
-                                       required="required"/>
+                                <label>Rating</label>
+                                <select name="rating" class="form-control">
+                                    <option value="1">⭐</option>
+                                    <option value="2">⭐⭐</option>
+                                    <option value="3">⭐⭐⭐</option>
+                                    <option value="4">⭐⭐⭐⭐</option>
+                                    <option value="5">⭐⭐⭐⭐⭐</option>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label>Comment:</label>
-                                <textarea name="comment" class="form-control" required="required"></textarea>
+                                <label>Comment</label>
+                                <textarea name="comment" class="form-control"></textarea>
                             </div>
                             <button type="submit" class="btn btn-success mt-2">Submit</button>
                         </form>
@@ -236,6 +243,47 @@
                     <p class="text-muted">Meet the people who make the library community vibrant.</p>
                 </div>
 
+                <form method="get" class="mb-4">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <select name="country_id" class="form-control">
+                                <option value="">🌎 All Countries</option>
+                                <t t-foreach="countries" t-as="country">
+                                    <option t-att-value="country.id"
+                                            t-att-selected="country.id == selected_country">
+                                        <t t-esc="country.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="state_id" class="form-control">
+                                <option value="">🏙️ All States</option>
+                                <t t-foreach="states" t-as="state">
+                                    <option t-att-value="state.id"
+                                            t-att-selected="state.id == selected_state">
+                                        <t t-esc="state.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="status" class="form-control">
+                                <option value="">✅ All Status</option>
+                                <option value="activate" t-att-selected="selected_status == 'activate'">Active</option>
+                                <option value="deactivate" t-att-selected="selected_status == 'deactivate'">Inactive
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                🔍 Filter
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+
                 <div class="row">
                     <t t-foreach="members" t-as="member">
                         <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
@@ -295,8 +343,125 @@
                         </div>
                     </t>
                 </div>
+
             </div>
         </t>
     </template>
+
+    <template id="author_pages" name="Authors List Page">
+        <t t-call="website.layout">
+            <div class="container my-5">
+                <div class="text-center mb-5">
+                    <h2 class="display-4">✍️ Our Authors</h2>
+                    <p class="text-muted">Get to know the brilliant minds behind the books.</p>
+                </div>
+
+                <!-- Filters -->
+
+
+                <!-- Author Cards -->
+                <div class="row">
+                    <t t-foreach="author" t-as="author">
+                        <div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+                            <div class="card shadow-sm border-0 w-100">
+                                <t t-if="author.images">
+                                    <img t-att-src="'/web/image/library.authors/' + str(author.id) + '/images'"
+                                         class="card-img-top rounded-top"
+                                         alt="Author Image"
+                                         style="object-fit: cover; height: 180px;"/>
+                                </t>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">
+                                        <i class="fa fa-user text-primary mr-1"></i>
+                                        <t t-esc="author.name or 'Unnamed Author'"/>
+                                    </h5>
+                                    <ul class="list-unstyled text-muted small mb-3">
+                                        <li>
+                                            <strong>📚 Nationality:</strong>
+                                            <t t-esc="author.nationality or 'N/A'"/>
+                                        </li>
+                                        <li>
+                                            <strong>🎂 Born:</strong>
+                                            <t t-esc="author.date_of_birth.strftime('%Y-%m-%d') if author.date_of_birth else 'N/A'"/>
+                                        </li>
+                                        <li>
+                                            <strong>🪦 Died:</strong>
+                                            <t t-esc="author.date_of_death.strftime('%Y-%m-%d') if author.date_of_death else 'N/A'"/>
+                                        </li>
+                                        <li>
+                                            <strong>🌍 Country:</strong>
+                                            <t t-esc="author.country.name or 'N/A'"/>
+                                        </li>
+                                        <li>
+                                            <strong>🏙️ State:</strong>
+                                            <t t-esc="author.state.name or 'N/A'"/>
+                                        </li>
+                                        <li>
+                                            <strong>✅ Status:</strong>
+                                            <t t-esc="'Active' if author.active else 'Inactive'"/>
+                                        </li>
+                                    </ul>
+                                    <div class="mt-auto text-center">
+                                        <a t-att-href="'/author/' + str(author.id)" class="btn btn-outline-info btn-sm">
+                                            View Profile
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="borrow_form_page" name="Borrow Form Page">
+        <t t-call="website.layout">
+            <div class="container">
+                <h2>Borrow a Book or Magazine</h2>
+                <form action="/library/borrow/submit" method="post">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    <div class="form-group">
+                        <label for="book_id">Book</label>
+                        <select name="book_id" class="form-control">
+                            <option value="">Select a Book</option>
+                            <t t-foreach="books" t-as="book">
+                                <option t-att-value="book.id">
+                                    <t t-esc="book.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="magazine">Magazine</label>
+                        <select name="magazine" class="form-control">
+                            <option value="">Select a Magazine</option>
+                            <t t-foreach="magazines" t-as="mag">
+                                <option t-att-value="mag.id">
+                                    <t t-esc="mag.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary">Borrow</button>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="borrow_thankyou" name="Borrow Thank You Page">
+        <t t-call="website.layout">
+            <div class="container">
+                <h2>Thank you!</h2>
+                <p>Your borrow request has been submitted successfully.</p>
+                <a href="/library/borrow" class="btn btn-secondary">Borrow Another</a>
+            </div>
+        </t>
+    </template>
+
 
 </odoo>

@@ -7,6 +7,7 @@
             <list string="members List">
                 <field name="seq" string="Number" readonly="1" decoration-bf="1"/>
                 <field name="names"/>
+                <field name="user_id"/>
                 <field name="email"/>
                 <field name="phone_num"/>
                 <field name="address"/>
@@ -51,6 +52,7 @@
                     </div>
                     <group>
                         <field name="names"/>
+                        <field name="user_id"/>
                         <field name="email"/>
                         <field name="phone_num"/>
                         <field name="address"/>
@@ -75,6 +77,7 @@
                     <t t-name="card">
                         <div class="o_kanban_details">
                             <field name="names"/>
+                            <field name="user_id"/>
                             <field name="email"/>
                             <field name="phone_num"/>
                             <field name="address"/>

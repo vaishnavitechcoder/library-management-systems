@@ -10,6 +10,7 @@ class LibraryMembers(models.Model):
 
     seq = fields.Char()
     names = fields.Char(string="name",required=True)
+    user_id = fields.Many2one('res.users', string="Related User")
     email = fields.Char(string="email",required=True)
     phone_num = fields.Char(string="phone number")
     address = fields.Char(string="address")

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="module_category_library" model="ir.module.category">
+            <field name="name">library</field>
+            <field name="sequence">1</field>
+        </record>
+
+
+        <record id="group_library_publisher" model="res.groups">
+            <field name="name">Publisher</field>
+            <field name="category_id" ref="librarys.module_category_library"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">the user will have access to publish books.</field>
+        </record>
+
+
+        <record id="group_library_members" model="res.groups">
+            <field name="name">Members</field>
+            <field name="category_id" ref="librarys.module_category_library"/>
+            <field name="comment">the user will have access to borrow or see books.</field>
+        </record>
+
+        <record id="group_library_author" model="res.groups">
+            <field name="name">Author</field>
+            <field name="category_id" ref="librarys.module_category_library"/>
+            <field name="comment">the user will have access author.</field>
+        </record>
+    </data>
+</odoo>

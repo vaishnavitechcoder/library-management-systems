@@ -12,9 +12,9 @@ class LibraryBorrow(models.Model):
     members_id = fields.Many2one('library.members',string="members",required=True)
     book_id = fields.Many2one("library.books",string="Book",required=True)
     magazine = fields.Many2one("library.magazine",string="magazine")
-    borrow_date = fields.Datetime(string="Borrow Date",required=True)
-    return_date = fields.Datetime(string="Return_Date")
-    actual_return_date = fields.Datetime(string="Actual Return Date", readonly=True)
+    borrow_date = fields.Date(string="Borrow Date")
+    return_date = fields.Date(string="Return_Date")
+    actual_return_date = fields.Date(string="Actual Return Date", readonly=True)
     fine_amount = fields.Float(string="fine amount",compute="_compute_fine_amount", store=True)
     state = fields.Selection([
         ('draft', 'Draft'),

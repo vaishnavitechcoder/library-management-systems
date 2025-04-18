@@ -115,7 +115,8 @@
             name="Dashboard"
             parent="menu_library_root"
             action="action_open_library_books_dashboard"
-            sequence="20"/>
+            sequence="20"
+            groups="librarys.group_library_publisher"/>
 
     </data>
 </odoo>

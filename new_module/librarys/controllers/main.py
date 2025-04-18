@@ -1,6 +1,8 @@
 from odoo import http
 from odoo.http import request
 import random
+import json
+
 
 class Library(http.Controller):
 
@@ -93,12 +95,10 @@ class Library(http.Controller):
         ]
         random_quote = random.choice(quotes)
 
-        return http.request.render("librarys.books_pages",{
-            "books" : books,
+        return http.request.render("librarys.books_pages", {
+            "books": books,
             'quote': random_quote,
         })
-
-
 
     @http.route(['/book/<int:book_id>'], type='http', auth='public', website=True)
     def book_detail(self, book_id):
@@ -107,7 +107,7 @@ class Library(http.Controller):
             'book': book
         })
 
-    @http.route(['/book/review'], type='http', auth='user', website=True, csrf=True)
+    @http.route(['/book/review'], type='http', auth='user', website=True, CSRF="True")
     def submit_review(self, **post):
         request.env['library.review'].sudo().create({
             'book_id': int(post.get('book_id')),
@@ -121,15 +121,70 @@ class Library(http.Controller):
     def library_publisher(self, **kw):
         publisher = request.env["library.publisher"].sudo().search([])
         print(publisher)
-        return http.request.render("librarys.publisher_pages",{
-            "publisher" : publisher
+        return http.request.render("librarys.publisher_pages", {
+            "publisher": publisher
         })
-
 
     @http.route(['/library/members'], type='http', auth='user', website=True)
-    def library_members(self, **kw):
+    def library_members(self, country_id=None, state_id=None, status=None, **kw):
+
+        domain = []
+
+        if country_id:
+            domain.append(('country.id', '=', int(country_id)))
+        if state_id:
+            domain.append(('state.id', '=', int(state_id)))
+        if status:
+            domain.append(('status', '=', status))
         members = request.env["library.members"].sudo().search([])
+
+        countries = request.env['res.country'].sudo().search([])
+        states = request.env['res.country.state'].sudo().search([])
+
         print(members)
         return http.request.render("librarys.members_pages", {
-            "members": members
+            "members": members,
+            'countries': countries,
+            'states': states,
+            'selected_country': int(country_id) if country_id else None,
+            'selected_state': int(state_id) if state_id else None,
+            'selected_status': status,
         })
+
+    @http.route(['/library/authors'], type='http', auth='user', website=True)
+    def library_author(self, **kw):
+        author = request.env["library.author"].sudo().search([])
+        print(author)
+        return http.request.render("librarys.author_pages", {
+            "author": author
+        })
+
+
+    @http.route('/library/borrow', type='http', auth='user', website=True)
+    def library_borrow_form(self, **kw):
+        books = request.env['library.books'].sudo().search([])
+        magazines = request.env['library.magazine'].sudo().search([])
+        return request.render("librarys.borrow_form_page", {
+            "books": books,
+            "magazines": magazines,
+        })
+
+    @http.route('/library/borrow/submit', type='http', auth='user', website=True, csrf=True)
+    def submit_borrow_form(self, **post):
+        member = request.env['library.members'].sudo().search([('user_id', '=', request.env.user.id)], limit=1)
+        if not member:
+            return request.redirect('/library/borrow')
+
+
+        request.env['library.borrow'].sudo().create({
+            'members_id': member.id,
+            'book_id': int(post.get('book_id')) if post.get('book_id') else False,
+            'magazine': int(post.get('magazine')) if post.get('magazine') else False,
+            'state': 'borrowed',
+        })
+        return request.redirect('/library/borrow/thankyou')
+
+    @http.route(['/library/borrow/thankyou'], type='http', auth='user', website=True)
+    def library_borrow_thankyou\
+                    (self, **kw):
+        return http.request.render("librarys.borrow_thankyou", {})

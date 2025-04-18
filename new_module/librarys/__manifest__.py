@@ -11,6 +11,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "security/security.xml",
         "wizards/book_reservation_view.xml",
         "wizards/magazine_frequency_view.xml",
         "wizards/layouts_wizard.xml",
