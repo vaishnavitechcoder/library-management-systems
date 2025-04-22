@@ -2,14 +2,36 @@ from odoo import http
 from odoo.http import request
 import random
 import json
+from datetime import datetime
+from odoo import http
+from odoo.http import request
+from odoo.osv import expression
+from odoo.addons.portal.controllers.portal import CustomerPortal
 
 
 class Library(http.Controller):
 
-    @http.route('/library/books/', website="True", auth="public")
-    def library_book(self, **kw):
+    @http.route(['/library',
+                 '/library/page/<int:page>',
+                 '/library/category/<model("library.category"):category>',
+                 '/library/category/<model("library.category"):category>/page/<int:page>'],
+                type="http", website="True", auth="public")
+    def library_book(self, category=None, page=1, **kw):
         books = request.env["library.books"].sudo().search([])
         print(books)
+        books_per_page = 10
+        offset = (page - 1) * books_per_page
+        domain = []
+
+        if category:
+            domain.append(('category_id', '=', category.id))
+
+        books_per_page = 8
+        offset = (page - 1) * books_per_page
+        books = books.search(domain, limit=books_per_page, offset=offset)
+        total_books = books.search_count(domain)
+        total_pages = (total_books + books_per_page - 1) // books_per_page
+
         quotes = [
             {"text": "So many books, so little time.", "author": "Frank Zappa"},
             {"text": "A reader lives a thousand lives before he dies. The man who never reads lives only one.",
@@ -95,8 +117,11 @@ class Library(http.Controller):
         ]
         random_quote = random.choice(quotes)
 
-        return http.request.render("librarys.books_pages", {
+        return http.request.render("librarys.book_pages", {
             "books": books,
+            'current_page': page,
+            'total_pages': total_pages,
+            'category': category,
             'quote': random_quote,
         })
 
@@ -159,7 +184,6 @@ class Library(http.Controller):
             "author": author
         })
 
-
     @http.route('/library/borrow', type='http', auth='user', website=True)
     def library_borrow_form(self, **kw):
         books = request.env['library.books'].sudo().search([])
@@ -172,7 +196,9 @@ class Library(http.Controller):
     @http.route('/library/borrow/submit', type='http', auth='user', website=True, csrf=True)
     def submit_borrow_form(self, **post):
         member = request.env['library.members'].sudo().search([('user_id', '=', request.env.user.id)], limit=1)
+        print(member)
         if not member:
+            print(member)
             return request.redirect('/library/borrow')
 
 
@@ -185,6 +211,26 @@ class Library(http.Controller):
         return request.redirect('/library/borrow/thankyou')
 
     @http.route(['/library/borrow/thankyou'], type='http', auth='user', website=True)
-    def library_borrow_thankyou\
-                    (self, **kw):
+    def library_borrow_thankyou(self, **kw):
         return http.request.render("librarys.borrow_thankyou", {})
+
+    @http.route('/sitemap.html', auth='public', website=True)
+    def visitor_sitemap(self):
+        return request.render("librarys.library_website_sitemap")
+
+    def _prepare_home_portal_values(self, counters):
+            values = super()._prepare_home_portal_values(counters)
+            borrow_count = request.env['library.borrow'].sudo().search_count([
+                ('members_id.user_id', '=', request.uid)
+            ])
+            values['borrow_count'] = borrow_count
+            return values
+
+    @http.route(['/my/borrowed'], type='http', auth="user", website=True)
+    def portal_my_borrowed_books(self, **kwargs):
+        borrow_records = request.env['library.borrow'].sudo().search([
+            ('members_id.user_id', '=', request.env.user.id)
+        ])
+        return request.render("librarys.portal_borrowed_books", {
+            'borrow_records': borrow_records
+        })

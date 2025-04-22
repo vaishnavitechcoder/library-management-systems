@@ -7,7 +7,7 @@
     "application": True,
     "installable": True,
     "depends": [
-        "base", "mail", "account", "stock", "hr", "sale", "board", "website"
+        "base", "mail", "account", "stock", "hr", "sale", "board", "website", "portal"
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -34,6 +34,7 @@
         "views/dashboard.xml",
         "views/website_template.xml",
         "views/book_review.xml",
+        "views/portal_template.xml",
         "reports/report.xml",
         "reports/library_card.xml",
         "reports/publisher_report.xml",
@@ -45,4 +46,7 @@
         "reports/book_report_views.xml",
     ],
     'images': ['static/description/icon.png'],
+
+    'qweb': ['static/src/xml/portal_template.xml'],
+
 }

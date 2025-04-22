@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_borrowed_books" name="Your Borrowed Books" customize_show="True"
+              inherit_id="portal.portal_my_home">
+        <!--<xpath expr="//div[contains(@class, 'o_portal_my_home')]" position="inside">
+            <div class="o_portal_category row g-2 mt-3" id="portal_common_category">
+                <t t-call="portal.portal_docs_entry" t-if="False"/>
+                <t t-call="portal.portal_docs_entry">
+                    <t t-set="icon" t-value="'/portal/static/src/img/portal-connection.svg'"/>
+                    <t t-set="title">My Borrowed Books</t>
+                    <t t-set="url" t-value="'/my/borrowed'"/>
+                    <t t-set="text">Check your borrowed books and return status</t>
+                </t>
+            </div>
+        </xpath>-->
+        <div id="portal_client_category" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/librarys/static/src/img/book.svg'"/>
+                <t t-set="title">My Borrowed Books</t>
+                <t t-set="url" t-value="'/my/borrowed'"/>
+                <t t-set="text">Check your borrowed books and return status</t>
+                <t t-set="placeholder_count" t-value="'invoice_count'"/>
+            </t>
+        </div>
+    </template>
+
+    <template id="portal_borrowed_books">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <h2 class="my-3">My Borrowed Books</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Book</th>
+                            <th>Borrow Date</th>
+                            <th>Return Date</th>
+                            <th>Status</th>
+                            <th>Fine</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="borrow_records" t-as="borrow">
+                            <tr>
+                                <td>
+                                    <t t-esc="borrow.book_id.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="borrow.borrow_date"/>
+                                </td>
+                                <td>
+                                    <t t-esc="borrow.return_date"/>
+                                </td>
+                                <td>
+                                    <t t-esc="borrow.state"/>
+                                </td>
+                                <td>
+                                    <t t-esc="borrow.fine_amount"/>
+                                    ₹
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>

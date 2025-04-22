@@ -24,6 +24,14 @@ class LibraryBorrow(models.Model):
         ('lost', 'Lost'),
     ])
     priority = fields.Selection([('0', 'Very Low'), ('1', 'Low'), ('2', 'Normal'), ('3', 'High')], string='Priority')
+    borrow_count = fields.Integer(
+        "Borrow Count",
+        compute='_compute_borrow_count',
+    )
+
+    def _compute_borrow_count(self):
+        for book in self:
+            book.borrow_count = self.env["library.borrow"]
 
     @api.depends('return_date', 'actual_return_date')
     def _compute_fine_amount(self):
