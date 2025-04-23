@@ -201,7 +201,6 @@ class Library(http.Controller):
             print(member)
             return request.redirect('/library/borrow')
 
-
         request.env['library.borrow'].sudo().create({
             'members_id': member.id,
             'book_id': int(post.get('book_id')) if post.get('book_id') else False,
@@ -214,17 +213,14 @@ class Library(http.Controller):
     def library_borrow_thankyou(self, **kw):
         return http.request.render("librarys.borrow_thankyou", {})
 
-    @http.route('/sitemap.html', auth='public', website=True)
-    def visitor_sitemap(self):
-        return request.render("librarys.library_website_sitemap")
 
     def _prepare_home_portal_values(self, counters):
-            values = super()._prepare_home_portal_values(counters)
-            borrow_count = request.env['library.borrow'].sudo().search_count([
-                ('members_id.user_id', '=', request.uid)
-            ])
-            values['borrow_count'] = borrow_count
-            return values
+        values = super()._prepare_home_portal_values(counters)
+        borrow_count = request.env['library.borrow'].sudo().search_count([
+            ('members_id.user_id', '=', request.uid)
+        ])
+        values['borrow_count'] = borrow_count
+        return values
 
     @http.route(['/my/borrowed'], type='http', auth="user", website=True)
     def portal_my_borrowed_books(self, **kwargs):
@@ -234,3 +230,12 @@ class Library(http.Controller):
         return request.render("librarys.portal_borrowed_books", {
             'borrow_records': borrow_records
         })
+
+    @http.route('/library/blog', auth='public', website=True)
+    def library_books_blog(self, **kwargs):
+        books = request.env['library.books'].search([])
+        return request.render('librarys.library_book_list', {'books': books})
+
+    @http.route('/library/<model("library.books"):book>', auth='public', website=True)
+    def book_detail_blog(self, book, **kwargs):
+        return request.render('librarys.library_book_detail', {'book': book})

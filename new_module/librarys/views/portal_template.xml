@@ -15,7 +15,7 @@
         </xpath>-->
         <div id="portal_client_category" position="inside">
             <t t-call="portal.portal_docs_entry">
-                <t t-set="icon" t-value="'/librarys/static/src/img/book.svg'"/>
+                <t t-set="icon" t-value="'/account/static/src/img/Bill.svg'"/>
                 <t t-set="title">My Borrowed Books</t>
                 <t t-set="url" t-value="'/my/borrowed'"/>
                 <t t-set="text">Check your borrowed books and return status</t>

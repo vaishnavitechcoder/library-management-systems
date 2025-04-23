@@ -1,0 +1,61 @@
+<odoo>
+    <template id="library_index" name="Library Navigation">
+        <t t-call="website.layout">
+            <div id="wrap" class="js_library website_library">
+                <t t-out="0"/>
+                <t t-set="oe_structure_library_footer_description">Visible in all library pages</t>
+                <div class="oe_structure oe_empty" id="oe_structure_library_footer"
+                     t-att-data-editor-sub-message="oe_structure_library_footer_description"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="library_book_list" name="Library Books">
+        <t t-call="librarys.library_index">
+            <div class="container py-4">
+                <h1 class="text-center">Library Books</h1>
+                <div class="row">
+                    <t t-foreach="books" t-as="book">
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <img t-att-src="'/web/image?model=library.books&amp;id=%s&amp;field=cover_image' % book.id"
+                                     class="card-img-top"/>
+                                <div class="card-body">
+                                    <h5 class="card-title" t-esc="book.name"/>
+                                    <p class="card-text" t-esc="book.publisher.name.name"/>
+                                    <a t-att-href="'/library/%s' % slug(book)" class="btn btn-primary">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="library_book_detail" name="Book Detail">
+        <t t-call="librarys.library_index">
+            <div class="container pt-5 pb-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img t-att-src="'/web/image?model=library.books&amp;id=%s&amp;field=cover_image' % book.id"
+                             class="img-fluid rounded"/>
+                    </div>
+                    <div class="col-md-8">
+                        <h1 t-field="book.name"/>
+                        <h4 class="text-muted" t-field="book.publisher.name.name"/>
+                        <div t-field="book.description" class="mt-3"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="opt_library_sidebar" inherit_id="librarys.library_book_list" active="True">
+        <xpath expr="//div[@class='row']" position="before">
+            <!-- Sidebar content -->
+        </xpath>
+    </template>
+
+</odoo>
+

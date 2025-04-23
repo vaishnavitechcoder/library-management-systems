@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ✅ Define Custom Snippet Group (Fixing typo in tag name: snppiet-group → snippet-group) -->
+    <template id="snippet_groups_custom" inherit_id="website.snippets" name="Add My Groups Snippet">
+        <xpath expr="//snippets[@id='snippet_groups']" position="inside">
+            <t snippet-group="library" t-snippet="website.s_snippet_group" string="Library"
+               thumbnail="/website/static/src/img/snippets_thumbs/s_cover.svg"/>
+        </xpath>
+    </template>
+
+    <!-- ✅ Define the Actual Snippet Template (Fixing tag, wrapping in <t> with t-name) -->
+    <template id="library_banner_snippet" name="Library Banner">
+        <t t-name="librarys.library_banner_snippet">
+            <section class="oe_structure">
+                <div class="container text-center py-5">
+                    <h1>Library Banner</h1>
+                    <p>Welcome to the digital library!</p>
+                </div>
+            </section>
+        </t>
+    </template>
+
+    <!-- SNIPPET 2: Library Quote -->
+    <template id="library_quote_snippet" name="Library Quote">
+        <t t-name="librarys.library_quote_snippet">
+            <section class="oe_structure">
+                <div class="container text-center py-5">
+                    <blockquote class="blockquote">
+                        <p class="mb-0">"A room without books is like a body without a soul."</p>
+                        <footer class="blockquote-footer">Cicero</footer>
+                    </blockquote>
+                </div>
+            </section>
+        </t>
+    </template>
+
+    <!-- SNIPPET 3: Library CTA -->
+    <template id="library_cta_snippet" name="Library Call to Action">
+        <t t-name="librarys.library_cta_snippet">
+            <section class="oe_structure bg-primary text-white">
+                <div class="container text-center py-5">
+                    <h2>Join Our Library Today</h2>
+                    <a href="/contactus" class="btn btn-light mt-3">Get Started</a>
+                </div>
+            </section>
+        </t>
+    </template>
+
+    <!-- ✅ Register the Snippet in the Snippet Builder (Fixing t-snippet name and typo in xpath) -->
+    <template id="add_custom_snippet_to_builder" inherit_id="website.snippets" name="Add Custom Snippet to Builder">
+        <xpath expr="//snippets[@id='snippet_structure']" position="inside">
+            <t t-snippet="librarys.library_banner_snippet" string="Library Banner" group="library">
+                <keywords>library, banner, hero, custom</keywords>
+            </t>
+            <t t-snippet="librarys.library_quote_snippet" string="Library Quote" group="library">
+                <keywords>quote, testimonial, phrase</keywords>
+            </t>
+            <t t-snippet="librarys.library_cta_snippet" string="Library CTA" group="library">
+                <keywords>cta, button, call to action</keywords>
+            </t>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--<template id="my_snippet_block" inherit_id="website.snippets" name="Add Custom Snippet">-->
+    <!--<xpath expr="//div" position="inside">-->
+    <!--<div class="o_snippet_thumbnail" data-snippet="librarys.my_snippet_template" data-name="My Snippet">-->
+    <!--<img src="/librarys/static/description/snippet_thumb.png" alt="My Snippet Thumbnail"/>-->
+    <!--<span>My Snippet</span>-->
+    <!--</div>-->
+    <!--</xpath>-->
+    <!--</template>-->
+
+
+    <template id="extend_snippet_content" inherit_id="website.snippets" name="Add My Custom Snippet">
+        <xpath expr="//snippets[@id='snippet_content']" position="inside">
+            <t t-snippet="librarys.custom_optins"
+               string="Custom Snippet"
+               t-thumbnail="/librarys/static/description/snippet_thumb.png"/>
+        </xpath>
+    </template>
+
+
+    <template id="custom_optins" name="Custom">
+        <section class="s_custom_optin bg-light py-5">
+            <div class="container">
+                <h2 class="mb-4">My Custom Snippet</h2>
+                <p>This is a custom snippet with style options.</p>
+            </div>
+            <we-select string="Style">
+                <we-button data-select-class="text-bg-primary">Primary</we-button>
+                <we-button data-select-class="text-bg-secondary">Secondary</we-button>
+                <we-button data-select-class="text-bg-success">Success</we-button>
+                <we-button data-select-class="text-bg-info">Info</we-button>
+                <we-button data-select-class="text-bg-warning">Warning</we-button>
+                <we-button data-select-class="text-bg-danger">Danger</we-button>
+                <we-button data-select-class="text-bg-light">Light</we-button>
+                <we-button data-select-class="text-bg-dark">Dark</we-button>
+            </we-select>
+        </section>
+    </template>
+</odoo>

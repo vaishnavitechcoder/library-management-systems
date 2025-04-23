@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="extend_snippet_groups_custom" inherit_id="website.snippets" name="Add My Custom Groups Snippet">
+        <xpath expr="//snippets[@id='snippet_groups']" position="inside">
+            <t t-snippet="librarys.extend_snit_sture"
+               t-thumbnail="/website/static/src/img/snippets_thumbs/s_cover.svg"/>
+        </xpath>
+    </template>
+
+    <template id="extend_snit_sture"  name="Custom">
+<section><div >
+                <div><p>hero, jumbotron, headline, header, branding, intro, home, showcase, spotlight, lead, welcome,
+                    announcement, splash, top, main</p>
+                </div>
+            </div></section>
+            <!-- Intro group -->
+
+
+    </template>
+</odoo>
