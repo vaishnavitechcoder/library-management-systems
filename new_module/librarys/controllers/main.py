@@ -1,5 +1,5 @@
 from odoo import http
-from odoo.http import request
+from odoo.http import request, route
 import random
 import json
 from datetime import datetime
@@ -193,26 +193,42 @@ class Library(http.Controller):
             "magazines": magazines,
         })
 
+    # @http.route('/library/borrow/submit', type='http', auth='user', website=True, csrf=True)
+    # def submit_borrow_form(self, **post):
+    #     member = request.env['library.members'].sudo().search([('user_id', '=', request.env.user.id)], limit=1)
+    #     print(member)
+    #     if not member:
+    #         print(member)
+    #         return request.redirect('/library/borrow')
+    #
+    #     request.env['library.borrow'].sudo().create({
+    #         'members_id': member.id,
+    #         'book_id': int(post.get('book_id')) if post.get('book_id') else False,
+    #         'magazine': int(post.get('magazine')) if post.get('magazine') else False,
+    #         'state': 'borrowed',
+    #     })
+    #     return request.redirect('/library/borrow/thankyou')
+
     @http.route('/library/borrow/submit', type='http', auth='user', website=True, csrf=True)
     def submit_borrow_form(self, **post):
         member = request.env['library.members'].sudo().search([('user_id', '=', request.env.user.id)], limit=1)
-        print(member)
         if not member:
-            print(member)
             return request.redirect('/library/borrow')
+
+        state = post.get('action')  # Either 'borrowed' or 'returned'
 
         request.env['library.borrow'].sudo().create({
             'members_id': member.id,
             'book_id': int(post.get('book_id')) if post.get('book_id') else False,
             'magazine': int(post.get('magazine')) if post.get('magazine') else False,
-            'state': 'borrowed',
+            'state': state if state in ['borrowed', 'returned'] else 'draft',
         })
+
         return request.redirect('/library/borrow/thankyou')
 
     @http.route(['/library/borrow/thankyou'], type='http', auth='user', website=True)
     def library_borrow_thankyou(self, **kw):
         return http.request.render("librarys.borrow_thankyou", {})
-
 
     def _prepare_home_portal_values(self, counters):
         values = super()._prepare_home_portal_values(counters)
@@ -223,13 +239,44 @@ class Library(http.Controller):
         return values
 
     @http.route(['/my/borrowed'], type='http', auth="user", website=True)
-    def portal_my_borrowed_books(self, **kwargs):
+    def portal_my_borrowed_books(self, sortby='newest', filterby='all', **kwargs):
+
+        sortings = self._borrow_books_searchbar_sortings()
+        filters = self._borrow_books_searchbar_filters()
+
+        domain = [('members_id.user_id', '=', request.env.user.id)]
+        if filterby in filters:
+            domain += filters[filterby]['domain']
+
+        order = sortings.get(sortby, sortings['newest'])['order']
+
         borrow_records = request.env['library.borrow'].sudo().search([
             ('members_id.user_id', '=', request.env.user.id)
-        ])
+        ], order=order)
+
         return request.render("librarys.portal_borrowed_books", {
-            'borrow_records': borrow_records
+            'borrow_records': borrow_records,
+            'searchbar_sortings': sortings,
+            'sortby': sortby,
+            'searchbar_filters': filters,
+            'filterby': filterby,
+            'default_url': '/my/borrowed'
         })
+
+    def _borrow_books_searchbar_filters(self):
+        return {
+            'all': {'label': 'All', 'domain': []},
+            'returned': {'label': 'Returned', 'domain': [('state', '=', 'returned')]},
+            'not_returned': {'label': 'Not Returned', 'domain': [('state', '=', 'borrowed')]},
+            'draft': {'label': 'Draft', 'domain': [('state', '=', 'draft')]},
+        }
+
+    def _borrow_books_searchbar_sortings(self):
+        return {
+            'newest': {'label': 'Newest', 'order': 'borrow_date desc'},
+            'oldest': {'label': 'Oldest', 'order': 'borrow_date asc'},
+            'book_title': {'label': 'Book Title', 'order': 'book_id.name asc'},
+        }
 
     @http.route('/library/blog', auth='public', website=True)
     def library_books_blog(self, **kwargs):
@@ -239,3 +286,10 @@ class Library(http.Controller):
     @http.route('/library/<model("library.books"):book>', auth='public', website=True)
     def book_detail_blog(self, book, **kwargs):
         return request.render('librarys.library_book_detail', {'book': book})
+
+    @route('/test', type='json', auth='user', methods=['POST'], website=True)
+    def get_books(self, **kwargs):
+        # Fetch all available books
+        books = request.env['library.borrow'].search([])
+        print(books)
+        return books

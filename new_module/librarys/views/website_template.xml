@@ -453,7 +453,9 @@
                             </t>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Borrow</button>
+                    <button type="submit" name="action" value="borrowed" class="btn btn-primary">Borrow</button>
+                    <button type="submit" name="action" value="returned" class="btn btn-success">Return</button>
+                    <button type="submit" name="action" value="draft" class="btn btn-secondary">Save as Draft</button>
                 </form>
             </div>
         </t>

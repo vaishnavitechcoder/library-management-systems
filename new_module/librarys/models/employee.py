@@ -8,7 +8,7 @@ class LibraryEmployee(models.Model):
 
 
     employee = fields.Many2one("hr.employee", string="Employee")
-    company_id = fields.Many2one('res.company', required=True)
+    company_id = fields.Many2one('res.company')
     company_country_id = fields.Many2one('res.country', 'Company Country', related='company_id.country_id', readonly=True)
     company_country_code = fields.Char(related='company_country_id.code', depends=['company_country_id'], readonly=True)
     # private info

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_library_borrow_list" model="ir.ui.view">
+    <record id="library_borrow_list_view" model="ir.ui.view">
         <field name="name">library.borrow.list.view</field>
         <field name="model">library.borrow</field>
         <field name="arch" type="xml">
             <list string="Borrow List">
-
                 <field name="members_id"/>
                 <field name="book_id"/>
                 <field name="magazine"/>
@@ -64,7 +63,6 @@
         <field name="model">library.borrow</field>
         <field name="arch" type="xml">
             <search>
-
                 <field name="members_id"/>
                 <field name="magazine"/>
                 <field name="book_id"/>
@@ -72,14 +70,11 @@
                 <field name="return_date"/>
                 <field name="fine_amount"/>
                 <field name="state"/>
-
                 <filter string="Fine Above 100" name="filter_price_high" domain="[('fine_amount', '>', 100)]"/>
 
                 <group expand="0" string="Group By">
                     <filter string="State" name="group_by_state" context="{'group_by': 'state'}"/>
                 </group>
-
-
             </search>
         </field>
     </record>

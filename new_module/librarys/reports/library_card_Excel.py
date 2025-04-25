@@ -3,6 +3,7 @@ from odoo import models
 class MembersXlsx(models.AbstractModel):
     _name = 'report.librarys.report_library_card_xlsx'
     _inherit = 'report.report_xlsx.abstract'
+    _description = "Excel report"
 
     def generate_xlsx_report(self, workbook, data, objects):
         sheet = workbook.add_worksheet("Library Cards")

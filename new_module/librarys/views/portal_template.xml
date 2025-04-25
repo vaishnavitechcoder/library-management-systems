@@ -1,5 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <template id="portal_my_home_menu_books" name="Portal layout : books menu entries"
+              inherit_id="portal.portal_breadcrumbs" priority="30">
+        <xpath expr="//ol[contains(@class, 'o_portal_submenu')]" position="inside">
+            <!-- Menu item when on the 'borrow_records' page -->
+            <!--            <li t-if="page_name == 'borrow_records'" class="breadcrumb-item active">-->
+            <!--                <span>Invoices &amp; Books</span>-->
+            <!--            </li>-->
+            <li t-elif="page_name != 'borrow_records'" class="breadcrumb-item active">
+                <a href="/my/borrowed">Invoices &amp; Books</a>
+            </li>
+
+            <!-- Detail view breadcrumb for a specific borrow record -->
+            <!--            <li t-if="borrow_records" class="breadcrumb-item active">-->
+            <!--                <t t-out="borrow_records.book_id" t-if="borrow_records.book_id != '/'"/>-->
+            <!--                <t t-else=""><em>Draft Borrow</em></t>-->
+            <!--            </li>-->
+        </xpath>
+    </template>
+
+    <template id="portal_searchbar_library_inherit" inherit_id="portal.portal_searchbar">
+        <!-- Example: Modify the title or add custom filter for books -->
+        <xpath expr="//span[contains(@class, 'navbar-brand')]" position="replace">
+            <!--            <span class="navbar-brand mb-0 h1 me-auto">Library Borrowed Books</span>-->
+        </xpath>
+
+        <!--        &lt;!&ndash; Add sort options &ndash;&gt;-->
+        <!--        <xpath expr="//div[@aria-labelledby='portal_searchbar_sortby']" position="inside">-->
+        <!--            <t t-foreach="searchbar_sortings.items()" t-as="s">-->
+        <!--                <a t-att-href="default_url + '?' + keep_query('*', sortby=s[0])"-->
+        <!--                   t-attf-class="dropdown-item#{sortby == s[0] and ' active' or ''}">-->
+        <!--                    <t t-esc="s[1]['label']"/>-->
+        <!--                </a>-->
+        <!--            </t>-->
+        <!--        </xpath>-->
+
+        <!--        &lt;!&ndash; Add filter dropdown next to sort &ndash;&gt;-->
+        <!--        <xpath expr="//div[@aria-labelledby='portal_searchbar_sortby']" position="after">-->
+        <!--            <div class="dropdown ms-3 d-inline-block">-->
+        <!--                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">-->
+        <!--                    Filter-->
+        <!--                </button>-->
+        <!--                <ul class="dropdown-menu">-->
+        <!--                    <t t-foreach="searchbar_filters.items()" t-as="f">-->
+        <!--                        <li>-->
+        <!--                            <a t-att-href="default_url + '?' + keep_query('*', filterby=f[0])"-->
+        <!--                               t-attf-class="dropdown-item#{filterby == f[0] and ' active' or ''}">-->
+        <!--                                <t t-esc="f[1]['label']"/>-->
+        <!--                            </a>-->
+        <!--                        </li>-->
+        <!--                    </t>-->
+        <!--                </ul>-->
+        <!--            </div>-->
+        <!--        </xpath>-->
+
+        <!--        <xpath expr="//div[@aria-labelledby='portal_searchbar_sortby']" position="inside">-->
+        <!--            <t t-foreach="searchbar_sortings.items()" t-as="s">-->
+        <!--                <a t-att-href="default_url + '?' + keep_query('*', sortby=s[0])"-->
+        <!--                   t-attf-class="dropdown-item#{sortby == s[0] and ' active' or ''}">-->
+        <!--                    <t t-esc="s[1]['label']"/>-->
+        <!--                </a>-->
+        <!--            </t>-->
+        <!--        </xpath>-->
+
+        <!--        <xpath expr="//div[@class='o_portal_search_panel']" position="inside">-->
+        <!--            <div class="dropdown">-->
+        <!--                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">-->
+        <!--                    Filter-->
+        <!--                </button>-->
+        <!--                <ul class="dropdown-menu">-->
+        <!--                    <t t-foreach="searchbar_filters.items()" t-as="f">-->
+        <!--                        <li>-->
+        <!--                            <a t-att-href="default_url + '?' + keep_query('*', filterby=f[0])"-->
+        <!--                               t-attf-class="dropdown-item#{filterby == f[0] and ' active' or ''}">-->
+        <!--                                <t t-esc="f[1]['label']"/>-->
+        <!--                            </a>-->
+        <!--                        </li>-->
+        <!--                    </t>-->
+        <!--                </ul>-->
+        <!--            </div>-->
+        <!--        </xpath>-->
+
+<!--        Example: Add your own sort options or filters-->
+<!--        <xpath expr="//div[contains(@class, 'dropdown-menu dropdown-menu-end') and @aria-labelledby='portal_searchbar_sortby']"-->
+<!--               position="inside">-->
+<!--            <t t-foreach="searchbar_filters.items()" t-as="f">-->
+<!--                <a t-att-href="default_url + '?' + keep_query('*', filterby=f[0])"-->
+<!--                   t-attf-class="dropdown-item#{filterby == f[0] and ' active' or ''}">-->
+<!--                    <t t-esc="f[1]['label']"/>-->
+<!--                </a>-->
+<!--            </t>-->
+<!--                <t t-foreach="searchbar_sortings.items()" t-as="s">-->
+<!--                    <a t-att-href="default_url + '?' + keep_query('*', sortby=s[0])"-->
+<!--                       t-attf-class="dropdown-item#{sortby == s[0] and ' active' or ''}">-->
+<!--                        <t t-esc="s[1]['label']"/>-->
+<!--                    </a>-->
+<!--                </t>-->
+<!--        </xpath>-->
+    </template>
+
+
     <template id="portal_my_borrowed_books" name="Your Borrowed Books" customize_show="True"
               inherit_id="portal.portal_my_home">
         <!--<xpath expr="//div[contains(@class, 'o_portal_my_home')]" position="inside">
@@ -26,42 +126,93 @@
 
     <template id="portal_borrowed_books">
         <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+<!--            <t t-call="portal.portal_searchbar">-->
+<!--                <t t-set="title">My Borrowed Books</t>-->
+<!--            </t>-->
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">My Borrowed Books</t>
+                <t t-set="searchbar_sortings" t-value="searchbar_sortings"/>
+                <t t-set="sortby" t-value="sortby"/>
+                <t t-set="searchbar_filters" t-value="searchbar_filters"/>
+                <t t-set="filterby" t-value="filterby"/>
+                <t t-set="default_url" t-value="default_url"/>
+            </t>
+
+
             <div class="container">
-                <h2 class="my-3">My Borrowed Books</h2>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Book</th>
-                            <th>Borrow Date</th>
-                            <th>Return Date</th>
-                            <th>Status</th>
-                            <th>Fine</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <t t-foreach="borrow_records" t-as="borrow">
-                            <tr>
-                                <td>
-                                    <t t-esc="borrow.book_id.name"/>
-                                </td>
-                                <td>
-                                    <t t-esc="borrow.borrow_date"/>
-                                </td>
-                                <td>
-                                    <t t-esc="borrow.return_date"/>
-                                </td>
-                                <td>
-                                    <t t-esc="borrow.state"/>
-                                </td>
-                                <td>
-                                    <t t-esc="borrow.fine_amount"/>
-                                    ₹
-                                </td>
+                <t t-if="not borrow_records">
+                    <p class="alert alert-warning">
+                        You haven't borrowed any books yet.
+                    </p>
+                </t>
+                <t t-if="borrow_records">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="active">
+                                <th>Book</th>
+                                <th>Borrowed On</th>
+                                <th class='d-none d-md-table-cell'>Due Date</th>
+                                <th class="text-end pe-3">Amount Due</th>
+                                <th>State</th>
                             </tr>
-                        </t>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="borrow_records" t-as="borrow">
+                                <tr>
+                                    <td>
+                                        <t t-esc="borrow.book_id.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="borrow.borrow_date"/>
+                                    </td>
+                                    <td class='d-none d-md-table-cell'>
+                                        <t t-esc="borrow.return_date"/>
+                                    </td>
+                                    <td class="text-end pe-3">
+                                        <t t-esc="borrow.fine_amount"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="borrow.state == 'returned'">
+                                            <span class="badge rounded-pill text-bg-success">
+                                                <i class="fa fa-fw fa-check" aria-label="Paid" title="Paid"
+                                                   role="img"/>
+                                                <span class="d-none d-md-inline">Returned</span>
+                                            </span>
+                                        </t>
+                                        <t t-elif="borrow.state == 'borrowed'">
+                                            <span class="badge rounded-pill text-bg-info">
+                                                <i class="fa fa-fw fa-clock-o" aria-label="Borrowed"
+                                                   title="Borrowed" role="img"/>
+                                                <span class="d-none d-md-inline">Borrowed</span>
+                                            </span>
+                                        </t>
+                                        <t t-elif="borrow.state == 'draft'">
+                                            <span class="badge rounded-pill text-bg-warning">
+                                                <i class="fa fa-fw fa-remove" aria-label="Draft" title="Draft"
+                                                   role="img"/>
+                                                <span class="d-none d-md-inline">Draft</span>
+                                            </span>
+                                        </t>
+                                    </td>
+                                    <td class="text-center">
+                                        <a title="Pay Now"
+                                           aria-label="Pay now"
+                                           class="btn btn-sm btn-primary"
+                                           role="button">
+                                            <!--                                           t-if="borrow.state == 'Borrowed' and borrow.fine_amount > 0">-->
+                                            <i class="fa fa-arrow-circle-right"/>
+                                            <span class='d-none d-md-inline'>Pay Now</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
             </div>
         </t>
     </template>
+
 </odoo>
