@@ -81,22 +81,22 @@
         <!--            </div>-->
         <!--        </xpath>-->
 
-<!--        Example: Add your own sort options or filters-->
-<!--        <xpath expr="//div[contains(@class, 'dropdown-menu dropdown-menu-end') and @aria-labelledby='portal_searchbar_sortby']"-->
-<!--               position="inside">-->
-<!--            <t t-foreach="searchbar_filters.items()" t-as="f">-->
-<!--                <a t-att-href="default_url + '?' + keep_query('*', filterby=f[0])"-->
-<!--                   t-attf-class="dropdown-item#{filterby == f[0] and ' active' or ''}">-->
-<!--                    <t t-esc="f[1]['label']"/>-->
-<!--                </a>-->
-<!--            </t>-->
-<!--                <t t-foreach="searchbar_sortings.items()" t-as="s">-->
-<!--                    <a t-att-href="default_url + '?' + keep_query('*', sortby=s[0])"-->
-<!--                       t-attf-class="dropdown-item#{sortby == s[0] and ' active' or ''}">-->
-<!--                        <t t-esc="s[1]['label']"/>-->
-<!--                    </a>-->
-<!--                </t>-->
-<!--        </xpath>-->
+        <!--        Example: Add your own sort options or filters-->
+        <!--        <xpath expr="//div[contains(@class, 'dropdown-menu dropdown-menu-end') and @aria-labelledby='portal_searchbar_sortby']"-->
+        <!--               position="inside">-->
+        <!--            <t t-foreach="searchbar_filters.items()" t-as="f">-->
+        <!--                <a t-att-href="default_url + '?' + keep_query('*', filterby=f[0])"-->
+        <!--                   t-attf-class="dropdown-item#{filterby == f[0] and ' active' or ''}">-->
+        <!--                    <t t-esc="f[1]['label']"/>-->
+        <!--                </a>-->
+        <!--            </t>-->
+        <!--                <t t-foreach="searchbar_sortings.items()" t-as="s">-->
+        <!--                    <a t-att-href="default_url + '?' + keep_query('*', sortby=s[0])"-->
+        <!--                       t-attf-class="dropdown-item#{sortby == s[0] and ' active' or ''}">-->
+        <!--                        <t t-esc="s[1]['label']"/>-->
+        <!--                    </a>-->
+        <!--                </t>-->
+        <!--        </xpath>-->
     </template>
 
 
@@ -127,16 +127,16 @@
     <template id="portal_borrowed_books">
         <t t-call="portal.portal_layout">
             <t t-set="breadcrumbs_searchbar" t-value="True"/>
-<!--            <t t-call="portal.portal_searchbar">-->
-<!--                <t t-set="title">My Borrowed Books</t>-->
-<!--            </t>-->
+            <!--            <t t-call="portal.portal_searchbar">-->
+            <!--                <t t-set="title">My Borrowed Books</t>-->
+            <!--            </t>-->
 
             <t t-call="portal.portal_searchbar">
                 <t t-set="title">My Borrowed Books</t>
                 <t t-set="searchbar_sortings" t-value="searchbar_sortings"/>
-                <t t-set="sortby" t-value="sortby"/>
+<!--                <t t-set="sortby" t-value="sortby"/>-->
                 <t t-set="searchbar_filters" t-value="searchbar_filters"/>
-                <t t-set="filterby" t-value="filterby"/>
+<!--                <t t-set="filterby" t-value="filterby"/>-->
                 <t t-set="default_url" t-value="default_url"/>
             </t>
 
@@ -154,6 +154,7 @@
                                 <th>Book</th>
                                 <th>Borrowed On</th>
                                 <th class='d-none d-md-table-cell'>Due Date</th>
+                                <th class='d-none d-md-table-cell'>Actual Return Date</th>
                                 <th class="text-end pe-3">Amount Due</th>
                                 <th>State</th>
                             </tr>
@@ -169,6 +170,9 @@
                                     </td>
                                     <td class='d-none d-md-table-cell'>
                                         <t t-esc="borrow.return_date"/>
+                                    </td>
+                                    <td class='d-none d-md-table-cell'>
+                                        <t t-esc="borrow.actual_return_date or '-'"/>
                                     </td>
                                     <td class="text-end pe-3">
                                         <t t-esc="borrow.fine_amount"/>

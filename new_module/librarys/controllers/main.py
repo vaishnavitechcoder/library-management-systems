@@ -215,12 +215,21 @@ class Library(http.Controller):
         if not member:
             return request.redirect('/library/borrow')
 
+        def parse_date(date_str):
+            try:
+                return datetime.strptime(date_str, '%Y-%m-%d').date() if date_str else False
+            except ValueError:
+                return False
+
         state = post.get('action')  # Either 'borrowed' or 'returned'
 
         request.env['library.borrow'].sudo().create({
             'members_id': member.id,
             'book_id': int(post.get('book_id')) if post.get('book_id') else False,
             'magazine': int(post.get('magazine')) if post.get('magazine') else False,
+            'borrow_date': parse_date(post.get('borrow_date')),
+            'return_date': parse_date(post.get('return_date')),
+            'actual_return_date': parse_date(post.get('actual_return_date')),
             'state': state if state in ['borrowed', 'returned'] else 'draft',
         })
 
@@ -250,9 +259,7 @@ class Library(http.Controller):
 
         order = sortings.get(sortby, sortings['newest'])['order']
 
-        borrow_records = request.env['library.borrow'].sudo().search([
-            ('members_id.user_id', '=', request.env.user.id)
-        ], order=order)
+        borrow_records = request.env['library.borrow'].sudo().search(domain,order=order)
 
         return request.render("librarys.portal_borrowed_books", {
             'borrow_records': borrow_records,
@@ -267,7 +274,7 @@ class Library(http.Controller):
         return {
             'all': {'label': 'All', 'domain': []},
             'returned': {'label': 'Returned', 'domain': [('state', '=', 'returned')]},
-            'not_returned': {'label': 'Not Returned', 'domain': [('state', '=', 'borrowed')]},
+            'borrowed': {'label': 'Borrowed', 'domain': [('state', '=', 'borrowed')]},
             'draft': {'label': 'Draft', 'domain': [('state', '=', 'draft')]},
         }
 
