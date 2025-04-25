@@ -20,6 +20,7 @@
         "data/schedule_action.xml",
         "data/mail_template_data.xml",
         "data/report_layout.xml",
+        "data/mail_activity_type_data.xml",
         "views/books_view.xml",
         "views/members_view.xml",
         "views/borrow_view.xml",

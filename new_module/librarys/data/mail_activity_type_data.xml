@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Activities -->
+        <record id="mail_act_publisher_upsell" model="mail.activity.type">
+            <field name="name">Demo</field>
+            <field name="icon">fa-line-chart</field>
+            <field name="res_model">library.publisher</field>
+        </record>
+    </data>
+</odoo>
