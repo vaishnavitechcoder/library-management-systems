@@ -481,7 +481,7 @@
         <t t-call="website.layout">
             <div class="container">
                 <h2>Thank you!</h2>
-                <p>Your borrow request has been submitted successfully.</p>
+                <p>Your request has been submitted successfully.</p>
                 <a href="/library/borrow" class="btn btn-secondary">Borrow Another</a>
             </div>
         </t>
