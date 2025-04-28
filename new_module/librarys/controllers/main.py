@@ -15,7 +15,7 @@ class Library(http.Controller):
                  '/library/page/<int:page>',
                  '/library/category/<model("library.category"):category>',
                  '/library/category/<model("library.category"):category>/page/<int:page>'],
-                type="http", website="True", auth="public")
+                type="http", auth="public")
     def library_book(self, category=None, page=1, **kw):
         books = request.env["library.books"].sudo().search([])
         print(books)
