@@ -15,13 +15,20 @@ class Library(http.Controller):
                  '/library/page/<int:page>',
                  '/library/category/<model("library.category"):category>',
                  '/library/category/<model("library.category"):category>/page/<int:page>'],
-                type="http", auth="public")
+                type="http", website="True", auth="public")
     def library_book(self, category=None, page=1, **kw):
         books = request.env["library.books"].sudo().search([])
         print(books)
         books_per_page = 10
         offset = (page - 1) * books_per_page
         domain = []
+        search = kw.get('search')
+
+        if search:
+            domain += ['|', '|',
+                       ('name', 'ilike', search),
+                       ('isbn', 'ilike', search),
+                       ('author_ids.name', 'ilike', search)]  # if many2many authors
 
         if category:
             domain.append(('category_id', '=', category.id))
@@ -123,6 +130,7 @@ class Library(http.Controller):
             'total_pages': total_pages,
             'category': category,
             'quote': random_quote,
+            'search': search
         })
 
     @http.route(['/book/<int:book_id>'], type='http', auth='public', website=True)
@@ -259,7 +267,7 @@ class Library(http.Controller):
 
         order = sortings.get(sortby, sortings['newest'])['order']
 
-        borrow_records = request.env['library.borrow'].sudo().search(domain,order=order)
+        borrow_records = request.env['library.borrow'].sudo().search(domain, order=order)
 
         return request.render("librarys.portal_borrowed_books", {
             'borrow_records': borrow_records,
@@ -301,6 +309,6 @@ class Library(http.Controller):
         print(books)
         return books
 
-    @route('/custom_sidebar', auth='public',website=True)
+    @route('/custom_sidebar', auth='public', website=True)
     def custom_sidebar(self, **kwargs):
         return request.render('librarys.custom_sidebar')

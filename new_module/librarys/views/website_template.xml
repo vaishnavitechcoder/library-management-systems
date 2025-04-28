@@ -29,7 +29,7 @@
                                 </option>
                             </t>
                         </select>
-                        <input type="text" name="q" class="form-control" placeholder="Search by title or author"/>
+                        <input type="text" name="search" class="form-control" placeholder="Search by title or author"/>
                         <button class="btn btn-primary">Search</button>
                     </div>
                 </form>
