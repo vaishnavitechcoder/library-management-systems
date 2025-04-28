@@ -78,6 +78,7 @@
                             <field name="books"/>
 
                             <group>
+                                <field name="activity_ids" widget="list_activity" optional="show"/>
                                 <field name="email" widget="email"/>
                                 <field name="phone" widget="phone"/>
                                 <field name="mobile" widget="phone"/>
