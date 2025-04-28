@@ -4,7 +4,7 @@
         <!-- Activities -->
         <record id="mail_act_publisher_upsell" model="mail.activity.type">
             <field name="name">Demo</field>
-            <field name="icon">fa-line-chart</field>
+            <field name="icon">fa fa-book</field>
             <field name="res_model">library.publisher</field>
         </record>
     </data>

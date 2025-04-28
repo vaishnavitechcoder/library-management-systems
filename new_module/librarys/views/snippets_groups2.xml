@@ -46,6 +46,43 @@
         </t>
     </template>
 
+    <template id="library_featured_books_snippet" name="Library Featured Books">
+        <t t-name="librarys.library_featured_books_snippet">
+            <section class="oe_structure bg-white">
+                <div class="container py-5">
+                    <h2 class="text-center mb-4">Featured Titles</h2>
+                    <div id="featuredBooksCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="/librarys/static/src/img/The_Great_Gatsby_Cover_1925_Retouched.jpg" class="d-block w-100 rounded shadow-sm"
+                                     alt="Book 1"/>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/librarys/static/src/img/1984.png" class="d-block w-100 rounded shadow-sm"
+                                     alt="Book 2"/>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/librarys/static/src/img/cover.jpg" class="d-block w-100 rounded shadow-sm"
+                                     alt="Book 3"/>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#featuredBooksCarousel"
+                                data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#featuredBooksCarousel"
+                                data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </t>
+    </template>
+
+
     <!-- ✅ Register the Snippet in the Snippet Builder (Fixing t-snippet name and typo in xpath) -->
     <template id="add_custom_snippet_to_builder" inherit_id="website.snippets" name="Add Custom Snippet to Builder">
         <xpath expr="//snippets[@id='snippet_structure']" position="inside">
@@ -56,6 +93,9 @@
                 <keywords>quote, testimonial, phrase</keywords>
             </t>
             <t t-snippet="librarys.library_cta_snippet" string="Library CTA" group="library">
+                <keywords>cta, button, call to action</keywords>
+            </t>
+            <t t-snippet="librarys.library_featured_books_snippet" string="Library Books Snippets" group="library">
                 <keywords>cta, button, call to action</keywords>
             </t>
         </xpath>
