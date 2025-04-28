@@ -10,5 +10,5 @@
        <field name="perm_create" eval="False"/>
        <field name="perm_unlink" eval="False"/>
        <field name="active" eval="False"/>
-</record>
+   </record>
 </odoo>
