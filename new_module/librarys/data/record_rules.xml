@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <record id="custom_record_rule" model="ir.rule">
+       <field name="name">User can only see their own records</field>
+       <field ref="sale.model_sale_order" name="model_id"/>
+       <field name="domain_force">[('create_uid', '=', user.id)]</field>
+       <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+       <field name="perm_read" eval="True"/>
+       <field name="perm_write" eval="False"/>
+       <field name="perm_create" eval="False"/>
+       <field name="perm_unlink" eval="False"/>
+       <field name="active" eval="False"/>
+</record>
+</odoo>

@@ -300,3 +300,7 @@ class Library(http.Controller):
         books = request.env['library.borrow'].search([])
         print(books)
         return books
+
+    @route('/custom_sidebar', auth='public',website=True)
+    def custom_sidebar(self, **kwargs):
+        return request.render('librarys.custom_sidebar')

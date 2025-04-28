@@ -469,10 +469,17 @@
                         <label for="actual_return_date">Actual Return Date</label>
                         <input type="date" name="actual_return_date" class="form-control"/>
                     </div>
+                    <!--                    <div>-->
+                    <!--                        <button type="submit" name="action" value="borrowed" class="btn btn-primary">Borrow</button>-->
+                    <!--                        <button type="submit" name="action" value="returned" class="btn btn-success">Return</button>-->
+                    <!--                        <button type="submit" name="action" value="draft" class="btn btn-secondary">Save as Draft</button>-->
+                    <!--                    </div>-->
+                </form>
+                <div>
                     <button type="submit" name="action" value="borrowed" class="btn btn-primary">Borrow</button>
                     <button type="submit" name="action" value="returned" class="btn btn-success">Return</button>
                     <button type="submit" name="action" value="draft" class="btn btn-secondary">Save as Draft</button>
-                </form>
+                </div>
             </div>
         </t>
     </template>
@@ -501,4 +508,54 @@
             </div>
         </t>
     </template>
+
+    <template id="custom_sidebar" name="Custom Sidebar">
+        <!-- Sidebar Container -->
+        <div class="custom-sidebar bg-light p-3 rounded">
+            <!-- Sidebar Title -->
+            <h4 class="text-center mb-4">Sidebar</h4>
+
+            <!-- Call Action Button -->
+            <div class="d-flex justify-content-center mb-3">
+                <a href="#" class="btn btn-primary">Join Course</a>
+            </div>
+
+            <!-- Collapsible Section -->
+            <button class="btn btn-secondary w-100 mb-3" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseDetails" aria-expanded="false" aria-controls="collapseDetails">
+                More Details
+            </button>
+
+            <div id="collapseDetails" class="collapse">
+                <!-- Additional Information (Collapsed) -->
+                <ul class="list-unstyled">
+                    <li>
+                        <strong>Responsible:</strong>
+                        John Doe
+                    </li>
+                    <li>
+                        <strong>Last Update:</strong>
+                        2025-04-25
+                    </li>
+                    <li>
+                        <strong>Completion Time:</strong>
+                        3 hours
+                    </li>
+                    <li>
+                        <strong>Members:</strong>
+                        100+
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Share Button -->
+            <div class="d-flex justify-content-center mt-3">
+                <button class="btn btn-outline-primary w-100">
+                    <i class="fa fa-share-alt"></i>
+                    Share
+                </button>
+            </div>
+        </div>
+    </template>
+
 </odoo>
