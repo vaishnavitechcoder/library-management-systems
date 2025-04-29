@@ -9,7 +9,7 @@ class LibraryFines(models.Model):
 
     member_id = fields.Many2one("library.borrow",string="member id",required=True)
     book_id = fields.Many2one(related="member_id.book_id",store=True,readonly=True,string="book id")
-    fine_amount = fields.Float(string="fine amount", related="member_id.fine_amount",readonly=False, store=True)
+    fine_amount = fields.Float(string="fine amount", related="member_id.fine_amount",readonly=True, store=True)
     fine_type = fields.Selection(related="member_id.state", store=True, readonly=True,string="fine type")
     fine_date = fields.Date(string="fine date")
     due_date = fields.Date(related="member_id.actual_return_date",store=True, readonly=True, string="due date")
