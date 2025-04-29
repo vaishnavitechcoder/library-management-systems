@@ -22,7 +22,7 @@ class LibraryBorrow(models.Model):
         ('returned', 'Returned'),
         ('late', 'Late'),
         ('lost', 'Lost'),
-    ])
+    ],string="state")
     priority = fields.Selection([('0', 'Very Low'), ('1', 'Low'), ('2', 'Normal'), ('3', 'High')], string='Priority')
     borrow_count = fields.Integer(
         "Borrow Count",

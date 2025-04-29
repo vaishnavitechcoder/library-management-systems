@@ -7,6 +7,7 @@
             <list string="Fines List">
                 <field name="member_id"/>
                 <field name="book_id"/>
+                <field name="fine_amount"/>
                 <field name="fine_type"/>
                 <field name="fine_date"/>
                 <field name="due_date"/>
@@ -29,6 +30,7 @@
                     <group>
                         <field name="member_id"/>
                         <field name="book_id"/>
+                        <field name="fine_amount"/>
                         <field name="fine_type"/>
                         <field name="fine_date"/>
                         <field name="due_date"/>
@@ -54,6 +56,7 @@
             <search>
                 <field name="member_id"/>
                 <field name="book_id"/>
+                <field name="fine_amount"/>
                 <field name="fine_type"/>
                 <field name="fine_date"/>
                 <field name="due_date"/>
