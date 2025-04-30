@@ -32,3 +32,6 @@ librarys.access_library_aut_author,access_library_aut_author,librarys.model_libr
 librarys.access_library_aut_magazine,access_library_aut_magazine,librarys.model_library_magazine,librarys.group_library_author,1,1,1,0
 librarys.access_library_aut_publisher,access_library_aut_publisher,librarys.model_library_publisher,librarys.group_library_author,1,0,0,0
 librarys.access_library_aut_review,access_library_aut_review,librarys.model_library_review,librarys.group_library_author,1,0,0,0
+
+
+librarys.access_library_cart,access_library_cart,librarys.model_library_cart,base.group_user,1,1,1,1

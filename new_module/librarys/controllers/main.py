@@ -312,3 +312,52 @@ class Library(http.Controller):
     @route('/custom_sidebar', auth='public', website=True)
     def custom_sidebar(self, **kwargs):
         return request.render('librarys.custom_sidebar')
+
+    @http.route('/library/cart', type='http', auth='user', website=True)
+    def view_cart(self, **kwargs):
+        cart_items = request.env['library.cart'].sudo().search([('user_id', '=', request.uid)])
+        return request.render('librarys.cart_page', {
+            'cart_items': cart_items,
+        })
+
+    @http.route('/library/cart/add/<int:book_id>', type='http', auth='user', website=True)
+    def add_to_cart(self, book_id, **kwargs):
+        Cart = request.env['library.cart'].sudo()
+        existing = Cart.search([('user_id', '=', request.uid), ('book_id', '=', book_id)], limit=1)
+        if existing:
+            existing.quantity += 1
+        else:
+            Cart.create({
+                'user_id': request.uid,
+                'book_id': book_id,
+                'quantity': 1,
+            })
+        return request.redirect('/library/cart')
+
+    @http.route('/library/cart/remove/<int:item_id>', type='http', auth='user', website=True)
+    def remove_from_cart(self, item_id, **kwargs):
+        cart_item = request.env['library.cart'].sudo().browse(item_id)
+        if cart_item and cart_item.user_id.id == request.uid:
+            cart_item.unlink()
+        return request.redirect('/library/cart')
+
+    @http.route('/library/cart/checkout', type='http', auth='user', website=True)
+    def checkout_cart(self, **kwargs):
+        cart_items = request.env['library.cart'].sudo().search([('user_id', '=', request.uid)])
+        for item in cart_items:
+            request.env['library.borrow'].sudo().create({
+                'members_id': request.env['library.members'].sudo().search([('user_id', '=', request.uid)],
+                                                                           limit=1).id,
+                'book_id': item.book_id.id,
+                'state': 'borrowed',
+            })
+            item.unlink()
+        return request.render('librarys.cart_thankyou')
+
+    @http.route('/library/employees', auth='public', website=True)
+    def list_employees(self, **kwargs):
+        employees = request.env['library.employee'].sudo().search([])
+        return request.render('librarys.employee_list_template', {
+            'employees': employees
+        })
+

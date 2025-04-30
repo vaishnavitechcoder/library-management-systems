@@ -125,6 +125,18 @@
                             <t t-esc="book.publish_date"/>
                         </p>
                         <p t-esc="book.description"/>
+                        <a t-att-href="'/library/cart/add/%s' % book.id" class="btn btn-outline-primary">
+                            <i class="fa fa-shopping-cart me-2"/>
+                            Add to Cart
+                        </a>
+                        <!--                        <div id="add_to_cart_wrap"-->
+                        <!--                             t-attf-class="{{'d-none' if combination_info['prevent_zero_price_sale'] else 'd-inline-flex'}} align-items-center mb-2 me-auto">-->
+                        <!--                            <a data-animation-selector=".o_wsale_product_images" role="button" id="add_to_cart"-->
+                        <!--                               t-attf-class="btn btn-primary js_check_product a-submit flex-grow-1" href="#">-->
+                        <!--                                <i class="fa fa-shopping-cart me-2"/>-->
+                        <!--                                Add to cart-->
+                        <!--                            </a>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
 
@@ -557,5 +569,192 @@
             </div>
         </div>
     </template>
+    <template id="cart_page" name="Cart Page">
+        <t t-call="website.layout">
+            <div class="container py-5">
+                <h2 class="mb-4">Your Cart</h2>
 
+                <t t-if="cart_items">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Book</th>
+                                <th>Quantity</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="cart_items" t-as="item">
+                                <tr>
+                                    <td>
+                                        <t t-esc="item.book_id.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="item.quantity"/>
+                                    </td>
+                                    <td>
+                                        <a t-att-href="'/library/cart/remove/%s' % item.id"
+                                           class="btn btn-danger btn-sm">
+                                            Remove
+                                        </a>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <a href="/library/cart/checkout" class="btn btn-primary mt-3">Checkout</a>
+                </t>
+                <t t-else="">
+                    <p>Your cart is empty.</p>
+                    <a href="/library" class="btn btn-outline-secondary">Back to Library</a>
+                </t>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="cart_thankyou" name="Cart Thank You Page">
+        <t t-call="website.layout">
+            <div class="container text-center py-5">
+                <h2>Thank you for your request!</h2>
+                <p>Your books have been successfully borrowed.</p>
+                <a href="/library" class="btn btn-secondary mt-3">Back to Library</a>
+            </div>
+        </t>
+    </template>
+
+    <template id="employee_list_template" name="Library Employee List">
+        <t t-call="website.layout">
+            <div class="container mt-5 mb-5">
+                <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&amp;display=swap');
+
+                    .employee-wrapper {
+                    font-family: 'Rubik', sans-serif;
+                    background: linear-gradient(135deg, #ecf0f3, #ffffff);
+                    border-radius: 15px;
+                    padding: 40px;
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                    backdrop-filter: blur(10px);
+                    overflow: hidden;
+                    }
+
+                    .employee-header {
+                    text-align: center;
+                    margin-bottom: 30px;
+                    }
+
+                    .employee-header h1 {
+                    font-size: 42px;
+                    color: #2c3e50;
+                    margin-bottom: 10px;
+                    font-weight: 700;
+                    }
+
+                    .employee-header p {
+                    font-size: 18px;
+                    color: #7f8c8d;
+                    font-weight: 400;
+                    }
+
+                    .employee-table {
+                    width: 100%;
+                    border-spacing: 0;
+                    border-collapse: collapse;
+                    overflow-x: auto;
+                    display: block;
+                    white-space: nowrap;
+                    }
+
+                    .employee-table thead {
+                    background: #2c3e50;
+                    color: #ffffff;
+                    text-transform: uppercase;
+                    }
+
+                    .employee-table th,
+                    .employee-table td {
+                    padding: 14px 20px;
+                    text-align: left;
+                    }
+
+                    .employee-table tbody tr {
+                    transition: all 0.3s ease;
+                    border-bottom: 1px solid #ddd;
+                    }
+
+                    .employee-table tbody tr:hover {
+                    background: rgba(44, 62, 80, 0.05);
+                    transform: scale(1.005);
+                    }
+
+                    .employee-icon {
+                    background-color: #3498db;
+                    color: white;
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                    margin-right: 10px;
+                    }
+
+                    @media (max-width: 768px) {
+                    .employee-table {
+                    font-size: 14px;
+                    }
+
+                    .employee-header h1 {
+                    font-size: 28px;
+                    }
+                    }
+                </style>
+
+                <div class="employee-wrapper">
+                    <div class="employee-header">
+                        <h1>🌟 Our Library Team</h1>
+                        <p>Meet the brains and hearts behind our knowledge center</p>
+                    </div>
+
+                    <table class="employee-table">
+                        <thead>
+                            <tr>
+                                <th>Employee</th>
+                                <th>Company</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Country</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="employees" t-as="emp">
+                                <tr>
+                                    <td>
+                                        <span class="employee-icon">
+                                            <t t-esc="emp.employee.name[0] if emp.employee.name else ''"/>
+                                        </span>
+                                        <t t-esc="emp.employee.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="emp.company_id.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="emp.private_email"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="emp.private_phone"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="emp.private_country_id.name"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
 </odoo>

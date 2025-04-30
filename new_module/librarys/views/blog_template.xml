@@ -18,8 +18,10 @@
                     <t t-foreach="books" t-as="book">
                         <div class="col-md-4 mb-4">
                             <div class="card h-100">
-                                <img t-att-src="'/web/image?model=library.books&amp;id=%s&amp;field=cover_image' % book.id"
-                                     class="card-img-top"/>
+                                <img t-if="book.image"
+                                     t-att-src="'/web/image/library.books/' + str(book.id) + '/image'"
+                                     class="card-img-top" alt="Cover"
+                                     style="height:250px;width:100%;"/>
                                 <div class="card-body">
                                     <h5 class="card-title" t-esc="book.name"/>
                                     <p class="card-text" t-esc="book.publisher.name.name"/>
@@ -38,8 +40,10 @@
             <div class="container pt-5 pb-5">
                 <div class="row">
                     <div class="col-md-4">
-                        <img t-att-src="'/web/image?model=library.books&amp;id=%s&amp;field=cover_image' % book.id"
-                             class="img-fluid rounded"/>
+                       <img t-if="book.image"
+                                     t-att-src="'/web/image/library.books/' + str(book.id) + '/image'"
+                                     class="card-img-top" alt="Cover"
+                                     style="height:250px;width:100%;"/>
                     </div>
                     <div class="col-md-8">
                         <h1 t-field="book.name"/>
