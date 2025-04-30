@@ -15,6 +15,7 @@
                 <field name="state"/>
                 <field name="joining_date"/>
                 <field name="status"/>
+                <field name="membership_fee"/>
             </list>
         </field>
     </record>
@@ -26,6 +27,7 @@
             <form string="Members Form">
                 <!-- Your form fields here -->
                 <header>
+                    <button name="create_invoice" type="object" string="Create Invoice" class="btn-primary"/>
                     <button name="%(librarys.action_report_library_card)d"
                             string="Print Library Card"
                             type="action"
@@ -60,6 +62,8 @@
                         <field name="state"/>
                         <field name="joining_date"/>
                         <field name="status"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="membership_fee"/>
                         <button string="notification"
                                 type="object" name="action_notification" class="oe_highlight"/>/>
                     </group>
@@ -85,6 +89,7 @@
                             <field name="state"/>
                             <field name="joining_date"/>
                             <field name="status"/>
+                             <field name="membership_fee"/>
                         </div>
                     </t>
                 </templates>
@@ -102,7 +107,7 @@
                 <field name="phone_num"/>
                 <field name="joining_date"/>
                 <field name="status"/>
-
+                 <field name="membership_fee"/>
                 <group expand="0" string="Group By">
                     <filter string="Status" name="group_by_status" context="{'group_by': 'status'}"/>
                 </group>
