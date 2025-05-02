@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form_custom" model="ir.ui.view">
+        <field name="name">hr.employee.form.custom</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name = 'name']" position="before">
+                <field name="seq"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_employee_filter_custom" model="ir.ui.view">
+        <field name="name">hr.employee.search.custom</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name = 'inactive']" position="after">
+                <filter string="Managers" name="job_id" domain="[('job_id', '=', 'Manager')]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_employee_xlsx" model="ir.actions.report">
+        <field name="name">employee record</field>
+        <field name="model">hr.employee</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">librarys.report_library_card_xlsx</field>
+        <field name="report_file">librarys.report_library_card_xlsx</field>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="view_crm_case_filters" model="ir.ui.view">
+        <field name="name">crm.lead.search.lead.custom</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name = 'assigned_to_me']" position="after">
+                <filter string="Priority" name="priority" domain="[('priority', '=',0)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

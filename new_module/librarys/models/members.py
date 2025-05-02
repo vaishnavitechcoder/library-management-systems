@@ -24,7 +24,7 @@ class LibraryMembers(models.Model):
     currency_id = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id.id)
 
     def create_invoice(self):
-        income_account = self.env['account.account'].search([('i                                                                                                                                nternal_group','=', 'income')], limit=1)
+        income_account = self.env['account.account'].search([('internal_group','=', 'income')], limit=1)
         if not income_account:
             raise UserError("No income account found. Please create or configure one.")
 

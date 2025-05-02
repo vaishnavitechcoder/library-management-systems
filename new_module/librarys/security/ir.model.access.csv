@@ -35,3 +35,4 @@ librarys.access_library_aut_review,access_library_aut_review,librarys.model_libr
 
 
 librarys.access_library_cart,access_library_cart,librarys.model_library_cart,base.group_user,1,1,1,1
+librarys.access_inventory_stock,access_inventory_stock,librarys.model_inventory_stock,base.group_user,1,1,1,1
