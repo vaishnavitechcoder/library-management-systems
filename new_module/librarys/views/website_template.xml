@@ -757,4 +757,16 @@
             </div>
         </t>
     </template>
+
+     <template id="product_tags_shop_inherit" inherit_id="website_sale.products_item">
+        <xpath expr="//div[contains(@class, 'o_wsale_product_information')]" position="inside">
+            <t t-if="product.product_tag_ids">
+                <div class="mt-2">
+                    <span t-foreach="product.product_tag_ids" t-as="tag">
+                        <span class="badge badge-primary mr-1" t-esc="tag.name"/>
+                    </span>
+                </div>
+            </t>
+        </xpath>
+     </template>
 </odoo>

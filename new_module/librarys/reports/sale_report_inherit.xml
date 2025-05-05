@@ -9,4 +9,23 @@
             </div>
         </xpath>
     </template>
+
+    <template id="report_saleorder_inherit" inherit_id="sale.report_saleorder_document">
+        <!-- Add total weight below order lines -->
+        <xpath expr="//table[contains(@class, 'o_has_total_table')]" position="after">
+            <t t-set="total_weight"
+               t-value="sum(line.product_uom_qty * line.product_id.weight for line in doc.order_line if line.product_id and line.product_id.weight)"/>
+            <p t-if="total_weight">
+                <strong>Total Weight:</strong>
+                <t t-esc="total_weight"/> kg
+            </p>
+        </xpath>
+
+        <!-- Add Thank you message at bottom -->
+        <xpath expr="//div[@class='offset-8 text-center']" position="before">
+            <p style="margin-top: 30px;">
+                Thank you for your purchase, <t t-esc="doc.partner_id.name"/>!
+            </p>
+        </xpath>
+    </template>
 </odoo>

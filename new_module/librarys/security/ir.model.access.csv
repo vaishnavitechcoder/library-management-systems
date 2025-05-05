@@ -35,4 +35,10 @@ librarys.access_library_aut_review,access_library_aut_review,librarys.model_libr
 
 
 librarys.access_library_cart,access_library_cart,librarys.model_library_cart,base.group_user,1,1,1,1
-librarys.access_inventory_stock,access_inventory_stock,librarys.model_inventory_stock,base.group_user,1,1,1,1
+librarys.access_low_stock_report_wizard,access__low_stock_report_wizard,librarys.model_low_stock_report_wizard,base.group_user,1,1,1,1
+librarys.access_employee_export_wizard,access_employee_export_wizard,librarys.model_employee_export_wizard,base.group_user,1,1,1,1
+
+account.access_account_move,access_account_move,account.model_account_move,account.group_account_user,1,1,0,0
+
+stock.access_product_manager,access_product_template,stock.model_product_template,stock.group_stock_manager,1,1,1,1
+stock.access_product_user,access_product_template_user,stock.model_product_template,base.group_user,1,1,1,0

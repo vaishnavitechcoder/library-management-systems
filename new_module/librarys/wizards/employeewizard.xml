@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <!-- Views -->
+        <record id="view_employee_export_wizard" model="ir.ui.view">
+            <field name="name">employee.export.wizard.form</field>
+            <field name="model">employee.export.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Export Employees">
+                    <footer>
+                        <button string="Export" type="object" name="export_employees" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                    <field name="file_data" filename="file_name" invisible="1"/>
+                    <field name="file_name" invisible="1"/>
+                    <group>
+                        <field name="file_data" filename="file_name" invisible="0" readonly="1" widget="binary"/>
+                            <strong>Download Excel File</strong>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_employee_export_wizard" model="ir.actions.act_window">
+            <field name="name">Export Employees</field>
+            <field name="res_model">employee.export.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- Server Action for List View -->
+        <record id="action_employee_export" model="ir.actions.server">
+            <field name="name">Export to Excel</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="binding_model_id" ref="hr.model_hr_employee"/>
+            <field name="binding_type">action</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = {
+                    "type": "ir.actions.act_window",
+                    "name": "Export Employees",
+                    "res_model": "employee.export.wizard",
+                    "view_mode": "form",
+                    "target": "new",
+                    "context": {
+                        "active_ids": records.ids
+                    }
+                }
+            </field>
+        </record>
+    </data>
+</odoo>

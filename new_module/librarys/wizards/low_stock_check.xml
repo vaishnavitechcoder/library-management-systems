@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_low_stoc_wizard" model="ir.ui.view">
-        <field name="name">low.stock.wizard.form</field>
-        <field name="model">inventory.stock</field>
+    <record id="view_low_stock_report_wizard" model="ir.ui.view">
+        <field name="name">low.stock.report.wizard.form</field>
+        <field name="model">low.stock.report.wizard</field>
         <field name="arch" type="xml">
-            <form string="stock wizard">
-                <field name="threshold"/>
+            <form string="Low Stock Report">
+                <group>
+                    <field name="threshold_qty"/>
+                </group>
                 <footer>
-                    <button string="less quantity" type="object" name="quantity_threshold" class="btn-primary"/>
+                    <button name="action_generate_report" type="object" string="Generate" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
         </field>
     </record>
 
-    <record id="action_low_wizard" model="ir.actions.act_window">
-        <field name="name">Low quantity</field>
-        <field name="res_model">inventory.stock</field>
+    <record id="action_low_stock_report_wizard" model="ir.actions.act_window">
+        <field name="name">Low Stock Report</field>
+        <field name="res_model">low.stock.report.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
@@ -23,6 +26,6 @@
     <menuitem id="low_stock"
               name="Low Stock Quantity"
               parent="stock.menu_warehouse_report"
-              action="action_low_wizard"/>
+              action="action_low_stock_report_wizard"/>
 
 </odoo>

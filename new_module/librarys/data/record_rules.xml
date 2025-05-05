@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-   <record id="custom_record_rule" model="ir.rule">
-       <field name="name">User can only see their own records</field>
-       <field ref="sale.model_sale_order" name="model_id"/>
-       <field name="domain_force">[('create_uid', '=', user.id)]</field>
-       <field name="groups" eval="[(4, ref('base.group_user'))]"/>
-       <field name="perm_read" eval="True"/>
-       <field name="perm_write" eval="False"/>
-       <field name="perm_create" eval="False"/>
-       <field name="perm_unlink" eval="False"/>
-       <field name="active" eval="False"/>
-   </record>
+    <record id="custom_record_rule" model="ir.rule">
+        <field name="name">User can only see their own records</field>
+        <field ref="sale.model_sale_order" name="model_id"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="account_move_auditor_rule" model="ir.rule">
+        <field name="name">Only Auditors Can Edit Auditor Approval</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('base.group_account_auditor'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <record id="product_template_delete_rule" model="ir.rule">
+        <field name="name">Restrict Product Deletion</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="groups" eval="[(4, ref('stock.group_stock_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field> <!-- Always True -->
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <!-- Deny for others -->
+    <record id="product_template_delete_deny" model="ir.rule">
+        <field name="name">Deny Product Deletion</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="domain_force">[(1, '=', 0)]</field> <!-- Always False -->
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
 </odoo>

@@ -1,25 +1,21 @@
+# models/low_stock_wizard.py
 from odoo import models, fields, api
 
-class InventoryStock(models.TransientModel):
-    _name = 'inventory.stock'
-    _inherit = 'stock.quant'
+class LowStockReportWizard(models.TransientModel):
+    _name = 'low.stock.report.wizard'
+    _description = 'Low Stock Report Wizard'
 
+    threshold_qty = fields.Float(string="Threshold Quantity", required=True)
 
-    threshold = fields.Integer(string="threshold")
-
-    # < menuitem
-    # id = "stock.menu_warehouse_report"
-    # name = "Reporting"
-    # sequence = "99"
-    # parent = "stock.menu_stock_root"
-    # groups = "group_stock_manager" / >
-
-    @api.constrains('quantity')
-    def quantity_threshold(self):
-       for rec in self:
-           if rec.quantity < threshold:
-               return rec.product_id
-
-
+    def action_generate_report(self):
+        products = self.env['product.product'].search([('qty_available', '<', self.threshold_qty)])
+        return {
+            'name': 'Low Stock Products',
+            'type': 'ir.actions.act_window',
+            'res_model': 'product.product',
+            'view_mode': 'list,form',
+            'domain': [('id', 'in', products.ids)],
+            'target': 'current',
+        }
 
 

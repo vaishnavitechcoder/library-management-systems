@@ -12,7 +12,7 @@
         <field name="name">invoicing</field>
         <field name="code">account.move</field>
         <field name="prefix">JE/%(year)s/%(month)s</field>
-        <field name="padding">/2</field>
+        <field name="padding">2</field>
         <field name="company_id" eval="False"/>
     </record>
 </odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_crm_lead_salesperson_dashboard" model="ir.ui.view">
+        <field name="name">crm.lead.salesperson.dashboard.list</field>
+        <field name="model">crm.lead</field>
+        <field name="arch" type="xml">
+            <list string="Salesperson Dashboard" create="false" edit="false">
+                <field name="user_id"/>
+                <field name="expected_revenue"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_crm_lead_filter_last_30_days" model="ir.ui.view">
+        <field name="name">crm.lead.search.last30</field>
+        <field name="model">crm.lead</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_user" string="Salesperson" context="{'group_by':'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_crm_lead_salesperson_dashboard" model="ir.actions.act_window">
+        <field name="name">Salesperson Dashboard</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_crm_lead_salesperson_dashboard"/>
+        <field name="context">{'group_by': 'user_id'}</field>
+    </record>
+
+    <menuitem id="menu_crm_lead_salesperson_dashboard"
+              name="Salesperson Dashboard"
+              parent="crm.crm_menu_root"
+              action="action_crm_lead_salesperson_dashboard"/>
+</odoo>
