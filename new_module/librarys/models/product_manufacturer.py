@@ -24,6 +24,7 @@ class ProductManufacture(models.Model):
     vendors = fields.Many2many('res.partner', 'product_model_vendors', 'name', 'partner_id', string='Vendors')
     phone = fields.Char(string="Phone",related="vendors.phone", store=True, readonly=False)
     email = fields.Char(string="Email",related="vendors.email", store=True, readonly=False)
+    product = fields.Many2one('product.template', string='Product')
 
     @api.constrains('private_email')
     def _check_email_id(self):

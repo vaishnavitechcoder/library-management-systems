@@ -123,9 +123,29 @@ class OrderCustom(models.Model):
             raise validationError(_("date order is backdate"))
 
 
-    # @api.depends('client_order_ref')
-    # def add_default_sep(self):
-    #
+    def add_default_sep(self):
+       if client_order_ref in self:
+           s = ""
+           n = ""
+           for c in client_order_ref:
+               if c.isdigit():
+                   n += c
+               else:
+                   s += c
+           return '-'.join(s,n)
+
+
+   #options="{'no_create': True, 'no_open': True}
+
+
+
+
+class ProductTemplateCustom(models.Model):
+    _inherit = 'product.template'
+
+    authorized_manufacture_id = fields.Many2one('product.manufacture',string='Authorised Manufacture')
+
+
 
 
 

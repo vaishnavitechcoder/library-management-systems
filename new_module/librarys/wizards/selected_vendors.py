@@ -9,8 +9,11 @@ class VendorSelected(models.TransientModel):
     _name = 'vendor.selected'
     _description = 'vendor selected'
 
-    vendors = fields.Many2many('res.partner', 'vendor_purchase_wizard' , string='Vendors',
-                              context={'res_partner_search_mode': 'supplier'})
+    # vendors = fields.Many2many('res.partner', 'vendor_purchase_wizard' , string='Vendors',
+    #                           context={'res_partner_search_mode': 'supplier'})
+
+    vendors = fields.Many2many('product.supplierinfo', 'vendor_purchase_wizard_supper', string='Vendors')
+
 
     def check_vendor(self):
         vendors = self.env['purchase.order'].search([('state', '=', 'purchase')])
