@@ -362,22 +362,22 @@ class Library(http.Controller):
         })
 
 
-    @http.route('/website/sale/new/page',auth='user',type='http')
-    def new_page(self,**kwargs):
-        product = request.env['product.template'].search([])
-        return request.render('librarys.new_sale_website', {'products': product})
-
-    @http.route('/new/submit', type='http', auth='user', website=True, csrf=True)
-    def submit_borrow_form(self, **post):
-        member = request.env['res.partner'].sudo().search([('user_id', '=', request.env.user.id)], limit=1)
-        if not member:
-            return request.redirect('/library/borrow')
-
-        request.env['crm.lead'].sudo().create({
-            'partner_id': member.id,
-            'product_id': int(post.get('product_id')) if post.get('product_id') else False,
-            'quantity': int(post.get('quantity')) if post.get('quantity') else False,
-        })
-        return request.redirect('/library/borrow/thankyou')
+    # @http.route('/website/sale/new/page',auth='user',type='http')
+    # def new_page(self,**kwargs):
+    #     product = request.env['product.template'].search([])
+    #     return request.render('librarys.new_sale_website', {'products': product})
+    #
+    # @http.route('/new/submit', type='http', auth='user', website=True, csrf=True)
+    # def submit_borrow_form(self, **post):
+    #     member = request.env['res.partner'].sudo().search([], limit=1)
+    #     if not member:
+    #         return request.redirect('/library/borrow')
+    #
+    #     request.env['crm.lead'].sudo().create({
+    #         'partner_id': member.id,
+    #         'product_id': int(post.get('product_id')) if post.get('product_id') else False,
+    #         'quantity': int(post.get('quantity')) if post.get('quantity') else False,
+    #     })
+    #     return request.redirect('/library/borrow/thankyou')
 
 
