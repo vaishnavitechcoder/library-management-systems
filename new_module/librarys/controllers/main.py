@@ -362,22 +362,34 @@ class Library(http.Controller):
         })
 
 
-    # @http.route('/website/sale/new/page',auth='user',type='http')
-    # def new_page(self,**kwargs):
-    #     product = request.env['product.template'].search([])
-    #     return request.render('librarys.new_sale_website', {'products': product})
+    @http.route('/website/sale/new/page',auth='user',type='http')
+    def new_page(self,**kwargs):
+        product = request.env['product.template'].search([])
+        return request.render('librarys.new_sale_website', {'products': product})
+
+    @http.route('/new/submit', type='http', auth='user', website=True, csrf=True)
+    def submit_borrow_form(self, **post):
+        member = request.env['res.partner'].sudo().search([], limit=1)
+        if not member:
+            return request.redirect('/library/borrow')
+
+        request.env['crm.lead'].sudo().create({
+            'partner_id': member.id,
+            'product_id': int(post.get('product_id')) if post.get('product_id') else False,
+            'quantity': int(post.get('quantity')) if post.get('quantity') else False,
+        })
+        return request.redirect('/library/borrow/thankyou')
+
+    # @route(['/new/<model("product.template"):product>'], type='http', auth="public", website=True,
+    #        sitemap=sitemap_products, readonly=True)
+    # def product(self, product, category='', search='', **kwargs):
+    #     if not request.website.has_ecommerce_access():
+    #         return request.redirect('/web/login')
     #
-    # @http.route('/new/submit', type='http', auth='user', website=True, csrf=True)
-    # def submit_borrow_form(self, **post):
-    #     member = request.env['res.partner'].sudo().search([], limit=1)
-    #     if not member:
-    #         return request.redirect('/library/borrow')
-    #
-    #     request.env['crm.lead'].sudo().create({
-    #         'partner_id': member.id,
-    #         'product_id': int(post.get('product_id')) if post.get('product_id') else False,
-    #         'quantity': int(post.get('quantity')) if post.get('quantity') else False,
-    #     })
-    #     return request.redirect('/library/borrow/thankyou')
+    #     return request.render("website_sale.product", self._prepare_product_values(product, category, search, **kwargs))
+
+      # """ on the odoo website product page needs to hide the price of the product and need to add a button to get the best price when user click on the button it will open a new page on which it will ask for how much quantity the need the product in how much time. make sure the product name is prefilled.
+      # once the user clicks on submit it should create the crm lead with information gathered from the form. and it should show the success message on the website.
+      # """
 
 

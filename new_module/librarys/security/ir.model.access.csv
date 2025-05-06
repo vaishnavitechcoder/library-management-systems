@@ -43,7 +43,7 @@ account.access_account_move,access_account_move,account.model_account_move,accou
 stock.access_product_manager,access_product_template,stock.model_product_template,stock.group_stock_manager,1,1,1,1
 stock.access_product_user,access_product_template_user,stock.model_product_template,base.group_user,1,1,1,0
 
-librarys.access_product_manufacture,access_product_manufacture,librarys.model_product_manufacture,librarys.group_library_publisher,0,1,1,0
+librarys.access_product_manufacture,access_product_manufacture,librarys.model_product_manufacture,librarys.group_library_publisher,1,1,1,0
 librarys.access_product_manufacture,access_product_manufacture,librarys.model_product_manufacture,librarys.group_library_members,1,0,0,0
 librarys.access_product_manufacture,access_product_manufacture,librarys.model_product_manufacture,purchase.group_purchase_user,0,0,0,1
 
