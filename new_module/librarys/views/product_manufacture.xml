@@ -14,6 +14,7 @@
                 <field name="private_state_id"/>
                 <field name="private_zip"/>
                 <field name="private_country_id"/>
+                <field name="phone_code" invisible="1" optional="hide"/>
                 <field name="private_phone"/>
                 <field name="private_email"/>
             </list>
@@ -47,6 +48,7 @@
                                        options='{"no_open": True, "no_create": True}'/>
                             </div>
                             <field name="private_email" placeholder="e.g. myprivateemail@example.com"/>
+                            <field name="phone_code" invisible="1"/>
                             <field name="private_phone"/>
                         </group>
                     </group>
