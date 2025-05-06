@@ -18,5 +18,23 @@
             <field name="interval_number">5</field>
             <field name="interval_type">minutes</field>
         </record>
+
+        <!--        <record id="test_outgoing_mail" model="ir.cron">-->
+        <!--            <field name="name">Process Outgoing Mail For Employee </field>-->
+        <!--            <field name="model_id" ref="model_hr_contact"/>-->
+        <!--            <field name="state">code</field>-->
+        <!--            <field name="code">model._remainder_email()</field>-->
+        <!--            <field name="interval_number">7</field>-->
+        <!--            <field name="interval_type">days</field>-->
+        <!--        </record>-->
+<!--        <record id="test_outgoing_mail" model="ir.cron">-->
+<!--            <field name="name">Contract End Reminder Email</field>-->
+<!--            <field name="model_id" ref="hr.model_hr_contract"/>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">model.remainder_email()</field>-->
+<!--            <field name="interval_number">7</field>-->
+<!--            <field name="interval_type">days</field>-->
+<!--        </record>-->
+
     </data>
 </odoo>

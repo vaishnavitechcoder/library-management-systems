@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_manufacture_lists" model="ir.ui.view">
+        <field name="name">product.manufacture.list.view</field>
+        <field name="model">product.manufacture</field>
+        <field name="arch" type="xml">
+            <list string="product List">
+                <field name="name"/>
+                <field name="private_street"/>
+                <field name="building"/>
+                <field name="floor"/>
+                <field name="private_street2"/>
+                <field name="private_city"/>
+                <field name="private_state_id"/>
+                <field name="private_zip"/>
+                <field name="private_country_id"/>
+                <field name="private_phone"/>
+                <field name="private_email"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_product_manufacture_form" model="ir.ui.view">
+        <field name="name">product.manufacture.form.view</field>
+        <field name="model">product.manufacture</field>
+        <field name="arch" type="xml">
+            <form string="product manufacture form">
+                <sheet>
+                    <field name="name"/>
+                    <group>
+                        <group string="Private Contact">
+                            <label for="private_street" string="Private Address"/>
+                            <div class="o_address_format">
+                                <field name="private_street" placeholder="Street..."
+                                       class="o_address_street"/>
+                                <field name="building" class="o_address_city"/>
+                                <field name="floor"/>
+                                <field name="private_street2" placeholder="Street 2..."
+                                       class="o_address_street"/>
+                                <field name="private_city" placeholder="City" class="o_address_city"/>
+                                <field name="private_state_id" class="o_address_state" placeholder="State"
+                                       options="{'no_open': True, 'no_quick_create': True}"
+                                       context="{'default_country_id': private_country_id}"/>
+                                <field name="private_zip" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="private_country_id" placeholder="Country"
+                                       class="o_address_country"
+                                       options='{"no_open": True, "no_create": True}'/>
+                            </div>
+                            <field name="private_email" placeholder="e.g. myprivateemail@example.com"/>
+                            <field name="private_phone"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Dealers">
+                            <group>
+                                <field name="vendors"/>
+                                <field name="phone"/>
+                                <field name="email"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_product" model="ir.actions.act_window">
+        <field name="name">Product Manufacture</field>
+        <field name="res_model">product.manufacture</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'res_partner_search_mode': 'supplier', 'default_is_company': True}</field>
+    </record>
+
+    <menuitem id="menu_product_manufacturer_name"
+              name="Product Manufacturer"
+              parent="purchase.menu_procurement_management"
+              action="action_product"
+              groups="base.module_category_inventory_purchase"
+              sequence="16"/>
+
+</odoo>

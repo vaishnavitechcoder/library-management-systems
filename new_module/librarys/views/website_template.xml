@@ -616,8 +616,8 @@
     <template id="cart_thankyou" name="Cart Thank You Page">
         <t t-call="website.layout">
             <div class="container text-center py-5">
-                <h2>Thank you for your request!</h2>
-                <p>Your books have been successfully borrowed.</p>
+                <h2>Thank you for the price for requested product</h2>
+                <p>we will get back to you shortly</p>
                 <a href="/library" class="btn btn-secondary mt-3">Back to Library</a>
             </div>
         </t>
@@ -758,7 +758,7 @@
         </t>
     </template>
 
-     <template id="product_tags_shop_inherit" inherit_id="website_sale.products_item">
+    <template id="product_tags_shop_inherit" inherit_id="website_sale.products_item">
         <xpath expr="//div[contains(@class, 'o_wsale_product_information')]" position="inside">
             <t t-if="product.product_tag_ids">
                 <div class="mt-2">
@@ -768,5 +768,44 @@
                 </div>
             </t>
         </xpath>
-     </template>
+    </template>
+
+<!--    <template id="new_sale_website" name="New Form Page">-->
+<!--        <t t-call="website.layout">-->
+<!--            <div class="container">-->
+<!--                <h2>request best price</h2>-->
+<!--                <form action="/new/submit" method="post">-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="book_id">Product</label>-->
+<!--                        <select name="product_id" class="form-control">-->
+<!--                            <option value="">Select a product</option>-->
+<!--                            <t t-foreach="product" t-as="book">-->
+<!--                                <option t-att-value="product.id">-->
+<!--                                    <t t-esc="product.name"/>-->
+<!--                                </option>-->
+<!--                            </t>-->
+<!--                            <table class="member-table">-->
+<!--                                <t t-foreach="member" t-as="mem">-->
+<!--                                    <tr>-->
+<!--                                        <td>-->
+<!--                                            <t t-esc="mem.partner_id.name"/>-->
+<!--                                        </td>-->
+<!--                                        <td>-->
+<!--                                            <t t-esc="mem.email"/>-->
+<!--                                        </td>-->
+<!--                                        <td>-->
+<!--                                            <t t-esc="mem.phone"/>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                </t>-->
+<!--                            </table>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--                <div>-->
+<!--                    <button type="submit" name="action" class="btn btn-primary">crm lead</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </t>-->
+<!--    </template>-->
 </odoo>

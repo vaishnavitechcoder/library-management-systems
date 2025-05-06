@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_sale_order_form_custom" model="ir.ui.view">
+        <field name="name">sale_order.form.custom</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class = 'oe_button_box']" position="before">
+                <widget name="web_ribbon" title="Sale Order" bg_color="text-bg-success" invisible="state != 'sale'"/>
+                <widget name="web_ribbon" title="Quotation" bg_color="text-bg-primary" invisible="state != 'draft'"/>
+                <widget name="web_ribbon" title="Quotation Sent" bg_color="text-bg-info" invisible="state != 'sent'"/>
+                <widget name="web_ribbon" title="Cancelled" bg_color="text-bg-danger" invisible="state != 'cancel'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

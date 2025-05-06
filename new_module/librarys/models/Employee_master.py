@@ -20,6 +20,7 @@ class HrEmployee(models.Model):
 
 from odoo.exceptions import UserError
 
+
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
@@ -38,22 +39,22 @@ class StockPicking(models.Model):
 
 
 class AccountMove(models.Model):
-     _inherit = 'account.move'
+    _inherit = 'account.move'
 
-     # def create(self, vals):
-     #    vals['ref'] = self.env['ir.sequence'].next_by_code('account.move')
-     #    return super(AccountMove, self).create(vals)
+    # def create(self, vals):
+    #    vals['ref'] = self.env['ir.sequence'].next_by_code('account.move')
+    #    return super(AccountMove, self).create(vals)
 
-     @api.model
-     def create(self, vals_list):
-         if isinstance(vals_list, dict):
-             vals_list = [vals_list]
+    @api.model
+    def create(self, vals_list):
+        if isinstance(vals_list, dict):
+            vals_list = [vals_list]
 
-         for vals in vals_list:
-             if not vals.get('ref'):
-                 vals['ref'] = self.env['ir.sequence'].next_by_code('account.move')
+        for vals in vals_list:
+            if not vals.get('ref'):
+                vals['ref'] = self.env['ir.sequence'].next_by_code('account.move')
 
-         return super(AccountMove, self).create(vals_list)
+        return super(AccountMove, self).create(vals_list)
 
 
 class StockPickingCustom(models.Model):
@@ -74,7 +75,10 @@ class StockPickingCustom(models.Model):
 class AccountMoveAuditor(models.Model):
     _inherit = 'account.move'
 
-    auditor_approval = fields.Boolean(string="Auditor approval",default=True)
+    auditor_approval = fields.Boolean(string="Auditor approval", default=True)
+
+
+from datetime import datetime, timedelta
 
 
 class HrEmployeeSalary(models.Model):
@@ -85,6 +89,47 @@ class HrEmployeeSalary(models.Model):
         for rec in self:
             if rec.wage < rec.contact_wage:
                 raise ValidationError(_("employee wage is less than contract wage"))
+
+    # # HR Email - you can hardcode or fetch from config/settings
+    # hr_email = 'hr@example.com'
+    #
+    # @api.model
+    # def remainder_email(self):
+    #     contracts = self.search([('date_end', '=', 'date_end')])
+    #     template = self.env.ref('librarys.contract_end_reminder_email_template')
+    #     hr_email = 'hr@example.com'
+    #
+    #     for contract in contracts:
+    #         if template:
+    #             template.send_mail(contract.id, force_send=True, email_values={
+    #                 'email_to': hr_email
+    #             })
+
+class OrderCustom(models.Model):
+    _inherit = 'sale.order'
+
+    DEFAULT_SEPARATOR = '-'
+
+    @api.depends('validity_date', 'date_order')
+    def expiration_date(self):
+        for rec in self:
+             validate = rec.validate_date.Datetime.timedelta(days=5) > date_order
+             return validate
+
+
+    def _restrict_user(self):
+       for rec in self:
+         if rec.date_order != Datetime.now().timestamp():
+            raise validationError(_("date order is backdate"))
+
+
+    # @api.depends('client_order_ref')
+    # def add_default_sep(self):
+    #
+
+
+
+
 
 
 

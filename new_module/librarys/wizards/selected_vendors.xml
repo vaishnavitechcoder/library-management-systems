@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_vendor_selected_report_wizard" model="ir.ui.view">
+        <field name="name">vendor.selected.form</field>
+        <field name="model">vendor.selected</field>
+        <field name="arch" type="xml">
+            <form string="Low Stock Report">
+                <group>
+                    <field name="vendors" context="{'res_partner_search_mode': 'supplier'}"/>
+                </group>
+                <footer>
+                    <button name="check_vendor" type="object" string="Confirmed Purchase Order vendors" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vendors_wizard" model="ir.actions.act_window">
+        <field name="name">Vendors Report</field>
+        <field name="res_model">vendor.selected</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'res_partner_search_mode': 'supplier'}</field>
+    </record>
+
+    <menuitem id="vendor_report_view"
+              name="Vendor Report"
+              parent="purchase.purchase_report_main"
+              action="action_vendors_wizard"/>
+
+</odoo>

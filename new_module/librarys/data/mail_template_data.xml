@@ -40,5 +40,18 @@
             <field name="report_template_ids" eval="[(4, ref('librarys.action_report_publisher')),
                                                      (4, ref('librarys.action_report_publishers'))]"/>
         </record>
+
+
+<!--        <record id="contract_end_reminder_email_template" model="mail.template">-->
+<!--            <field name="name">Contract End Reminder</field>-->
+<!--            <field name="model_id" ref="hr.model_hr_contract"/>-->
+<!--            <field name="subject">Reminder: Contract Ending for ${object.employee_id.name}</field>-->
+<!--            <field name="email_from">${(user.email or '')|safe}</field>-->
+<!--            <field name="email_to">hr@example.com</field>-->
+<!--            <field name="body_html">-->
+<!--                <strong>vaishnavi </strong>-->
+<!--            </field>-->
+<!--        </record>-->
     </data>
+
 </odoo>

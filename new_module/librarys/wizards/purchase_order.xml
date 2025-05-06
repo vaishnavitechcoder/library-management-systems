@@ -1,0 +1,56 @@
+<odoo>
+    <data>
+        <!-- Views -->
+        <record id="view_purchase_order_wizard" model="ir.ui.view">
+            <field name="name">purchase.order.wizard.form</field>
+            <field name="model">purchase.order.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Export vendors">
+                    <field name="file_data" filename="file_name" invisible="1"/>
+                    <field name="file_name" invisible="1"/>
+                    <group>
+                        <field name="file_data" filename="file_name" invisible="0" readonly="1" widget="binary"/>
+                        <strong>Download Excel File</strong>
+                    </group>
+                    <footer>
+                        <button string="Export" type="object" name="send_with_attachment" class="btn-primary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_vendors_export_wizard" model="ir.actions.act_window">
+            <field name="name">Export Employees</field>
+            <field name="res_model">purchase.order.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="vendor_report_view_wizard"
+                  name="Vendor Report Wizard"
+                  parent="purchase.menu_procurement_management"
+                  action="action_vendors_export_wizard"/>
+
+        <!-- Server Action for List View -->
+        <record id="action_vendors_export" model="ir.actions.server">
+            <field name="name">Export to Excel</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_type">action</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = {
+                "type": "ir.actions.act_window",
+                "name": "Export Vendors",
+                "res_model": "purchase.order.wizard",
+                "view_mode": "form",
+                "target": "new",
+                "context": {
+                "active_ids": records.ids
+                }
+                }
+            </field>
+        </record>
+    </data>
+</odoo>
