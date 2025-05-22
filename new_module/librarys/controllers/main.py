@@ -402,8 +402,6 @@ class Library(http.Controller):
         quantity = post.get('quantity')
         timeline = post.get('timeline')
         email = post.get('email')
-
-        # Create CRM lead
         request.env['crm.lead'].sudo().create({
             'name': f"Best Price Request for {product_name}",
             'contact_name': email,
