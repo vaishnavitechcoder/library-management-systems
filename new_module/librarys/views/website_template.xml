@@ -777,12 +777,12 @@
     <template id="get_best_price_page" name="Get Best Price Page">
         <t t-call="website.layout">
             <div class="container mt-5">
-                    <h2>Request Best Price for
-                        <t t-esc="product"/>
+                    <h2>Request Best Price
+                        <t t-esc="product.name"/>
                     </h2>
 
                 <form action="/submit-best-price" method="POST">
-                    <input type="hidden" name="product_name" t-att-value="product_id"/>
+                    <input type="hidden" name="product_name" t-att-value="product.name"/>
 
                     <div class="form-group">
                         <label>Quantity</label>
