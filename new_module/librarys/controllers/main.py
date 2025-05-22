@@ -391,8 +391,8 @@ class Library(http.Controller):
 
     @http.route('/get-best-price', type='http', auth='public', website=True)
     def get_best_price(self, product_id=None):
-        product = request.env['product.template'].sudo().browse(int(product_id))
-        return request.render('website_sale.get_best_price_page', {
+        product = request.env['product.template'].sudo().browse(str(product_id))
+        return request.render('librarys.get_best_price_page', {
             'product': product
         })
 
@@ -409,7 +409,7 @@ class Library(http.Controller):
             'description': f"Quantity: {quantity}\nTimeline: {timeline}"
         })
 
-        return request.render('website_sale.best_price_thank_you')
+        return request.render('librarys.best_price_thank_you')
 
     @http.route('/best-price-success', type='http', auth='public', website=True)
     def best_price_success(self):
