@@ -17,7 +17,7 @@ class ProductManufacture(models.Model):
         domain="[('country_id', '=?', private_country_id)]")
     private_zip = fields.Char(string="Zip")
     private_country_id = fields.Many2one("res.country", string="Country")
-    phone_code = fields.Many2one('res.country.phone_code',string="Phone Code",default=lambda self: self.env.res.country.phone_code)
+    phone_code = fields.Many2one('res.country.phone_code',string="Phone Code", default=lambda self: self.env.res.country.phone_code)
     private_phone = fields.Char(string="Private Phone",limit=10)
     private_email = fields.Char(string="Private Email")
 

@@ -770,18 +770,62 @@
         </xpath>
     </template>
 
+    <template id="new_sale_website" name="New Form Page">
+        <t t-call="website.layout">
+            <div class="container">
+                <h2>request best price</h2>
+                <form action="/new/submit" method="post">
+                    <div class="form-group">
+                        <label for="book_id">Product</label>
+                        <select name="product_id" class="form-control">
+                            <option value="">Select a product</option>
+                            <t t-foreach="product" t-as="book">
+                                <option t-att-value="product.id">
+                                    <t t-esc="product.name"/>
+                                </option>
+                            </t>
+                            <table class="member-table">
+                                <t t-foreach="member" t-as="mem">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="mem.partner_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="mem.email"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="mem.phone"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </select>
+                    </div>
+                </form>
+                <div>
+                    <button type="submit" name="action" class="btn btn-primary">crm lead</button>
+                </div>
+            </div>
+        </t>
+    </template>
+
 <!--    <template id="product_template_inherit" inherit_id="website_sale.product">-->
-<!--        &lt;!&ndash; Remove or hide the price section &ndash;&gt;-->
-<!--        <xpath expr="//div[contains(@class, 'oe_website_sale')]" position="inside">-->
-<!--            <t t-set="product_price" t-value="''"/>-->
+<!--        <xpath expr="//span[@itemprop='price']" position="replace">-->
+<!--            &lt;!&ndash; Hide the price &ndash;&gt;-->
 <!--        </xpath>-->
 
-<!--        &lt;!&ndash; Add the 'Get Best Price' button &ndash;&gt;-->
-<!--        <xpath expr="//div[@id='product_details']" position="inside">-->
-<!--            <a t-attf-href="/get-best-price?product_id={{ product.id }}"-->
+<!--        <xpath expr="//div[@id='product_details']/div[hasclass('oe_website_sale')]"-->
+<!--               position="inside">-->
+<!--            <a href="/get-best-price?product_id={{ product.id }}"-->
 <!--               class="btn btn-primary mt-3">-->
 <!--                Get Best Price-->
 <!--            </a>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+<!--    <template id="custom_shop_inherit" inherit_id="website_sale.products">-->
+<!--        <xpath expr="//span[@itemprop='price']" position="replace">-->
+<!--            <span class="text-muted">Price Hidden</span>-->
 <!--        </xpath>-->
 <!--    </template>-->
 

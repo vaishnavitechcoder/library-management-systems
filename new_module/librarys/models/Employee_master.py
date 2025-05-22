@@ -41,15 +41,8 @@ class StockPicking(models.Model):
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    # def create(self, vals):
-    #    vals['ref'] = self.env['ir.sequence'].next_by_code('account.move')
-    #    return super(AccountMove, self).create(vals)
-
-    @api.model
+    @api.model_create_multi
     def create(self, vals_list):
-        if isinstance(vals_list, dict):
-            vals_list = [vals_list]
-
         for vals in vals_list:
             if not vals.get('ref'):
                 vals['ref'] = self.env['ir.sequence'].next_by_code('account.move')
@@ -105,6 +98,7 @@ class HrEmployeeSalary(models.Model):
     #                 'email_to': hr_email
     #             })
 
+
 class OrderCustom(models.Model):
     _inherit = 'sale.order'
 
@@ -113,46 +107,30 @@ class OrderCustom(models.Model):
     @api.depends('validity_date', 'date_order')
     def expiration_date(self):
         for rec in self:
-             validate = rec.validate_date.Datetime.timedelta(days=5) > date_order
-             return validate
-
+            validate = rec.validate_date.Datetime.timedelta(days=5) > date_order
+            return validate
 
     def _restrict_user(self):
-       for rec in self:
-         if rec.date_order != Datetime.now().timestamp():
-            raise validationError(_("date order is backdate"))
-
+        for rec in self:
+            if rec.date_order != Datetime.now().timestamp():
+                raise validationError(_("date order is backdate"))
 
     def add_default_sep(self):
-       if client_order_ref in self:
-           s = ""
-           n = ""
-           for c in client_order_ref:
-               if c.isdigit():
-                   n += c
-               else:
-                   s += c
-           return '-'.join(s,n)
+        if client_order_ref in self:
+            s = ""
+            n = ""
+            for c in client_order_ref:
+                if c.isdigit():
+                    n += c
+                else:
+                    s += c
+            return '-'.join(s, n)
 
 
-   #options="{'no_create': True, 'no_open': True}
-
-
+# options="{'no_create': True, 'no_open': True}
 
 
 class ProductTemplateCustom(models.Model):
     _inherit = 'product.template'
 
-    authorized_manufacture_id = fields.Many2one('product.manufacture',string='Authorised Manufacture')
-
-
-
-
-
-
-
-
-
-
-
-
+    authorized_manufacture_id = fields.Many2one('product.manufacture', string='Authorised Manufacture')
