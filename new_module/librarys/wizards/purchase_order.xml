@@ -7,10 +7,10 @@
             <field name="model">purchase.order.wizard</field>
             <field name="arch" type="xml">
                 <form string="Export Purchase Orders to Excel">
-                    <group>
-                        <field name="vendor" widget="many2many_tags" options="{'no_create': True}"
-                        context ="{'res_partner_search_mode': 'supplier'}"/>
-                    </group>
+<!--                    <group>-->
+<!--                        <field name="vendors" widget="many2many_tags" options="{'no_create': True}"-->
+<!--                        context ="{'res_partner_search_mode': 'supplier'}"/>-->
+<!--                    </group>-->
                     <group>
                         <field name="file_name" invisible="1"/>
                         <field name="file_data" filename="file_name" invisible="1"/>
