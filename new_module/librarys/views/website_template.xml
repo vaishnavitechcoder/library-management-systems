@@ -768,18 +768,18 @@
         </xpath>
     </template>
 
-    <!--    <template id="custom_shop_inherit" inherit_id="website_sale.products">-->
-    <!--        <xpath expr="//span[@class,'oe_currency_value']" position="replace">-->
-    <!--            <span class="text-muted">Price Hidden</span>-->
-    <!--        </xpath>-->
-    <!--    </template>-->
+<!--    <template id="custom_shop_inherit" inherit_id="website_sale.products">-->
+<!--        <xpath expr="//span[contains(@class, 'oe_price')]" position="replace">-->
+<!--            <span class="text-muted">Price Hidden</span>-->
+<!--        </xpath>-->
+<!--    </template>-->
 
     <template id="get_best_price_page" name="Get Best Price Page">
         <t t-call="website.layout">
             <div class="container mt-5">
-                    <h2>Request Best Price
-                        <t t-esc="product.name"/>
-                    </h2>
+                <h2>Request Best Price
+                    <t t-esc="product.name"/>
+                </h2>
 
                 <form action="/submit-best-price" method="POST">
                     <input type="hidden" name="product_name" t-att-value="product.name"/>
