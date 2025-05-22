@@ -9,6 +9,7 @@ class PurchaseOrderWizard(models.TransientModel):
     _name = 'purchase.order.wizard'
     _description = 'Purchase Wizard to export selected employees to Excel'
 
+    vendors = fields.Many2many('product.supplierinfo', 'vendor_supper', string='Vendors')
     file_name = fields.Char(string="File Name", default="employee_export.xlsx")
     file_data = fields.Binary(string="Download Excel", readonly=True)
 

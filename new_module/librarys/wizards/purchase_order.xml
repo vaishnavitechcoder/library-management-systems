@@ -6,6 +6,7 @@
             <field name="model">purchase.order.wizard</field>
             <field name="arch" type="xml">
                 <form string="Export vendors">
+                    <field name="vendors"/>
                     <field name="file_data" filename="file_name" invisible="1"/>
                     <field name="file_name" invisible="1"/>
                     <group>
