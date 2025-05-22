@@ -1,38 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- Views -->
+
         <record id="view_purchase_order_wizard" model="ir.ui.view">
             <field name="name">purchase.order.wizard.form</field>
             <field name="model">purchase.order.wizard</field>
             <field name="arch" type="xml">
-                <form string="Export vendors">
-                    <field name="file_data" filename="file_name" invisible="1"/>
-                    <field name="file_name" invisible="1"/>
+                <form string="Export Purchase Orders to Excel">
                     <group>
-                        <field name="file_data" filename="file_name" invisible="0" readonly="1" widget="binary"/>
-                        <strong>Download Excel File</strong>
+                        <field name="file_name" invisible="1"/>
+                        <field name="file_data" filename="file_name" invisible="1"/>
+                    </group>
+                    <group>
+                        <field name="file_data"
+                               filename="file_name"
+                               widget="binary"
+                               readonly="1"
+                               modifiers='{"invisible": [["file_data", "=", false]]}'/>
                     </group>
                     <footer>
                         <button string="Export" type="object" name="export_vendor" class="btn-primary"/>
+                        <button string="Close" special="cancel" class="btn-secondary"/>
                     </footer>
                 </form>
             </field>
         </record>
 
-        <!-- Action -->
         <record id="action_vendors_export_wizard" model="ir.actions.act_window">
-            <field name="name">Export Employees</field>
+            <field name="name">Export Purchase Orders</field>
             <field name="res_model">purchase.order.wizard</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
 
         <menuitem id="vendor_report_view_wizard"
-                  name="Vendor Report Wizard"
+                  name="Export Purchase Orders"
                   parent="purchase.menu_procurement_management"
                   action="action_vendors_export_wizard"/>
 
-        <!-- Server Action for List View -->
+
         <record id="action_vendors_export" model="ir.actions.server">
             <field name="name">Export to Excel</field>
             <field name="model_id" ref="purchase.model_purchase_order"/>
@@ -42,15 +48,14 @@
             <field name="code">
                 action = {
                 "type": "ir.actions.act_window",
-                "name": "Export Vendors",
+                "name": "Export Purchase Orders",
                 "res_model": "purchase.order.wizard",
                 "view_mode": "form",
                 "target": "new",
-                "context": {
-                "active_ids": records.ids
-                }
+                "context": {"active_ids": records.ids}
                 }
             </field>
         </record>
+
     </data>
 </odoo>

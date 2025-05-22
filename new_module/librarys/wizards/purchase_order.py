@@ -9,7 +9,6 @@ class PurchaseOrderWizard(models.TransientModel):
     _name = 'purchase.order.wizard'
     _description = 'Purchase Wizard to export selected employees to Excel'
 
-    vendors = fields.Many2many('product.supplierinfo', 'vendor_supper', string='Vendors')
     file_name = fields.Char(string="File Name", default="employee_export.xlsx")
     file_data = fields.Binary(string="Download Excel", readonly=True)
 
@@ -18,7 +17,14 @@ class PurchaseOrderWizard(models.TransientModel):
         if not active_ids:
             raise UserError("No Vendors selected.")
 
-        vendors = self.env['purchase.order'].browse(active_ids)
+        selected_vendors = self.env['res.partner'].browse(active_ids).exists()
+        if not selected_vendors:
+            raise UserError("Selected vendors do not exist.")
+
+        vendors = self.env['purchase.order'].search([('partner_id', 'in', selected_vendors.ids)])
+        if not vendors:
+            raise UserError("No Purchase Orders found for selected vendors.")
+        # vendors = self.env['purchase.order'].browse(active_ids)
 
         output = io.BytesIO()
         workbook = xlsxwriter.Workbook(output, {'in_memory': True})
