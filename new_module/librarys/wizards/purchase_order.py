@@ -27,12 +27,12 @@ class PurchaseOrderWizard(models.TransientModel):
         for col, header in enumerate(headers):
             sheet.write(0, col, header)
 
-        for row, vendors in enumerate(vendors, start=1):
-            sheet.write(row, 0, vendors.name or '')
-            sheet.write(row, 0, vendors.date_order or '')
-            sheet.write(row, 1, vendors.partner_id or '')
-            sheet.write(row, 2, vendors.state or '')
-            sheet.write(row, 3, vendors.amount_total or '')
+        for row, vendor in enumerate(vendors, start=1):
+            sheet.write(row, 0, vendor.name or '')
+            sheet.write(row, 1, str(vendor.date_order or ''))
+            sheet.write(row, 2, vendor.partner_id.name or '')
+            sheet.write(row, 3, vendor.state or '')
+            sheet.write(row, 4, float(vendor.amount_total or 0.0))
 
         workbook.close()
         output.seek(0)
