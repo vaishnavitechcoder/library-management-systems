@@ -20,7 +20,6 @@ class ProductManufacture(models.Model):
     phone_code = fields.Many2one('res.country.phone_code',string="Phone Code", default=lambda self: self.env.res.country.phone_code)
     private_phone = fields.Char(string="Private Phone",limit=10)
     private_email = fields.Char(string="Private Email")
-
     vendors = fields.Many2many('res.partner', 'product_model_vendors', 'name', 'partner_id', string='Vendors')
     phone = fields.Char(string="Phone",related="vendors.phone", store=True, readonly=False)
     email = fields.Char(string="Email",related="vendors.email", store=True, readonly=False)

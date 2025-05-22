@@ -13,7 +13,7 @@
                         <strong>Download Excel File</strong>
                     </group>
                     <footer>
-                        <button string="Export" type="object" name="send_with_attachment" class="btn-primary"/>
+                        <button string="Export" type="object" name="export_vendor" class="btn-primary"/>
                     </footer>
                 </form>
             </field>
