@@ -361,9 +361,8 @@ class Library(http.Controller):
             'employees': employees
         })
 
-
-    @http.route('/website/sale/new/page',auth='user',type='http')
-    def new_page(self,**kwargs):
+    @http.route('/website/sale/new/page', auth='user', type='http')
+    def new_page(self, **kwargs):
         product = request.env['product.template'].search([])
         return request.render('librarys.new_sale_website', {'products': product})
 
@@ -388,8 +387,32 @@ class Library(http.Controller):
     #
     #     return request.render("website_sale.product", self._prepare_product_values(product, category, search, **kwargs))
 
-      # """ on the odoo website product page needs to hide the price of the product and need to add a button to get the best price when user click on the button it will open a new page on which it will ask for how much quantity the need the product in how much time. make sure the product name is prefilled.
-      # once the user clicks on submit it should create the crm lead with information gathered from the form. and it should show the success message on the website.
-      # """
+    from odoo.http import request
 
+    @http.route('/get-best-price', type='http', auth='public', website=True)
+    def get_best_price(self, product_id=None):
+        product = request.env['product.template'].sudo().browse(int(product_id))
+        return request.render('website_sale.get_best_price_page', {
+            'product': product
+        })
 
+    @http.route('/submit-best-price', type='http', auth='public', website=True, csrf=True)
+    def submit_best_price(self, **post):
+        product_name = post.get('product_name')
+        quantity = post.get('quantity')
+        timeline = post.get('timeline')
+        email = post.get('email')
+
+        # Create CRM lead
+        request.env['crm.lead'].sudo().create({
+            'name': f"Best Price Request for {product_name}",
+            'contact_name': email,
+            'email_from': email,
+            'description': f"Quantity: {quantity}\nTimeline: {timeline}"
+        })
+
+        return request.render('website_sale.best_price_thank_you')
+
+    @http.route('/best-price-success', type='http', auth='public', website=True)
+    def best_price_success(self):
+        return request.render('website_sale.best_price_thank_you')

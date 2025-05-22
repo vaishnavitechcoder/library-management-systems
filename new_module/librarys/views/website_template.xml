@@ -770,42 +770,60 @@
         </xpath>
     </template>
 
-    <template id="new_sale_website" name="New Form Page">
+<!--    <template id="product_template_inherit" inherit_id="website_sale.product">-->
+<!--        &lt;!&ndash; Remove or hide the price section &ndash;&gt;-->
+<!--        <xpath expr="//div[contains(@class, 'oe_website_sale')]" position="inside">-->
+<!--            <t t-set="product_price" t-value="''"/>-->
+<!--        </xpath>-->
+
+<!--        &lt;!&ndash; Add the 'Get Best Price' button &ndash;&gt;-->
+<!--        <xpath expr="//div[@id='product_details']" position="inside">-->
+<!--            <a t-attf-href="/get-best-price?product_id={{ product.id }}"-->
+<!--               class="btn btn-primary mt-3">-->
+<!--                Get Best Price-->
+<!--            </a>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+    <template id="get_best_price_page" name="Get Best Price Page">
         <t t-call="website.layout">
-            <div class="container">
-                <h2>request best price</h2>
-                <form action="/new/submit" method="post">
+            <div class="container mt-5">
+                <h2>Request Best Price for
+                    <t t-esc="product.name"/>
+                </h2>
+                <form action="/submit-best-price" method="POST">
+                    <input type="hidden" name="product_name" t-att-value="product.name"/>
+
                     <div class="form-group">
-                        <label for="book_id">Product</label>
-                        <select name="product_id" class="form-control">
-                            <option value="">Select a product</option>
-                            <t t-foreach="product" t-as="book">
-                                <option t-att-value="product.id">
-                                    <t t-esc="product.name"/>
-                                </option>
-                            </t>
-                            <table class="member-table">
-                                <t t-foreach="member" t-as="mem">
-                                    <tr>
-                                        <td>
-                                            <t t-esc="mem.partner_id.name"/>
-                                        </td>
-                                        <td>
-                                            <t t-esc="mem.email"/>
-                                        </td>
-                                        <td>
-                                            <t t-esc="mem.phone"/>
-                                        </td>
-                                    </tr>
-                                </t>
-                            </table>
-                        </select>
+                        <label>Quantity</label>
+                        <input type="number" name="quantity" class="form-control"/>
                     </div>
+
+                    <div class="form-group">
+                        <label>Required Timeline (e.g., 2 weeks)</label>
+                        <input type="text" name="timeline" class="form-control"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Email</label>
+                        <input type="email" name="email" class="form-control"/>
+                    </div>
+
+                    <button type="submit" class="btn btn-success mt-3">Submit Request</button>
                 </form>
-                <div>
-                    <button type="submit" name="action" class="btn btn-primary">crm lead</button>
-                </div>
             </div>
         </t>
     </template>
+
+    <template id="best_price_thank_you" name="Thank You Page">
+        <t t-call="website.layout">
+            <div class="container mt-5 text-center">
+                <h2>Thank you!</h2>
+                <p>Your request has been submitted successfully. Our team will contact you shortly.</p>
+                <a href="/" class="btn btn-primary mt-3">Back to Home</a>
+            </div>
+        </t>
+    </template>
+
+
 </odoo>
