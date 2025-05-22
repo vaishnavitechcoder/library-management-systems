@@ -758,57 +758,6 @@
         </t>
     </template>
 
-    <template id="product_tags_shop_inherit" inherit_id="website_sale.products_item">
-        <xpath expr="//div[contains(@class, 'o_wsale_product_information')]" position="inside">
-            <t t-if="product.product_tag_ids">
-                <div class="mt-2">
-                    <span t-foreach="product.product_tag_ids" t-as="tag">
-                        <span class="badge badge-primary mr-1" t-esc="tag.name"/>
-                    </span>
-                </div>
-            </t>
-        </xpath>
-    </template>
-
-    <template id="new_sale_website" name="New Form Page">
-        <t t-call="website.layout">
-            <div class="container">
-                <h2>request best price</h2>
-                <form action="/new/submit" method="post">
-                    <div class="form-group">
-                        <label for="book_id">Product</label>
-                        <select name="product_id" class="form-control">
-                            <option value="">Select a product</option>
-                            <t t-foreach="product" t-as="book">
-                                <option t-att-value="product.id">
-                                    <t t-esc="product.name"/>
-                                </option>
-                            </t>
-                            <table class="member-table">
-                                <t t-foreach="member" t-as="mem">
-                                    <tr>
-                                        <td>
-                                            <t t-esc="mem.partner_id.name"/>
-                                        </td>
-                                        <td>
-                                            <t t-esc="mem.email"/>
-                                        </td>
-                                        <td>
-                                            <t t-esc="mem.phone"/>
-                                        </td>
-                                    </tr>
-                                </t>
-                            </table>
-                        </select>
-                    </div>
-                </form>
-                <div>
-                    <button type="submit" name="action" class="btn btn-primary">crm lead</button>
-                </div>
-            </div>
-        </t>
-    </template>
-
 <!--    <template id="product_template_inherit" inherit_id="website_sale.product">-->
 <!--        <xpath expr="//span[@itemprop='price']" position="replace">-->
 <!--            &lt;!&ndash; Hide the price &ndash;&gt;-->
