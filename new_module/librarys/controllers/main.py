@@ -391,9 +391,9 @@ class Library(http.Controller):
 
     @http.route('/get-best-price', type='http', auth='public', website=True)
     def get_best_price(self, product_id=None):
-        product = request.env['product.template'].sudo().browse(str(product_id))
+        # product = request.env['product.template'].sudo().browse(product_id)
         return request.render('librarys.get_best_price_page', {
-            'product': product
+            'product': product_id
         })
 
     @http.route('/submit-best-price', type='http', auth='public', website=True, csrf=True)
