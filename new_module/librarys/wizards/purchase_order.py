@@ -34,6 +34,7 @@ class PurchaseOrderWizard(models.TransientModel):
         for col, header in enumerate(headers):
             sheet.write(0, col, header)
 
+
         for row, vendor in enumerate(vendors, start=1):
             sheet.write(row, 0, vendor.name or '')
             sheet.write(row, 1, str(vendor.date_order or ''))
@@ -57,10 +58,11 @@ class PurchaseOrderWizard(models.TransientModel):
 
     def send_with_attachment(self):
 
-            # Prepare the email with the PDF attached
+        # Prepare the email with the PDF attached
         attachment = self.env['ir.attachment'].create({
-                'name': 'vendors_export.xlsx',
-                'type': 'binary',
-                'mimetype': 'xlsx',
-            })
+            'name': 'vendors_export.xlsx',
+            'type': 'binary',
+            'mimetype': 'xlsx',
+            'datas': self.file_data,
+        })
         return attachment
