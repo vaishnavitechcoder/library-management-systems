@@ -14,20 +14,15 @@ class PurchaseOrderWizard(models.TransientModel):
     file_data = fields.Binary(string="Download Excel", readonly=True)
 
     def export_vendor(self):
-        active_ids = self.env.context.get('active_ids')
-        if not active_ids:
-            raise UserError("No Vendors selected.")
+        if not self.vendors:
+            raise UserError("No vendors selected.")
 
-        selected_vendors = self.env['res.partner'].browse(active_ids).exists()
-        if not selected_vendors:
-            raise UserError("Selected vendors do not exist.")
-
-        vendors = self.env['purchase.order'].search([('partner_id', 'in', selected_vendors.ids)])
-        if not vendors:
+        # Filter Purchase Orders by selected vendors
+        purchase_orders = self.env['purchase.order'].search([('partner_id', 'in', self.vendors.ids)])
+        if not purchase_orders:
             raise UserError("No Purchase Orders found for selected vendors.")
-        # vendors = self.env['purchase.order'].browse(active_ids)
 
-
+        # Create the Excel file
         output = io.BytesIO()
         workbook = xlsxwriter.Workbook(output, {'in_memory': True})
         sheet = workbook.add_worksheet("Vendors")
@@ -36,13 +31,12 @@ class PurchaseOrderWizard(models.TransientModel):
         for col, header in enumerate(headers):
             sheet.write(0, col, header)
 
-
-        for row, vendor in enumerate(vendors, start=1):
-            sheet.write(row, 0, vendor.name or '')
-            sheet.write(row, 1, str(vendor.date_order or ''))
-            sheet.write(row, 2, vendor.partner_id.name or '')
-            sheet.write(row, 3, vendor.state or '')
-            sheet.write(row, 4, float(vendor.amount_total or 0.0))
+        for row, po in enumerate(purchase_orders, start=1):
+            sheet.write(row, 0, po.name or '')
+            sheet.write(row, 1, str(po.date_order or ''))
+            sheet.write(row, 2, po.partner_id.name or '')
+            sheet.write(row, 3, po.state or '')
+            sheet.write(row, 4, float(po.amount_total or 0.0))
 
         workbook.close()
         output.seek(0)
@@ -59,8 +53,6 @@ class PurchaseOrderWizard(models.TransientModel):
         }
 
     def send_with_attachment(self):
-
-        # Prepare the email with the PDF attached
         attachment = self.env['ir.attachment'].create({
             'name': 'vendors_export.xlsx',
             'type': 'binary',
