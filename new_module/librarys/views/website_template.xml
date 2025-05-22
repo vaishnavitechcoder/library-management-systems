@@ -761,7 +761,7 @@
     <template id="product_template_inherit" inherit_id="website_sale.product">
 
         <xpath expr="//div[@id='product_details']" position="inside">
-            <a href="/get-best-price?product_id={{ product.id }}"
+            <a href="/get-best-price?product_id=' + str(product.id)"
                class="btn btn-primary mt-3">
                 Get Best Price
             </a>
