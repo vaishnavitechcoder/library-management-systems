@@ -14,10 +14,11 @@ class PurchaseOrderWizard(models.TransientModel):
     file_data = fields.Binary(string="Download Excel", readonly=True)
 
     def export_vendor(self):
+
         if not self.vendors:
             raise UserError("No vendors selected.")
 
-        # Filter Purchase Orders by selected vendors
+            # Filter Purchase Orders by selected vendors
         purchase_orders = self.env['purchase.order'].search([('partner_id', 'in', self.vendors.ids)])
         if not purchase_orders:
             raise UserError("No Purchase Orders found for selected vendors.")
