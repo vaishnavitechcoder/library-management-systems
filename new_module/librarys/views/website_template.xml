@@ -758,22 +758,18 @@
         </t>
     </template>
 
-<!--    <template id="product_template_inherit" inherit_id="website_sale.product">-->
-<!--        <xpath expr="//span[@itemprop='price']" position="replace">-->
-<!--            &lt;!&ndash; Hide the price &ndash;&gt;-->
-<!--        </xpath>-->
+    <template id="product_template_inherit" inherit_id="website_sale.product">
 
-<!--        <xpath expr="//div[@id='product_details']/div[hasclass('oe_website_sale')]"-->
-<!--               position="inside">-->
-<!--            <a href="/get-best-price?product_id={{ product.id }}"-->
-<!--               class="btn btn-primary mt-3">-->
-<!--                Get Best Price-->
-<!--            </a>-->
-<!--        </xpath>-->
-<!--    </template>-->
+        <xpath expr="//div[@id='product_details']" position="inside">
+            <a href="/get-best-price?product_id={{ product.id }}"
+               class="btn btn-primary mt-3">
+                Get Best Price
+            </a>
+        </xpath>
+    </template>
 
 <!--    <template id="custom_shop_inherit" inherit_id="website_sale.products">-->
-<!--        <xpath expr="//span[@itemprop='price']" position="replace">-->
+<!--        <xpath expr="//span[@class,'oe_currency_value']" position="replace">-->
 <!--            <span class="text-muted">Price Hidden</span>-->
 <!--        </xpath>-->
 <!--    </template>-->
@@ -817,6 +813,5 @@
             </div>
         </t>
     </template>
-
 
 </odoo>
